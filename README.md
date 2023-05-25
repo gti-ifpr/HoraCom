@@ -1,6 +1,7 @@
 Projeto HoraCom 
 
-Logo:[logo2](https://github.com/fernandat87/projetohoracom/assets/114197402/ff02be9e-6ed8-4fc5-b916-62e737d5438b)
+Logo: 
+![logo2](https://github.com/fernandat87/projetohoracom/assets/114197402/60955dc6-016f-455a-8161-ea819a95f52d)
 
 
 Link da aplicação Quant UX
