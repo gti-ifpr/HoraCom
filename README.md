@@ -7,7 +7,7 @@ Projeto interdisciplinar do curso de Gestão da tecnologia da Informação IFPR 
 
 Equipe : Camila Camargo e Fernanda Teixeira
 
-Descrição: Uma aplicação Web que 
+Descrição: Uma aplicação Web que vai auxiliar acadêmicos do IFPR - Câmpus Pinhais no gerenciamento de Horas Complementares.
 
 Justificativa: do projeto 
 
