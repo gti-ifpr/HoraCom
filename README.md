@@ -15,7 +15,7 @@ Justificativa: do projeto
 Cronograma e principais entregas :
 
 Publico alvo: Academicos do IFPR - Campus Pinhais 
-Persona : 
+
 Riscos : 
 Premissias e restrições: 
 
