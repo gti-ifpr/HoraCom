@@ -4,7 +4,7 @@
 
 
 
-Projeto interdisciplinar do curso de Gestão da tecnologia da Informação IFPR - Campus Pinhais 
+Projeto interdisciplinar do curso de Gestão da Tecnologia da Informação IFPR-Câmpus Pinhais 
 
 Equipe : Camila Camargo e Fernanda Teixeira
 
