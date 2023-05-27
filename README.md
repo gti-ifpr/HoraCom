@@ -15,9 +15,9 @@ Cronograma e principais entregas :
 Publico alvo: Academicos do IFPR - Campus Pinhais 
 
 Riscos : 
-Premissias e restrições: 
+Premissas e restrições: 
 
-Protótipo: https://quant-ux.com/#/test.html?h=a2aa10aX5Wu2Ji8sNyeGZkykgwAhyzCh8tkQD0rxa51CAWhQPQNzp3TlofKq&ln=en
+Protótipo em desenvolvimento: https://quant-ux.com/#/test.html?h=a2aa10aX5Wu2Ji8sNyeGZkykgwAhyzCh8tkQD0rxa51CAWhQPQNzp3TlofKq&ln=en 
 
 
 
