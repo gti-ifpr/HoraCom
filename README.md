@@ -8,13 +8,18 @@ Equipe : Acadêmica Camila Camargo e Acadêmica Fernanda Teixeira
 
 Descrição: Uma aplicação Web que vai auxiliar acadêmicos do IFPR - Câmpus Pinhais no gerenciamento de Horas Complementares.
 
-Justificativa: do projeto 
+Versão01 05032023
+
+Objetivo do projeto: Gerenciamento de horas complementares 
+
+Escopo do projeto : 
 
 Cronograma e principais entregas :
 
 Publico alvo: Academicos do IFPR - Campus Pinhais 
 
 Riscos : 
+
 Premissas e restrições: 
 
 Protótipo em desenvolvimento: https://quant-ux.com/#/test.html?h=a2aa10aX5Wu2Ji8sNyeGZkykgwAhyzCh8tkQD0rxa51CAWhQPQNzp3TlofKq&ln=en 
