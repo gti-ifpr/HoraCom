@@ -44,7 +44,7 @@ Restrições:
 
 
 Protótipo em desenvolvimento:
-https://quant-ux.com/#/test.html?h=a2aa10aX5Wu2Ji8sNyeGZkykgwAhyzCh8tkQD0rxa51CAWhQPQNzp3TlofKq&ln=en 
+Acesse em: https://quant-ux.com/#/test.html?h=a2aa10aX5Wu2Ji8sNyeGZkykgwAhyzCh8tkQD0rxa51CAWhQPQNzp3TlofKq&ln=en 
 
 
 
