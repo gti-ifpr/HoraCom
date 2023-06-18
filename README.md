@@ -46,6 +46,8 @@ Restrições:
 Protótipo em desenvolvimento:
 Acesse em: https://quant-ux.com/#/test.html?h=a2aa10aX5Wu2Ji8sNyeGZkykgwAhyzCh8tkQD0rxa51CAWhQPQNzp3TlofKq&ln=en 
 
+Rede social: https://www.instagram.com/_horacom/
+E-mail para contato: horacomgti@gmail.com
 
 
 
