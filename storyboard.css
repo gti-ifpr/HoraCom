@@ -1,0 +1,105 @@
+/* style.css */
+/* Reset de Estilos */
+body,
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Estilos Gerais */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+}
+
+/* Cabeçalho */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+
+}
+
+
+.logo img {
+  width: 150px;
+  /* Ajuste o tamanho conforme necessário */
+  height: auto;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #d62A5B;
+}
+
+nav li {
+  float: left;
+  border-right: 1px solid #bbb;
+}
+
+nav li:last-child {
+  border-right: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #ffffff;
+  color: #d62A5B;
+}
+
+.active {
+  background-color: #ffffff;
+
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.texto p {
+  color: #d62A5B;
+}
+
+
+.block {
+  flex: 0 0 calc(33% - 20px);
+  /* Calcula a largura dos blocos com margens */
+  margin: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #d62a5b54;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+.block img {
+  max-width: 100%;
+  /* Evitar que a imagem fique maior que o bloco */
+  margin-bottom: 10px;
+  /* Adicionar espaço entre a imagem e o texto */
+}
+
+.block-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* Distribui os blocos igualmente na largura disponível */
+}
+
+.voltar {
+  display: flex;
+  justify-content: flex-end
+}
+footer {
+  text-align: center;
+  background-color: #d62A5B;
+  color: white;
+  width: 100%;
+}

@@ -1,0 +1,115 @@
+/* Reset de Estilos */
+body,
+p {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+
+/* Estilos Gerais */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+  padding: 0;
+  margin: 0;
+}
+
+/* Cabeçalho */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.logo img {
+  width: 150px;
+  /* Ajuste o tamanho conforme necessário */
+  height: auto;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #d62A5B;
+}
+
+nav li {
+  float: left;
+  border-right: 1px solid;
+}
+
+nav li:last-child {
+  border-right: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #ffffff;
+  color: #d62A5B;
+}
+
+.active {
+  background-color: #ffffff;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.content {
+  display: flex;
+  background-color: #ffffff;
+  align-items: center;
+  width: 98%;
+  padding: 5px;
+  /* Adicione um espaçamento interno para o conteúdo */
+}
+
+.content img {
+  max-width: 90%;
+  margin-right: 20px;
+  /* Reduzi o espaço à direita da imagem */
+}
+
+.textocontato {
+  color: #2f0c3e;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  font-size: 15px;
+  text-align: justify;
+  width: 98%;
+  padding: 5px;
+}
+
+.insta {
+  width: 25px;
+  padding: 10px;
+}
+
+.gmail {
+  width: 25px;
+  padding: 10px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+
+/* Rodapé */
+footer {
+  text-align: center;
+  background-color: #d62A5B;
+  color: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
