@@ -92,13 +92,14 @@ nav li a {
   /* Distribui os blocos igualmente na largura disponível */
 }
 
+.voltar {
+  display: flex;
+  justify-content: flex-end
+}
 
-/* Rodapé */
 footer {
   text-align: center;
   background-color: #d62A5B;
   color: white;
   width: 100%;
-  position: absolute;
-  bottom: 0;
 }

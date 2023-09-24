@@ -57,22 +57,24 @@
       <div class="img">
         <img src="images/8.png" alt="8"><br></a>
       </div>
+    </main>
 
       <br>
       <div class="voltar">
         <button id="backBtn">Voltar</button>
-    </div>
-  </main>
+      </div>
+      
+      <script>
+        document.getElementById("backBtn").addEventListener("click", function(){
+          history.back();
+        });
+      </script> 
+    
+    <footer>
+      <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
+    </footer>
 
-    <script>
-      document.getElementById("backBtn").addEventListener("click", function(){
-        history.back();
-      });
-    </script> 
-  
-  <footer>
-    <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
-  </footer>
+
 </body>
 </html>
 
