@@ -1,0 +1,24 @@
+,Item,Cômputo de horas,Limite máximo
+G1,Realização Curso Língua Estrangeira,"0,25h por hora comprovada",60 horas
+G1,Realização Curso de Extensão na Área do Conhecimento,Carga horária do curso,60 horas
+G1,Realização Monitoria,20h por disciplina,80 horas
+G1,Participação como Ouvinte em banca de TCC - graduação e pós graduação,"- 1h, por banca na área de conhecimento do curso;",20 horas
+G1,Participação como Ouvinte em banca de TCC - graduação e pós graduação," - 0,5h, por banca em outra área de conhecimento",20 horas
+G1,Participação em Projeto de Pesquisa/Extensão cadastrado no COPE do câmpus Pinhais,Carga horária da atividade,80 horas
+G1,Volutariado,Carga horária da atividade,40 horas
+G1,"Participação em eventos ou ações de temas transversais: sustentabilidade, inclusão, diversidade e direitos humanos",- Como organizador/ realizador: carga horária da atividade;,60 horas
+G1,"Participação em eventos ou ações de temas transversais: sustentabilidade, inclusão, diversidade e direitos humanos","- Como ouvinte: 0,5 da carga horária da atividade.",60 horas
+G1,Autoria ou coautoria de artigo científico publicado ou com aceite final de publicação em revista com ISSN,- Na área de conhecimento do curso e com revisão por pares: 40h por artigo.,80 horas
+G1,Autoria ou coautoria de artigo científico publicado ou com aceite final de publicação em revista com ISSN, - Na área de conhecimento do curso e sem revisão por pares: 20h por artigo.,80 horas
+G1,Autoria ou coautoria de artigo científico publicado ou com aceite final de publicação em revista com ISSN,- Em outra área de conhecimento e com revisão por pares: 10h por artigo.,80 horas
+G1,"Autoria ou coautoria de capítulo de livro publicado ou com aceite final de publicação, na área de conhecimento do curso, com ISBN e comitê editorial",40h por capítulo,80 horas
+G1,"Autoria ou coautoria de livro publicado ou com aceite final de publicação, na área de conhecimento do curso, com ISBN e comitê editorial",80h por livro,80 horas
+G1,"Participação como ouvinte em eventos (congresso, seminário, simpósio, colóquio), ou em cursos, minicursos e oficinas, de natureza acadêmica",- Na área de conhecimento do curso: carga horária da atividade;,60 horas
+G1,"Participação como ouvinte em eventos (congresso, seminário, simpósio, colóquio), ou em cursos, minicursos e oficinas, de natureza acadêmica","- Em outra área de conhecimento: 0,5 da carga horária da atividade",60 horas
+G1,"Apresentação de trabalhos em eventos na área de conhecimento do curso (congresso, simpósio, seminário, colóquio, semana acadêmica etc.)",- Trabalho completo: 6h por trabalho;,60 horas
+G1,"Apresentação de trabalhos em eventos na área de conhecimento do curso (congresso, simpósio, seminário, colóquio, semana acadêmica etc.)",- Resumo ou banner: 3h por trabalho,60 horas
+G1,"Ministrar cursos, minicursos e oficinas na área de conhecimento do curso",Carga horária da atividade,60 horas
+G2,"Realização de estágio supervisionado não obrigatório, regulamentado pela Lei 11.788/2008, realizado na área de conhecimento do curso","0,25h por hora comprovada",120 horas
+G2,"Trabalho comprovado na área (durante a realização do curso), carga mínima de 20h semanais","0,25h por hora comprovada",120 horas
+G2,Participação em Visita Técnica supervisionada,10h por visita,60 horas
+G2,"Desenvolvimento de solução técnica na área de conhecimento do curso, devidamente validada pelo coordenador de atividades complementares (sem sobreposição a outras atividades)",Até 30h por solução,60 horas

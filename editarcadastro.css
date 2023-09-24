@@ -1,0 +1,127 @@
+/* Reset de Estilos */
+body,
+p {
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+}
+
+
+/* Cabeçalho */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+.logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    /* Centraliza horizontalmente na tela */
+    align-items: center;
+    /* Centraliza verticalmente na tela */
+    min-height: 100vh;
+}
+
+.container,
+.container2 {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    text-align: center;
+    width: 800px;
+    height: 800px;
+    /* Largura máxima dos contêineres */
+    margin: 0 auto;
+    /* Centraliza os contêineres horizontalmente */
+}
+
+h1 {
+    color: #333;
+}
+
+.form-group {
+    margin: 25px 25px;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="senha"],
+input[type="cpf"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.image-upload {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.image-label {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+.image-label i {
+    margin-right: 5px;
+}
+
+.camera-icon {
+    width: 40px;
+    /* Tamanho da imagem da câmera */
+    height: 20px;
+    margin-right: 5px;
+    /* Espaço entre a imagem e o texto */
+}
+
+footer {
+    text-align: center;
+    background-color: #d62A5B;
+    color: white;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
