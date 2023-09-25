@@ -101,6 +101,7 @@ button {
   cursor: pointer;
   float: right;
 }
+
 .voltar {
   display: flex;
   justify-content: flex-end;
