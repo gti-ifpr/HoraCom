@@ -20,10 +20,12 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: #ffffff;
+  padding: 10px;
 }
 
 .logo img {
-  max-width:100%;
+  max-width: 100%;
+  /* Ajuste o tamanho da imagem para evitar estouro */
   height: auto;
 }
 
@@ -84,7 +86,8 @@ nav li a {
   /* Adicione um espaço entre a imagem e o texto */
 }
 
-.texto, .textorosa {
+.texto,
+.textorosa {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background-color: #ffffff;
   font-size: 40px;
