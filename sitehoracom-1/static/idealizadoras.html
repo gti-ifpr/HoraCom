@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Idealizadoras</title>
   <link rel="icon" type="image/x-icon" href=".\images\favicon.ico">
-  <link rel="stylesheet" href="/sitehoracom-1/static/css/idealizadoras.css">
+  <link rel="stylesheet" href="css/idealizadoras.css">
 </head>
 <body>
   <header>
@@ -34,8 +34,19 @@
     
   </main>  
 
-  <footer>
-    <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
-  </footer>
+  <div class="voltar">
+    <button id="backBtn">Voltar</button>
+  </div>
+
+  <script>
+    document.getElementById("backBtn").addEventListener("click", function(){
+      history.back();
+    });
+  </script> 
+
+<footer>
+  <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
+</footer>
+
 </body>
 </html>
