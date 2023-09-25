@@ -92,7 +92,15 @@ nav li a {
   justify-content: space-between;
   /* Distribui os blocos igualmente na largura disponível */
 }
-
+button {
+  background-color: #d62a5b41;
+  border: #d62A5B;
+  color: #d62A5B;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+  float: right;
+}
 .voltar {
   display: flex;
   justify-content: flex-end;
