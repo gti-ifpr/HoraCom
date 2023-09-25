@@ -20,8 +20,63 @@ header {
   background-color: #ffffff;
 }
 
+
 .logo img {
   width: 150px;
+  /* Ajuste o tamanho conforme necessário */
+  height: auto;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #d62A5B;
+}
+
+nav li {
+  float: left;
+  border-right: 1px solid #bbb;
+}
+
+nav li:last-child {
+  border-right: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #ffffff;
+  color: #d62A5B;
+}
+
+.active {
+  background-color: #ffffff;
+
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.content {
+  display: flex;
+  background-color: #ffffff;
+  align-items: center;
+  width: 100%;
+  border: 40px;
+  margin: 0;
+  padding: 0px;
+}
+
+.content img {
+  max-width: 94%;
+  margin-right: 180px;
+  display: block;
+  padding: 1px;
 }
 
 button {
