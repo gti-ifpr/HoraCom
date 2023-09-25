@@ -25,7 +25,6 @@ header {
 
 .logo img {
   max-width: 100%;
-  /* Ajuste o tamanho da imagem para evitar estouro */
   height: auto;
 }
 
