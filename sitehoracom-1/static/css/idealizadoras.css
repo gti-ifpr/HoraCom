@@ -10,7 +10,7 @@ p {
 /* Estilos Gerais */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   color: #333;
 
 }
@@ -66,8 +66,6 @@ nav li a {
   text-decoration: none;
 }
 
-/* ... (seu código CSS existente) */
-
 .bloco {
   display: flex;
   background-color: #ffffff;
@@ -90,6 +88,19 @@ nav li a {
   padding: 0, 5px;
 }
 
+button {
+  background-color: #d62a5b41;
+  border: #d62A5B;
+  color: #d62A5B;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.voltar {
+  display: flex;
+  justify-content: flex-end;
+}
 
 form {
   margin-top: 20px;
