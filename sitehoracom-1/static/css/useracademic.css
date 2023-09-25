@@ -186,7 +186,14 @@ footer {
 }
 
 #menu-content {
-  display: none;
+  margin: 10px;
+  padding: 10px;
+  background-color: #d62a5b;
+  border: 1px solid #d62a5b54;
+  box-sizing: border-box;
+  border-radius: 5px;
+  height: 800px;
+  width: 1000px;
 }
 
 #menu-content ul {
@@ -205,9 +212,4 @@ footer {
 
 #menu-content a:hover {
   text-decoration: underline;
-}
-
-
-#overlay {
-  display: none;
 }
