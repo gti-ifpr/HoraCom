@@ -22,14 +22,35 @@
       </ul>
     </nav>
 </header>
+   <div class="titulo">
+      <h1>Anexar Certificados</h1> 
+   </div>
+  
+    <div class="info">
+      <p>Acesse a tabela para consultar regulamento com descrição<a href="tabela.html">Tabela</a></p>
+      <br> 
+      <p>Seleção de arquivos:</p>   
+    </div>
 
-  <h1>Anexar Certificados</h1>
-  <label for="grupoPrincipal">Selecione o grupo principal:</label>
-  <select id="grupoPrincipal" onchange="showOptions()">
+    <div class="arrasta" id="dropArea" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="handleDragLeave(event)">
+      <span id="dragInfo">Solte o arquivo a ser carregado aqui...</span>
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+      </form>
+    </div>
+    
+    
+    <div class="escolher">
+      <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
+    </div>
+
+    <div class="grupo">
+      <label for="grupoPrincipal">Selecione o grupo principal:</label>
+      <select id="grupoPrincipal" onchange="showOptions()">
       <option value="none" selected disabled>Escolha um grupo</option>
       <option value="g1">Grupo 1</option>
       <option value="g2">Grupo 2</option>
-  </select>   
+      </select>   
+    </div>
 
   <!-- Lista de opções para o Grupo 1 -->
   <div class="grupo-options" id="g1Options" style="display: none;">
@@ -80,40 +101,32 @@
         atividades complementares (sem sobreposição a outras atividades)</option> 
       </select>
     </div>
-  
 
-    <div id="limiteMaximoHoras">
-      <label for="limiteMaximoHoras"> Máximo de horas para essa opção: </label> 
-      <span id="maximoHoras"></span>
-    </div>
-  
-  <div>
+    <div class="horascertificado">
     <!-- Campo para inserir as horas contidas no certificado-->
     <label for="horasDesejadas">Horas desejadas por certificado:</label>
     <input type="number" id="horasDesejadas" placeholder="Insira o número de horas" oninput="calculateReducedHours()">
-    <span id="horasReduzidas">Horas reduzidas: 0</span>
+    <br>
+    <span id="horasReduzidas"></span>
   </div>
 
+  <!---<div id="limiteMaximoHoras">
+    <label for="limiteMaximoHoras"onchange="return verificarLimitehoras()"> Máximo de horas aceitas para essa opção:</label>
+    <span id="maximoHoras"></span>
+  </div>AINDA NÃO consegui retornar o maximo de horas -->
+   
+   <div>
+    <button class="inserir" type="button" onclick="verificarLimiteHoras()">Inserir</button>
+    <button class="cancelar">Cancelar</button>
+   </div>
   
-
-  
-  <div id="dropArea" ondrop="handleDrop(event)" ondragover="handleDragOver(event)"><!--Aqui é o espaço para arrastar os arquivos-->
-    Arraste os arquivos aqui
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-      <br>
-      <br>
-      <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png"><br><br><!--Aqui temos a seleção para envio-->
-    </form>
-  </div>
-
-  <button type="submit">Enviar</button><!--Alinhar o botão de envio a direita-->
-  <form onsubmit="return verificarLimiteHoras()" method="POST"></form>
-
-  <div>
-    <button onclick="goBack()">Voltar</button><!--Alinhar o botão de voltar no final da página-->
+  <div class="voltar">
+    <button onclick="goBack()">Voltar</button>
   </div>   
 
-<script src="script.js"></script>    
-     
+  <footer>
+    <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
