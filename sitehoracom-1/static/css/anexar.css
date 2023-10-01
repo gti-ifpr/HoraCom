@@ -1,14 +1,16 @@
-/* style.css */
-/* Reset de Estilos */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 body,
 p {
-  margin: 10px;
-  padding: 10px;
+  margin: 0;
+  border: 0;
+  padding: 0;
 }
 
 /* Estilos Gerais */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
+  background-color: #ffffff;
   color: #333;
 }
 
@@ -78,6 +80,49 @@ nav li a {
   display: block;
   padding: 1px;
 }
+.titulo{
+  background-color: #d62a5b41;
+  border: #d62A5B;
+  color:#31161d;
+  text-align:left;
+  margin: 10px;
+  border: 10px;
+  padding: 10px;
+  border-radius:8px;
+}
+.arrasta{
+  color:#31161d;
+  text-align:left;
+  margin: 5px;
+  border: 5px;
+  padding:20px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: transparent;
+  background: rgba(214, 42, 90, 0.26);
+
+}
+.escolher{
+  color:#31161d;
+  text-align:left;
+  padding: 10px; 
+}
+.grupo{
+  color:#31161d;
+  text-align:left;
+  padding:12px; 
+}
+.grupo-options{
+  color:#31161d;
+  text-align:left;
+  padding:12px; 
+}
+
+.horascertificado{
+  color:#31161d;
+  text-align:left;
+  padding:12px; 
+}
 
 button {
   background-color: #d62a5b41;
@@ -87,10 +132,46 @@ button {
   padding: 10px;
   cursor: pointer;
 }
+.inserir
+{
+  background-color: #ffffff;
+  border-radius:10px;
+  border-color: #2d9246;
+  border:5px;
+  color: #2d9246;
+  margin: 20px;
+  padding: 10px;
+  cursor: pointer;
+  border-style: solid;
+}
+.inserir:hover{
+  border: 8px solid rgb(20, 97, 18);
+  transform: scale(1.5); 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+}
+.cancelar
+{  
+  border-radius: 10px;
+  background-color: #ffffff;
+  border-color: red;
+  border: 5px;;
+  color: red;
+  margin: 20px;
+  padding: 10px;
+  cursor: pointer;
+  border-style: solid;
+
+}
+.cancelar:hover{
+  border: 8px solid rgb(167, 39, 39);
+  transform: scale(1.5); 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+}
 
 .voltar {
   display: flex;
   justify-content: flex-end;
+
 }
 
 
