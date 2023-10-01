@@ -119,7 +119,7 @@ function verificarLimiteHoras() {
   }
 }
 
-function calculateReducedHours() {
+function calculateReducedHours() {//**CALCULA AS HORAS COM REDUTORES */
   const grupoPrincipal = document.getElementById('grupoPrincipal').value;
   const subGrupo = grupoPrincipal === GRUPOS.G1 ? document.getElementById('subGrupoG1') : document.getElementById('subGrupoG2');
   const horasDesejadas = parseInt(document.getElementById('horasDesejadas').value, 10);
@@ -149,12 +149,12 @@ function calculateReducedHours() {
   }
 }
 
-function goBack() {
+function goBack() {//**FUNÇÃO PARA VOLTAR  */
 // Implemente a lógica para voltar
 }
 let droppedFile = null;
 
-function handleDrop(event) {
+function handleDrop(event) {//**ARRASTA AQUI */
   event.preventDefault();
   const dragInfo = document.getElementById('dragInfo');
   dragInfo.innerText = 'Arquivo solto!';
@@ -163,13 +163,13 @@ function handleDrop(event) {
   console.log('Arquivo solto:', droppedFile);
 }
 
-function handleDragLeave(event) {
+function handleDragLeave(event) {//**SOLTA ARQUIVO */
   event.preventDefault();
   const dragInfo = document.getElementById('dragInfo');
   dragInfo.innerText = 'Solte o arquivo a ser carregado aqui...';
 }
 
-const registros = [];
+const registros = [];//** ROTINA PARA GERAR LISTA DE ARQUIVO DE CERTIFICADOS ANEXADOS */
 
 function adicionarRegistro(grupo, opcao, horas, data) {
   const registro = {
@@ -181,7 +181,7 @@ function adicionarRegistro(grupo, opcao, horas, data) {
   registros.push(registro);
 }
 
-function verificarLimiteHoras() {
+function verificarLimiteHoras() {//**PARA RETORNO DO RELATÓRIO VERIFICAR SE NÃO FICOU DOBRADO */
   const grupoPrincipal = document.getElementById('grupoPrincipal').value;
   const subGrupo = grupoPrincipal === GRUPOS.G1 ? document.getElementById('subGrupoG1') : document.getElementById('subGrupoG2');
   const horasDesejadas = parseInt(document.getElementById('horasDesejadas').value, 10);
@@ -212,7 +212,7 @@ function verificarLimiteHoras() {
     return true;
   }
 }
-function exibirRegistros() {
+function exibirRegistros() {//EXIBINDO RELATÓRIO NA PAGINA**//
   const registrosDiv = document.getElementById('registros');
   registrosDiv.innerHTML = '';  // Limpa o conteúdo atual
 
@@ -224,9 +224,7 @@ function exibirRegistros() {
   });
 }
 
-
-
-function removerRegistro(index) {
+function removerRegistro(index) {//*REMOVENDO REGISTRO */
   registros.splice(index, 1);
   exibirRegistros();
 }
