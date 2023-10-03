@@ -108,6 +108,22 @@ nav li a {
   text-align:left;
   padding: 10px; 
 }
+
+input[type="file"]{/**PARA COLOCAR A COR NO BOTÃO ESCOLHER**/
+  display: none;
+}
+#label{
+  padding: 20px 10px;
+  width: 200px;
+  background-color: pink;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+  display:block;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
 .grupo{
   color:#31161d;
   text-align:left;
