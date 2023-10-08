@@ -11,8 +11,6 @@ body {
   font-family: Arial, sans-serif;
   background-color: #ffffff;
   color: #333;
-  padding: 0;
-  margin: 0;
 }
 
 /* Cabeçalho */
@@ -92,18 +90,52 @@ nav li a {
 .insta {
   width: 25px;
   padding: 10px;
+  align-items: center;
+  margin-left: 100px;
+
 }
 
 .gmail {
   width: 25px;
   padding: 10px;
+  margin-left: 50px;
 }
-
-form {
-  margin-top: 20px;
+input[type=submit] {
+  background: #d62A5B;
+  color: #ffffff;
+  border-radius: 5px;
+  border: 5px solid #d62A5B;
+  margin: 5px;
+  cursor: pointer;
 }
-
-
+input[type=text] , input[type=email] {
+  background: #ffffff;
+  color: #d62A5B;
+  border-radius: 5px;
+  border: 1px solid #d62A5B;
+  margin: 5px;
+  width: 300px;
+  height: 30px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 1px 1px 2px #d62A5B;
+  -moz-box-shadow: 1px 1px 2px #d62A5B;
+  -webkit-box-shadow: 1px 1px 2px #d62A5B;
+}
+textarea{
+  background: #ffffff;
+  color: #d62A5B;
+  border-radius: 5px;
+  border: 1px solid #d62A5B;
+  margin: 5px;
+  width: 300px;
+  height: 100px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 1px 1px 2px #d62A5B;
+  -moz-box-shadow: 1px 1px 2px #d62A5B;
+  -webkit-box-shadow: 1px 1px 2px #d62A5B;
+}
 footer {
   text-align: center;
   background-color: #d62A5B;
