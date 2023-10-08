@@ -9,6 +9,14 @@ p {
   padding: 0px;
 }
 
+h1 {
+  color:#d62A5B;
+}
+h4 {
+  color: #917e98;
+  margin-left: 40px;
+}
+
 /* Estilos Gerais */
 body {
   font-family: "Roboto";
@@ -98,7 +106,6 @@ nav li a {
   width: 85%;
   height: 74%;
   /* Em vez de 100% para permitir que o elemento cresça conforme o conteúdo */
-
 }
 
 form {
@@ -110,12 +117,27 @@ form {
   padding: 5px;
 }
 
-input {
-  min-width: 280px;
-  border-radius: 20px;
-  border: 2px #d62A5B 5px;
-  padding: 5px;
-
+input[type=submit] {
+  background: #d62A5B;
+  color: #ffffff;
+  border-radius: 5px;
+  border: 5px solid #d62A5B;
+  margin: 5px;
+  cursor: pointer;
+}
+input[type=password] , input[type=text]  {
+  background: #ffffff;
+  color: #d62A5B;
+  border-radius: 5px;
+  border: 1px solid #d62A5B;
+  margin: 5px;
+  width: 300px;
+  height: 30px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 1px 1px 2px #d62A5B;
+  -moz-box-shadow: 1px 1px 2px #d62A5B;
+  -webkit-box-shadow: 1px 1px 2px #d62A5B;
 }
 
 footer {
@@ -124,5 +146,4 @@ footer {
   color: white;
   width: 100%;
   position: absolute;
-  bottom: 0;
 }
