@@ -100,12 +100,12 @@ nav li a {
   padding: 10px;
   margin-left: 50px;
 }
-input[type=submit] {
+input[type=submit] , input[type=reset] {
   background: #d62A5B;
   color: #ffffff;
   border-radius: 5px;
   border: 5px solid #d62A5B;
-  margin: 5px;
+  margin-left: 60px;
   cursor: pointer;
 }
 input[type=text] , input[type=email] {

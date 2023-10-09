@@ -30,12 +30,12 @@
 
       <aside class="textocontato">
         <p>Entre em Contato conosco utilizando o formulário abaixo: </p>
-        <form class="textocontato"> 
-            <label for="nome">        Nome: </label>      
+        <form class="textocontato"action="mailto:horacomgti@gmail.com" method="POST" enctype="text/plain"> 
+            <label for="nome">Nome: </label>      
             <br>
             <input type="text" id="nome" name="nome" required><br>
             <br>
-            <label for="email">      Email: </label>
+            <label for="email">Email: </label>
             <br>
             <input type="email" id="email" name="email"required><br>
             <br>
@@ -43,6 +43,7 @@
             <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
             <br>
             <input type="submit"></input>
+            <input type="reset" value="Limpar"></input>
 
         </form>
         <p>Nos acompanhe em nossas mídias sociais e por email.</p><br>
