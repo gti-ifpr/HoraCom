@@ -9,13 +9,7 @@ p {
   padding: 0px;
 }
 
-h1 {
-  color:#d62A5B;
-}
-h4 {
-  color: #917e98;
-  margin-left: 40px;
-}
+
 
 /* Estilos Gerais */
 body {
@@ -32,6 +26,13 @@ header {
   align-items: center;
   background-color: #ffffff;
 
+}
+h1 {
+  color:#d62A5B;
+}
+h4 {
+  color: #917e98;
+  margin-left: 40px;
 }
 
 
