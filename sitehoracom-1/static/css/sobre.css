@@ -104,6 +104,7 @@ button {
 .voltar {
   display: flex;
   justify-content: flex-end;
+
 }
 
 footer {
@@ -111,4 +112,5 @@ footer {
   background-color: #d62A5B;
   color: white;
   width: 100%;
+  
 }
