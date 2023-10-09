@@ -107,6 +107,8 @@ nav li a {
   width: 85%;
   height: 74%;
   /* Em vez de 100% para permitir que o elemento cresça conforme o conteúdo */
+  margin-top: -90px;
+  margin-bottom: -20px;
 }
 
 form {
@@ -143,8 +145,6 @@ input[type=password] , input[type=text]  {
 
 footer {
   text-align: center;
-  background-color: #d62A5B;
-  color: white;
+  color: #544858;
   width: 100%;
-  position: absolute;
 }
