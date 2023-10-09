@@ -90,6 +90,7 @@ nav li a {
 
 button {
   background-color: #d62a5b41;
+  border-radius: 5px;
   border: #d62A5B;
   color: #d62A5B;
   margin: 5px;
@@ -101,6 +102,7 @@ button {
   display: flex;
   justify-content: flex-end;
 }
+
 
 form {
   margin-top: 20px;

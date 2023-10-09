@@ -141,14 +141,6 @@ input[type="file"]{/**PARA COLOCAR A COR NO BOTÃO ESCOLHER**/
   padding:12px; 
 }
 
-button {
-  background-color: #d62a5b41;
-  border: #d62A5B;
-  color: #d62A5B;
-  margin: 5px;
-  padding: 10px;
-  cursor: pointer;
-}
 .inserir
 {
   background-color: #ffffff;
@@ -185,10 +177,19 @@ button {
   box-shadow: 0 5px 15px rgba(0,0,0,0.6);
 }
 
+button {
+  background-color: #d62a5b41;
+  border-radius: 5px;
+  border: #d62A5B;
+  color: #d62A5B;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
 .voltar {
   display: flex;
   justify-content: flex-end;
-
 }
 
 

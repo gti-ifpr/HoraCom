@@ -93,13 +93,14 @@ nav li a {
 }
 button {
   background-color: #d62a5b41;
+  border-radius: 5px;
   border: #d62A5B;
   color: #d62A5B;
   margin: 5px;
   padding: 10px;
   cursor: pointer;
-  float: right;
 }
+
 .voltar {
   display: flex;
   justify-content: flex-end;
