@@ -142,6 +142,20 @@ input[type=password] , input[type=text]  {
   -moz-box-shadow: 1px 1px 2px #d62A5B;
   -webkit-box-shadow: 1px 1px 2px #d62A5B;
 }
+button {
+  background-color: #d62a5b41;
+  border-radius: 5px;
+  border: #d62A5B;
+  color: #d62A5B;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.voltar {
+  display: flex;
+  justify-content: flex-end;
+}
 
 footer {
   text-align: center;

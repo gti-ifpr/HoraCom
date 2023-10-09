@@ -39,6 +39,9 @@
           <p><a href="esqueceusenha.html" class="link-esqueceu-senha">Esqueceu a senha?</a></p>
           <p><a href="coodenador.html" class="cadastro">Se você é coodenador clique aqui</a></p>
           <a href="cadastro.html" class="cadastro">Clique aqui e crie sua conta</a>
+          <div class="voltar">
+            <button id="backBtn">Voltar</button>
+          </div>
       </aside>     
     </main>  
 
@@ -47,6 +50,11 @@
       // Adicione informações dinamicamente
       var imagemElement = document.getElementById("imagem");
       imagemElement.src = "images/menina.png"; // Substitua pelo caminho da nova imagem
+    </script>
+    <script>
+      document.getElementById("backBtn").addEventListener("click", function(){
+        history.back();
+      });
     </script>
   </body>  
   <footer>
