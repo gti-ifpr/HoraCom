@@ -172,7 +172,7 @@ function displaySelectedFileName() {//Mostra o arquivo selecionado logo abaixo d
 
   arquivoSelecionado.innerHTML = `Arquivo selecionado: ${input.files[0].name}`;
 }
-function inserirCertificado() {//Insere certificado
+function inserirCertificado() {//Insere certificados//
   // Obter os valores necessários do formulário
   const id_aluno = 1;  // Substitua pelo valor correto
   const grupo = document.getElementById("grupoPrincipal").value;
@@ -181,6 +181,10 @@ function inserirCertificado() {//Insere certificado
 
   // Chamar a função de inserção
   inserir_certificado(id_aluno, grupo, opcao, quantidade_horas);
+
+  // Exibir a mensagem de sucesso
+  const mensagemDiv = document.getElementById("mensagem");
+  mensagemDiv.innerText = "Certificado inserido com sucesso!";
 }
 
 
