@@ -10,7 +10,7 @@ p {
 /* Estilos Gerais */
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #ffffff;
+  background-color: #f0f0f0;
   color: #333;
 }
 
@@ -21,7 +21,6 @@ header {
   align-items: center;
   background-color: #ffffff;
 }
-
 
 .logo img {
   width: 150px;
@@ -53,7 +52,6 @@ li a:hover:not(.active) {
 
 .active {
   background-color: #ffffff;
-
 }
 
 nav li a {
@@ -63,23 +61,13 @@ nav li a {
   padding: 14px 16px;
   text-decoration: none;
 }
-
-.content {
-  display: flex;
+main{
+  min-height: 100%;
+  box-sizing: border-box;
   background-color: #ffffff;
-  align-items: center;
-  width: 100%;
-  border: 40px;
-  margin: 0;
-  padding: 0px;
+  padding: 20px;
 }
 
-.content img {
-  max-width: 94%;
-  margin-right: 180px;
-  display: block;
-  padding: 1px;
-}
 .titulo{
   background-color: #d62a5b41;
   border: #d62A5B;
@@ -91,11 +79,11 @@ nav li a {
   border-radius:8px;
 }
 .arrasta{
-  color:#31161d;
-  text-align:left;
+  color:#31161d transparent;
+  text-align:center;
   margin: 5px;
   border: 5px;
-  padding:20px;
+  padding:25px;
   border-radius: 10px;
   border-width: 1px;
   border-color: transparent;
@@ -103,15 +91,20 @@ nav li a {
 
 }
 .escolher{
-  color:#31161d;
-  background-color: #d62A5B;
-  text-align:left;
-  padding: 10px; 
+  background: #ffffff;
+  color: #d62A5B;
+  border-radius: 5px;
+  border: 1px solid #d62A5B;
+  margin: 5px;
+  width: 300px;
+  height: 30px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 1px 1px 2px #d62A5B;
+  -moz-box-shadow: 1px 1px 2px #d62A5B;
+  -webkit-box-shadow: 1px 1px 2px #d62A5B;
 }
 
-input[type="file"]{/**PARA COLOCAR A COR NO BOTÃO ESCOLHER**/
-  display: none;
-}
 #label{
   padding: 20px 10px;
   width: 200px;
@@ -146,7 +139,7 @@ input[type="file"]{/**PARA COLOCAR A COR NO BOTÃO ESCOLHER**/
   background-color: #ffffff;
   border-radius:10px;
   border-color: #2d9246;
-  border:5px;
+  border:2px;
   color: #2d9246;
   margin: 20px;
   padding: 10px;
@@ -154,7 +147,8 @@ input[type="file"]{/**PARA COLOCAR A COR NO BOTÃO ESCOLHER**/
   border-style: solid;
 }
 .inserir:hover{
-  border: 8px solid rgb(20, 97, 18);
+  border: 3px solid rgb(23, 113, 20);
+  background-color: rgb(23, 113, 20);
   transform: scale(1.5); 
   box-shadow: 0 5px 15px rgba(0,0,0,0.6);
 }
@@ -163,7 +157,7 @@ input[type="file"]{/**PARA COLOCAR A COR NO BOTÃO ESCOLHER**/
   border-radius: 10px;
   background-color: #ffffff;
   border-color: red;
-  border: 5px;;
+  border: 2px;;
   color: red;
   margin: 20px;
   padding: 10px;
@@ -172,7 +166,8 @@ input[type="file"]{/**PARA COLOCAR A COR NO BOTÃO ESCOLHER**/
 
 }
 .cancelar:hover{
-  border: 8px solid rgb(167, 39, 39);
+  border: 3px solid rgb(167, 39, 39);
+  background-color: rgb(167, 39, 39);
   transform: scale(1.5); 
   box-shadow: 0 5px 15px rgba(0,0,0,0.6);
 }
