@@ -22,32 +22,28 @@
       </ul>
     </nav>
 </header>
+<main>
    <div class="titulo">
       <h1>Anexar Certificados</h1> 
    </div>
   
     <div class="info">
-      <p>Acesse a tabela para consultar regulamento com descrição<a href="tabela.html">Tabela</a></p>
+      <p>Clique e consulte o regulamento com descrição<a href="tabela.html">Tabela</a></p>
       <br> 
-      <p>Seleção de arquivos:</p>   
+      <p><h2>Selecione seu arquivo</h2></p>   
     </div>
 
     <div class="arrasta" id="dropArea" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="handleDragLeave(event)">
-      <span id="dragInfo">Solte o arquivo a ser carregado aqui...</span>
-      <form action="/upload" method="POST" enctype="multipart/form-data">
-      </form>
+      <span id="dragInfo"></span>
+      <form action="/upload" method="POST" enctype="multipart/form-data">Solte aqui seu arquivo</form>
+    </div>   
+
+    <div>
+      <label for="arquivo"></label>
+      <input type="file" id="arquivo" name="arquivo" accept=".jpg, .jpeg, .png" onchange="displaySelectedFileName()">
     </div>
-    
-    
-    
-      <form>
-        <div class="arquivo">
-        <label for="arquivo">Enviar arquivo</label>
-        <input type="file" id="arquivo" name="arquivo" accept=".jpg, .jpeg, .png">
-      </div>
-      </form>
-      
-    
+        
+    <div id="arquivoSelecionado"></div><!--Aparece o nome do arquivo selecionado-->      
 
     <div class="grupo">
       <label for="grupoPrincipal">Selecione o grupo principal:</label>
@@ -57,7 +53,6 @@
       <option value="g2">Grupo 2</option>
       </select>   
     </div>
-
   <!-- Lista de opções para o Grupo 1 -->
   <div class="grupo-options" id="g1Options" style="display: none;">
     <label for="subGrupoG1">Selecione uma opção do Grupo 1:</label>
@@ -93,7 +88,6 @@
     </select>
   </div>   
   
-
   <!-- Lista de opções para o Grupo 2 -->
   <div class="grupo-options" id="g2Options" style="display: none;">
     <label for="subGrupoG2">Selecione uma opção do Grupo 2:</label>
@@ -116,19 +110,23 @@
     <span id="horasReduzidas"></span>
   </div>
 
-  <!---<div id="limiteMaximoHoras">
-    <label for="limiteMaximoHoras"onchange="return verificarLimitehoras()"> Máximo de horas aceitas para essa opção:</label>
-    <span id="maximoHoras"></span>
-  </div>AINDA NÃO consegui retornar o maximo de horas -->
+  <div class ="exibehoras" id="exibehoras">
+    <label for="exibehoras"onchange="return exibirRegistros()"></label>
+    <span id="exibehoras"></span>
+  </div>
    
    <div>
-    <button class="inserir" type="button" onclick="verificarLimiteHoras()">Inserir</button>
-    <button class="cancelar">Cancelar</button>
+    <button class="inserir" type="button" onclick="verificarLimiteHoras()">
+      <a href="relatorio.html">Inserir</a></button>
+    <button class="cancelar"><a href="useracademic.html">Cancelar</a></button>
    </div>
-  
+
+
+
   <div class="voltar">
-    <button onclick="goBack()">Voltar</button>
-  </div>   
+    <button><a href="useracademic.html">voltar</a></button>
+  </div> 
+</main>  
 
   <footer>
     <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
