@@ -1,3 +1,4 @@
+//as funções de Java Script são conforto para o usuario na hora da visualização do front//
 function validarFormulario() {/**PARA CADASTRO */
 var nome = document.getElementById("nome").value;
 var cpf = document.getElementById("cpf").value;
@@ -88,13 +89,7 @@ const limites = {
 return limites[grupo] && limites[grupo][opcao] ? limites[grupo][opcao] : 0;
 }
 
-function atualizarHoras() {
-const horasDesejadas = document.getElementById('horasDesejadas').value;
-const maximoHorasSpan = document.getElementById('maximoHoras');
-maximoHorasSpan.innerText = horasDesejadas ? `Horas desejadas: ${horasDesejadas}` : '';
-}
-
-function verificarLimiteHoras() {
+function verificarLimiteHoras() {//Para retornar o limite de horas por opção//
   const grupoPrincipal = document.getElementById('grupoPrincipal').value;
   const subGrupo = grupoPrincipal === GRUPOS.G1 ? document.getElementById('subGrupoG1') : document.getElementById('subGrupoG2');
   const horasDesejadas = parseInt(document.getElementById('horasDesejadas').value, 10);
@@ -148,95 +143,35 @@ function calculateReducedHours() {//**CALCULA AS HORAS COM REDUTORES */
     horasReduzidasElement.style.display = 'none';  // Oculta o elemento se não houver redutor
   }
 }
-
-function goBack() {//**FUNÇÃO PARA VOLTAR  */
-// Implemente a lógica para voltar
-}
-let droppedFile = null;
-
-function handleDrop(event) {//**ARRASTA AQUI */
-  event.preventDefault();
-  const dragInfo = document.getElementById('dragInfo');
-  dragInfo.innerText = 'Arquivo solto!';
-
-  droppedFile = event.dataTransfer.files[0];
-  console.log('Arquivo solto:', droppedFile);
-}
-
-function handleDragLeave(event) {//**SOLTA ARQUIVO */
+function handleDragOver(event) {//Para soltar arquivo//
   event.preventDefault();
   const dragInfo = document.getElementById('dragInfo');
   dragInfo.innerText = 'Solte o arquivo a ser carregado aqui...';
 }
 
-const registros = [];//** ROTINA PARA GERAR LISTA DE ARQUIVO DE CERTIFICADOS ANEXADOS */
-
-function adicionarRegistro(grupo, opcao, horas, data) {
-  const registro = {
-    grupo,
-    opcao,
-    horas,
-    data
-  };
-  registros.push(registro);
-}
-
-function verificarLimiteHoras() {//**PARA RETORNO DO RELATÓRIO VERIFICAR SE NÃO FICOU DOBRADO */
-  const grupoPrincipal = document.getElementById('grupoPrincipal').value;
-  const subGrupo = grupoPrincipal === GRUPOS.G1 ? document.getElementById('subGrupoG1') : document.getElementById('subGrupoG2');
-  const horasDesejadas = parseInt(document.getElementById('horasDesejadas').value, 10);
-  const limiteHoras = obterLimiteHoras(grupoPrincipal, subGrupo.value);
-
-  if (horasDesejadas > limiteHoras) {
-    alert(`Você excedeu o limite de horas para essa opção. Limite: ${limiteHoras} horas.`);
-    return false;
-  } else {
-    const maximoHorasSpan = document.getElementById('maximoHoras');
-    maximoHorasSpan.innerText = `Máximo de horas aceitas para essa opção: ${limiteHoras} horas`;
-
-    const grupo = grupoPrincipal === GRUPOS.G1 ? 'Grupo 1' : 'Grupo 2';
-    const opcao = subGrupo.options[subGrupo.selectedIndex].text;
-    const data = new Date().toLocaleDateString();
-
-    adicionarRegistro(grupo, opcao, horasDesejadas, data);
-    exibirRegistros();
-
-    // Adicione o arquivo ao formulário para envio
-    const form = document.querySelector('form');
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
-    fileInput.name = 'arquivo';
-    fileInput.files = droppedFile ? [droppedFile] : null;
-    form.appendChild(fileInput);
-
-    return true;
-  }
-}
-function exibirRegistros() {//EXIBINDO RELATÓRIO NA PAGINA**//
-  const registrosDiv = document.getElementById('registros');
-  registrosDiv.innerHTML = '';  // Limpa o conteúdo atual
-
-  registros.forEach((registro, index) => {
-    const item = document.createElement('div');
-    item.classList.add('registro-item');
-    item.innerHTML = `<strong>Grupo:</strong> ${registro.grupo}, <strong>Opção:</strong> ${registro.opcao}, <strong>Horas:</strong> ${registro.horas}, <strong>Data:</strong> ${registro.data} <button onclick="removerRegistro(${index})">Remover</button>`;
-    registrosDiv.appendChild(item);
-  });
-}
-
-function removerRegistro(index) {//*REMOVENDO REGISTRO */
-  registros.splice(index, 1);
-  exibirRegistros();
-}
-
-
+function handleDrop(event) {//faz  parte do soltar arquivo também//
   event.preventDefault();
   const dragInfo = document.getElementById('dragInfo');
   dragInfo.innerText = 'Arquivo solto!';
 
-  // Aqui você pode implementar o que deseja fazer com o arquivo que foi solto
-  const file = event.dataTransfer.files[0];
-  console.log('Arquivo solto:', file);
+  const droppedFile = event.dataTransfer.files[0];
+  console.log('Arquivo solto:', droppedFile);
+  
+  const fileList = document.getElementById('fileList');
+  fileList.innerHTML = '';  // Limpa o conteúdo anterior
+
+  // Adiciona o arquivo solto à lista
+  const listItem = document.createElement('li');
+  listItem.textContent = `Arquivo selecionado: ${droppedFile.name}`;
+  fileList.appendChild(listItem);
+}
+
+function displaySelectedFileName() {//Mostra o arquivo selecionado logo abaixo do escolher//
+  const input = document.getElementById('arquivo');
+  const arquivoSelecionado = document.getElementById('arquivoSelecionado');
+
+  arquivoSelecionado.innerHTML = `Arquivo selecionado: ${input.files[0].name}`;
+}
 
 
 
