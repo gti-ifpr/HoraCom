@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela do usuário - Coordenador</title>
+    <link rel="icon" type="image/x-icon" href=".\images\favicon.ico">
+    <link rel="stylesheet" href="css/usercoordenador.css">
+</head>
+
+<body>
+    <div id="overlay"></div>
+
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo HoraCom">
+        </div>
+    </header>
+    <div class="expand-menu">
+        <button id="expand-button">
+            <img src="images/user.png" alt="Ícone de Usuário">
+        </button>
+        <div id="menu-content">
+            <ul>
+                <li><a href="editarcadastro.html">Editar Cadastro</a></li>
+                <li><a href="#">Fazer Logoff</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="half">
+            <div class="content">
+                <div class="row">
+                    <div class="block">
+                        <a href="editarcadastro.html"><img src="images/Editar.png" alt="Editar/Aprovar Cadastro"></a>
+                        <h2>EDITAR/APROVAR USUÁRIO</h2>
+
+                    </div>
+                    <div class="block">
+                        <a href="relatorio.html"><img src="images/RELATÓRIO.png" alt="Relatório"></a>
+                        <h2>RELATÓRIOS</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="block">
+                        <a href="upload.html"><img src="images/Editar.png" alt="Upload"></a>
+                        <h2>UPLOAD </h2>
+                    </div>
+                    <div class="block">
+                        <a href="saibamais.html"><img src="images/Dica.png" alt="saibamais"></a>
+                        <h2>SAIBA MAIS</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="half">
+            <div class="dashboard">
+                <h2>Progresso dos Alunos</h2>
+                <div class="pieContainer">
+                    <div class="pieBackground"></div>
+                    <div id="pieSlice1" class="hold">
+                        <div class="pie"></div>
+                    </div>
+                </div>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
+
+            </div>
+
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const expandButton = document.getElementById('expand-button');
+            const menuContent = document.getElementById('menu-content');
+            const overlay = document.getElementById('overlay');
+
+            expandButton.addEventListener('click', function () {
+                if (menuContent.style.display === 'block') {
+                    menuContent.style.display = 'none';
+                    overlay.style.display = 'none'; // Oculta a sobreposição
+                } else {
+                    menuContent.style.display = 'block';
+                    overlay.style.display = 'block'; // Mostra a sobreposição
+                }
+            });
+        });
+
+    </script>
+
+    <footer>
+        <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
+    </footer>
+</body>
+
+</html>
