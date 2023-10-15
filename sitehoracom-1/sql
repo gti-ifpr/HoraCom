@@ -55,3 +55,16 @@ VALUES
 ('opcao2', 'Trabalho comprovado na área (durante a realização do curso), carga mínima de 20h semanais', NULL),
 ('opcao3', 'Participação em Visita Técnica supervisionada', NULL),
 ('opcao4', 'Desenvolvimento de solução técnica na área de conhecimento do curso, devidamente validada pelo coordenador de atividades complementares (sem sobreposição a outras atividades)', NULL);
+
+CREATE TABLE Certificados (
+    id_aluno INT,
+    grupo VARCHAR(50),
+    opcao VARCHAR(50),
+    quantidade_horas DECIMAL(5, 2)
+);
+
+INSERT INTO Certificados (id_aluno, grupo, opcao, quantidade_horas)
+VALUES 
+    (1, 'g1', 'Opção 1', 20.5),
+    (2, 'g1', 'Opção 2', 15.75),
+    (3, 'g2', 'Opção 1', 10.0);
