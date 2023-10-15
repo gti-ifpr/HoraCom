@@ -172,7 +172,16 @@ function displaySelectedFileName() {//Mostra o arquivo selecionado logo abaixo d
 
   arquivoSelecionado.innerHTML = `Arquivo selecionado: ${input.files[0].name}`;
 }
+function inserirCertificado() {//Insere certificado
+  // Obter os valores necessários do formulário
+  const id_aluno = 1;  // Substitua pelo valor correto
+  const grupo = document.getElementById("grupoPrincipal").value;
+  const opcao = document.getElementById("subGrupo" + grupo.charAt(1)).value;  // Obtém o valor da opção do grupo selecionado
+  const quantidade_horas = parseFloat(document.getElementById("horasDesejadas").value);
 
+  // Chamar a função de inserção
+  inserir_certificado(id_aluno, grupo, opcao, quantidade_horas);
+}
 
 
 
