@@ -1,53 +1,37 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask
+import mysql.connector
 
 app = Flask(__name__)
 
-# ...
+# Configuração da conexão com o banco de dados MySQL
+config = {
+    'user': 'root',
+    'password': 'amarelo123*',
+    'host': 'localhost',
+    'database': 'horacom'
+}
 
-@app.route('/solicitar_redefinicao', methods=['GET', 'POST'])
-def solicitar_redefinicao():
-    if request.method == 'POST':
-        email = request.form['email']
+# Conectar ao banco de dados
+conn = mysql.connector.connect(**config)
+cursor = conn.cursor()
 
-        # Verifique se o email existe no banco de dados
-        if verificar_email(email):
-            # Gere um token de redefinição de senha (pode ser um UUID aleatório)
-            token = gerar_token()
+def redefinir_senha(usuario, nova_senha):
+    try:
+        # Atualizar a senha do usuário no banco de dados
+        cursor.execute('''
+            UPDATE Senhas
+            SET senha = %s
+            WHERE usuario = %s
+        ''', (nova_senha, usuario))
 
-            # Armazene o token no banco de dados junto com o email e um timestamp de expiração
-            armazenar_token(email, token)
+        conn.commit()
+        print('Senha redefinida com sucesso para o usuário:', usuario)
+    except mysql.connector.Error as e:
+        print('Erro ao redefinir a senha:', str(e))
 
-            # Envie um email ao usuário com um link contendo o token
-            enviar_email_reset_senha(email, token)
+# Exemplo de uso para redefinir a senha para o usuário 'alice'
+redefinir_senha('alice', 'nova_senha_para_alice')
 
-            # Redirecione o usuário para uma página de confirmação
-            return render_template('confirmacao.html', mensagem='Um email de redefinição de senha foi enviado.')
+# Não se esqueça de fechar a conexão após usar
+conn.close()
 
-        # Se o email não existir, exiba uma mensagem de erro
-        return render_template('solicitar_redefinicao.html', erro='Email não encontrado.')
-
-    return render_template('solicitar_redefinicao.html')
-
-def verificar_email(email):
-    # Verifique se o email existe em seu banco de dados
-    # Substitua isso pela sua própria lógica de verificação de email
-    return True
-
-def gerar_token():
-    # Gere um token único, por exemplo, um UUID aleatório
-    # Você pode usar a biblioteca uuid para isso
-    import uuid
-    return str(uuid.uuid4())
-
-def armazenar_token(email, token):
-    # Armazene o token no banco de dados junto com o email e um timestamp de expiração
-    # Você deve implementar essa lógica
-
-def enviar_email_reset_senha(email, token):
-    # Envie um email ao usuário contendo um link de redefinição de senha
-    # Você deve implementar essa lógica
-
-# ...
-
-if __name__ == '__main__':
-    app.run(debug=True)
