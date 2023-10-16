@@ -1,5 +1,7 @@
 import mysql.connector
 
+#ESSA FUNÇÃO DEU CERTO DIRETAMENTE DE PYTHON PARA MYSQL TEMOS QUE FAZER A LOGICA DO HTML 
+
 # Função para inserir um certificado na tabela Certificados do MySQL
 def inserir_certificado(id_aluno, grupo, opcao, quantidade_horas):
     try:
