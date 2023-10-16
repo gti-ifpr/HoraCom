@@ -186,6 +186,26 @@ function inserirCertificado() {//Insere certificados//
   const mensagemDiv = document.getElementById("mensagem");
   mensagemDiv.innerText = "Certificado inserido com sucesso!";
 }
+function exibirRegistrosNaPagina() {//Função para retornar registros 
+  const registrosDiv = document.getElementById('registros');
+
+  // Faz uma requisição AJAX para obter os registros
+  fetch('/obter_registros')
+    .then(response => response.json())
+    .then(data => {
+      const registros = data.registros;
+
+      registros.forEach((registro, index) => {
+        const item = document.createElement('div');
+        item.classList.add('registro-item');
+        item.innerHTML = `<strong>ID Aluno:</strong> ${registro.id_aluno}, <strong>Grupo:</strong> ${registro.grupo}, <strong>Opção:</strong> ${registro.opcao}, <strong>Horas:</strong> ${registro.quantidade_horas}`;
+        registrosDiv.appendChild(item);
+      });
+    })
+    .catch(error => console.error('Erro ao obter os registros:', error));
+}
+exibirRegistrosNaPagina();
+
 
 
 
