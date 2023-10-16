@@ -2,7 +2,7 @@ from flask import Flask
 import mysql.connector
 
 app = Flask(__name__)
-
+#TESTE LOCAL EM PYTHON DEU CERTO
 # Configuração da conexão com o banco de dados MySQL
 config = {
     'user': 'root',
