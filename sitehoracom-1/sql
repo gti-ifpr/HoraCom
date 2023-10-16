@@ -68,3 +68,8 @@ VALUES
     (1, 'g1', 'Opção 1', 20.5),
     (2, 'g1', 'Opção 2', 15.75),
     (3, 'g2', 'Opção 1', 10.0);
+
+CREATE TABLE Senhas (
+    usuario VARCHAR(50) PRIMARY KEY,
+    senha VARCHAR(100)
+);
