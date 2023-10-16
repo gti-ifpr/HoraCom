@@ -21,34 +21,19 @@
         <li><a href="contato.html">Contato</a></li>
       </ul>
     </nav>
-   </header>
-   <div class="relatorio" id="registros-container">
-      <h1>Relatório de Registros</h1>
-      <div id="registros"></div>
-    
+  </header>
+  <div class="relatorio" id="registros-container">
+    <h1>Relatório de Registros</h1>
+    <div id="registros"></div>
+  </div>
 
-    <div class="voltar">
-        <button id="backBtn">Voltar</button>
-    </div>        
-    <script>
-        // Função para exibir os registros na página de relatórios
-        function exibirRegistrosNaPagina() {
-          const registrosDiv = document.getElementById('registros');
-    
-          registros.forEach((registro, index) => {
-            const item = document.createElement('div');
-            item.classList.add('registro-item');
-            item.innerHTML = `<strong>Grupo:</strong> ${registro.grupo}, <strong>Opção:</strong> ${registro.opcao}, <strong>Horas:</strong> ${registro.horas}, <strong>Data:</strong> ${registro.data}`;
-            registrosDiv.appendChild(item);
-          });
-        }
-    
-        // Chama a função para exibir os registros na página
-        exibirRegistrosNaPagina();      
-    </script>       
-    <script src="script.js"></script>
-    <footer>
-        &copy; 2023 HoraCom. Todos os direitos reservados.
-    </footer>
+  <div class="voltar">
+    <button id="backBtn">Voltar</button>
+  </div>
+
+  <script src="script.js"></script>
+  <footer>
+    &copy; 2023 HoraCom. Todos os direitos reservados.
+  </footer>
 </body>
 </html>
