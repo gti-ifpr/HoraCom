@@ -1,7 +1,6 @@
 import os
 import zipfile
 
-
 #FIZ TESTE LOCAL E DEU CERTO A FUNÇÃO E ZIP DOS ARQUIVOS 
 
 def extrair_e_zipar_documentos(diretorio_documentos, caminho_zip):
