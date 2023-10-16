@@ -1,5 +1,8 @@
 import mysql.connector
 
+
+#ESSA FUNÇÃO TESTADA DIRETO NO MYSQL DEU CERTO 
+
 def gerar_relatorio_certificados():
     try:
         # Configuração da conexão com o banco de dados MySQL
