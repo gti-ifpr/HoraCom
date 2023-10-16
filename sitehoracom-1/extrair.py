@@ -1,6 +1,9 @@
 import os
 import zipfile
 
+
+#FIZ TESTE LOCAL E DEU CERTO A FUNÇÃO E ZIP DOS ARQUIVOS 
+
 def extrair_e_zipar_documentos(diretorio_documentos, caminho_zip):
     try:
         # Garante que o caminho do arquivo ZIP tenha um nome de arquivo
@@ -21,7 +24,7 @@ def extrair_e_zipar_documentos(diretorio_documentos, caminho_zip):
     except Exception as e:
         print('Erro ao zipar os documentos:', str(e))
 
-# Exemplo de uso
+# Substituir local do arquivo dos certificados 
 diretorio_documentos = r'C:\Users\Fernanda\Desktop\Certificados'  # Caminho do diretório de documentos
 caminho_zip = r'C:\Users\Fernanda\Desktop\documentos.zip'  # Caminho do arquivo ZIP
 
