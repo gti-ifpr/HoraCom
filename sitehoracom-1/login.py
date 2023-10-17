@@ -16,10 +16,12 @@ def processar_login():
     senha = request.form['senha']
 
     conexao = mysql.connector.connect(**config.get_db_config())
+
     try:
         cursor = conexao.cursor()
         consulta = f"SELECT * FROM horacom.aluno WHERE email = '{email}' AND senha = '{senha}'"
         cursor.execute(consulta)
+        #print(consulta)
         resultado = cursor.fetchone()
 
         if resultado:
@@ -28,8 +30,6 @@ def processar_login():
             # Redirecione para a página de perfil do usuário ou outra página após o login
             return redirect(url_for('perfil'))  # Substitua 'perfil' pelo nome da sua rota de perfil
     
-        conexao.commit()
-
     except Exception as e:
         # print(e)
         conexao.rollback()
@@ -40,7 +40,7 @@ def processar_login():
         conexao.close()
 
     # Redireciona de volta para a página de login em caso de falha de autenticação
-    return redirect(url_for('.useracademic'))
+    return redirect(url_for('.login'))
 
 # Rota de logout
 @login_bp.route('/logout')
