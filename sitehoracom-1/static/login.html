@@ -27,7 +27,7 @@
           <h4> faça seu login agora</h4>
           <br>
           <br>
-          <form>
+          <form action="/processar_login" onsubmit ="return validatedata()" method="post">
            <br>
            <br>
            <label for="email-cpf">Login</label><br>
@@ -45,7 +45,6 @@
       </aside>     
     </main>  
 
-    <script src="rotinas.js"></script>
     <script>
       // Adicione informações dinamicamente
       var imagemElement = document.getElementById("imagem");
@@ -56,8 +55,11 @@
         history.back();
       });
     </script>
+
+    <footer>
+      <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
+    </footer>  
+
   </body>  
-  <footer>
-    <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
-  </footer>
+
 </html>

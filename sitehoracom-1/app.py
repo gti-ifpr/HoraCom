@@ -1,10 +1,12 @@
 import mysql.connector
 from flask import Flask
 from cadastro import cadastro_bp
+from login import login_bp
 
 
 app = Flask(__name__, static_folder='static',static_url_path='') 
 app.register_blueprint(cadastro_bp) #registrador que está no arquivo cadastro.py
+app.register_blueprint(login_bp) #registrador que está no arquivo login.py
 
 """@app.route('/')
 def test_mysql_connection():
