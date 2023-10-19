@@ -10,7 +10,7 @@ p {
 /* Estilos Gerais */
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   color: #333;
 }
 
@@ -28,42 +28,9 @@ header {
   height: auto;
 }
 
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #d62A5B;
-}
-
-nav li {
-  float: left;
-  border-right: 1px solid #bbb;
-}
-
-nav li:last-child {
-  border-right: none;
-}
-
-li a:hover:not(.active) {
-  background-color: #ffffff;
-  color: #d62A5B;
-}
-
-.active {
-  background-color: #ffffff;
-}
-
-nav li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
 main{
-  min-height: 100%;
-  box-sizing: border-box;
+  height: auto;
+  box-sizing:content-box;
   background-color: #ffffff;
   padding: 20px;
 }
@@ -78,9 +45,18 @@ main{
   padding: 10px;
   border-radius:8px;
 }
+.info{
+  margin: 10px;
+  border: 10px;
+  padding: 10px;
+}
+#selecione-arquivo {
+  display: inline; /* Torna o elemento "inline" para que fique na mesma linha */
+  margin-right: 10px; /* Adiciona um espaço à direita para separar o texto do link anterior */
+}
 .arrasta{
   color:#31161d transparent;
-  text-align:center;
+  text-align:left;
   margin: 5px;
   border: 5px;
   padding:25px;
@@ -88,9 +64,10 @@ main{
   border-width: 1px;
   border-color: transparent;
   background: rgba(214, 42, 90, 0.26);
-
+  font-weight: bold;
 }
-.escolher{
+
+/* .arquivo{
   background: #ffffff;
   color: #d62A5B;
   border-radius: 5px;
@@ -103,7 +80,7 @@ main{
   box-shadow: 1px 1px 2px #d62A5B;
   -moz-box-shadow: 1px 1px 2px #d62A5B;
   -webkit-box-shadow: 1px 1px 2px #d62A5B;
-}
+}*/
 
 #label{
   padding: 20px 10px;
@@ -115,12 +92,13 @@ main{
   display:block;
   margin-top: 10px;
   cursor: pointer;
-}
+} 
 
 .grupo{
   color:#31161d;
   text-align:left;
   padding:12px; 
+  
 }
 .grupo-options{
   color:#31161d;
@@ -181,7 +159,34 @@ button {
   padding: 10px;
   cursor: pointer;
 }
-
+select {
+  background: #ffffff;
+  color: #757575;
+  border-radius: 5px;
+  border: 1px solid #d62A5B;
+  margin: 5px;
+  width: auto;
+  height: 30px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 1px 1px 2px #d62A5B;
+  -moz-box-shadow: 1px 1px 2px #d62A5B;
+  -webkit-box-shadow: 1px 1px 2px #d62A5B;
+}
+input[type=number]{
+  background: #ffffff;
+  color: #757575;
+  border-radius: 5px;
+  border: 1px solid #d62A5B;
+  margin: 5px;
+  width: auto;
+  height: 30px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 1px 1px 2px #d62A5B;
+  -moz-box-shadow: 1px 1px 2px #d62A5B;
+  -webkit-box-shadow: 1px 1px 2px #d62A5B;
+}
 .voltar {
   display: flex;
   justify-content: flex-end;
@@ -193,4 +198,6 @@ footer {
   background-color: #d62A5B;
   color: white;
   width: 100%;
+  position: absolute;
+  bottom: 0;
 }

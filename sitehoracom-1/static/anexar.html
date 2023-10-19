@@ -13,37 +13,29 @@
     <div class="logo">
       <img src="images/logo.png" alt="Logo HoraCom">
     </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-    </nav>
+
 </header>
 <main>
    <div class="titulo">
       <h1>Anexar Certificados</h1> 
    </div>
   
-    <div class="info">
-      <p>Clique e consulte o regulamento com descrição<a href="tabela.html">Tabela</a></p>
-      <br> 
-      <p><h2>Selecione seu arquivo</h2></p>   
-    </div>
+   <div class="info">
+      <p>Clique e consulte o <a href="tabela.html">REGULAMENTO</a>.</p>
+      <br>
+      <p><h2 id="selecione-arquivo">Selecione seu arquivo</h2> (O arquivo a ser carregado deve estar no formato .pdf ou .jpg, com tamanho máximo de 5mb).</p>    </div>
 
     <div class="arrasta" id="dropArea" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="handleDragLeave(event)">
       <span id="dragInfo"></span>
-      <form action="/upload" method="POST" enctype="multipart/form-data">Solte aqui seu arquivo</form>
+      <form action="/upload" method="POST" enctype="multipart/form-data">Solte o arquivo a ser carregado aqui...</form>
     </div>   
 
     <div>
       <label for="arquivo"></label>
-      <input type="file" id="arquivo" name="arquivo" accept=".jpg, .jpeg, .png" onchange="displaySelectedFileName()">
+      <input type="file" id="arquivo" name="arquivo" accept=".pdf, .jpg " onchange="displaySelectedFileName()">
     </div>
         
-    <div id="arquivoSelecionado"></div><!--Aparece o nome do arquivo selecionado-->      
+    <div id="arquivoSelecionado"></div><!--Aparece o nome do arquivo selecionado-->     
 
     <div class="grupo">
       <label for="grupoPrincipal">Selecione o grupo principal:</label>
@@ -127,11 +119,13 @@
   <div class="voltar">
     <button><a href="useracademic.html">voltar</a></button>
   </div> 
-</main>  
 
   <footer>
     <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
   </footer>
-  <script src="script.js"></script>
+</main>  
+
+
+<script src="script.js"></script>
 </body>
 </html>

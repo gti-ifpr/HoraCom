@@ -161,4 +161,6 @@ footer {
   text-align: center;
   color: #544858;
   width: 100%;
+  position: absolute;
+  bottom: 0;
 }

@@ -207,5 +207,3 @@ function exibirRegistrosNaPagina() {//Função para retornar registros
 exibirRegistrosNaPagina();
 
 
-
-

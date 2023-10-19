@@ -32,11 +32,8 @@ body {
     font-family: Arial, sans-serif;
     padding: 20px;
     display: flex;
-    justify-content: center;
-    /* Centraliza horizontalmente na tela */
-    align-items: center;
-    /* Centraliza verticalmente na tela */
-    min-height: 100vh;
+    flex-direction:row;
+    justify-content: center; /* Centraliza horizontalmente na tela */
 }
 
 .container,
@@ -47,10 +44,9 @@ body {
     padding: 40px;
     text-align: center;
     width: 800px;
-    height: 800px;
-    /* Largura máxima dos contêineres */
-    margin: 0 auto;
-    /* Centraliza os contêineres horizontalmente */
+    height: auto; /* Remova a altura fixa para permitir o dimensionamento correto */
+    margin: 0 auto; /* Centraliza os contêineres horizontalmente */
+    align-items: center; /* Centraliza verticalmente na tela */
 }
 
 h1 {
@@ -122,4 +118,6 @@ footer {
     background-color: #d62A5B;
     color: white;
     width: 100%;
-  }
+    position: absolute;
+    bottom: 0;
+}
