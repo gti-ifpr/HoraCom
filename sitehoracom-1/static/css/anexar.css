@@ -67,33 +67,6 @@ main{
   font-weight: bold;
 }
 
-/* .arquivo{
-  background: #ffffff;
-  color: #d62A5B;
-  border-radius: 5px;
-  border: 1px solid #d62A5B;
-  margin: 5px;
-  width: 300px;
-  height: 30px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  box-shadow: 1px 1px 2px #d62A5B;
-  -moz-box-shadow: 1px 1px 2px #d62A5B;
-  -webkit-box-shadow: 1px 1px 2px #d62A5B;
-}*/
-
-#label{
-  padding: 20px 10px;
-  width: 200px;
-  background-color: pink;
-  color: #fff;
-  text-transform: uppercase;
-  text-align: center;
-  display:block;
-  margin-top: 10px;
-  cursor: pointer;
-} 
-
 .grupo{
   color:#31161d;
   text-align:left;
@@ -112,21 +85,20 @@ main{
   padding:12px; 
 }
 
-.inserir
-{
+.inserir{
   background-color: #ffffff;
   border-radius:10px;
-  border-color: #2d9246;
+  border-color: #669900;
   border:2px;
-  color: #2d9246;
+  color: #669900;
   margin: 20px;
   padding: 10px;
   cursor: pointer;
   border-style: solid;
 }
 .inserir:hover{
-  border: 3px solid rgb(23, 113, 20);
-  background-color: rgb(23, 113, 20);
+  border: 3px solid #669900;
+  background-color: #669900;
   transform: scale(1.5); 
   box-shadow: 0 5px 15px rgba(0,0,0,0.6);
 }
@@ -134,9 +106,9 @@ main{
 {  
   border-radius: 10px;
   background-color: #ffffff;
-  border-color: red;
+  border-color: #cc0000;
   border: 2px;;
-  color: red;
+  color: #cc0000;
   margin: 20px;
   padding: 10px;
   cursor: pointer;
@@ -144,8 +116,8 @@ main{
 
 }
 .cancelar:hover{
-  border: 3px solid rgb(167, 39, 39);
-  background-color: rgb(167, 39, 39);
+  border: 3px solid #cc0000;
+  background-color: #cc0000;
   transform: scale(1.5); 
   box-shadow: 0 5px 15px rgba(0,0,0,0.6);
 }

@@ -113,6 +113,12 @@ button:hover {
     /* Espaço entre a imagem e o texto */
 }
 
+.voltar {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+
 footer {
     text-align: center;
     background-color: #d62A5B;
