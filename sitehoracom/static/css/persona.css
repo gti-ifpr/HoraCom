@@ -1,0 +1,71 @@
+/* style.css */
+/* Reset de Estilos */
+body,
+p {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+
+}
+
+.logo img {
+  width: 150px;
+  /* Ajuste o tamanho conforme necessário */
+  height: auto;
+}
+
+.persona {
+  display: flex;
+  background-color: #ffffff;
+  align-items: center;
+  width: 90%;
+  height: 90%;
+  padding: 92px;
+}
+
+.persona img {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1px;
+}
+
+button {
+  background-color: #d62a5b41;
+  border-radius: 5px;
+  border: #d62A5B;
+  color: #d62A5B;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.voltar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+footer {
+  text-align: center;
+  background-color: #d62A5B;
+  color: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
