@@ -1,0 +1,210 @@
+/* style.css */
+/* Reset de Estilos */
+body,
+p {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+
+/* Estilos Gerais */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+
+}
+
+/* Cabeçalho */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+
+}
+
+
+.logo img {
+  width: 150px;
+  /* Ajuste o tamanho conforme necessário */
+  height: auto;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #d62A5B;
+}
+
+nav li {
+  float: left;
+  border-right: 1px solid #bbb;
+}
+
+nav li:last-child {
+  border-right: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #ffffff;
+  color: #d62A5B;
+}
+
+.active {
+  background-color: #ffffff;
+
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.content {
+  display: flex;
+  background-color: #ffffff;
+  align-items: center;
+  width: 100%;
+  border: 40px;
+  margin: 0;
+  padding: 0px;
+}
+
+.content img {
+  max-width: 84%;
+  margin-right: 180px;
+  display: block;
+  padding: 3px;
+}
+
+.bloco {
+  display: flex;
+  background-color: #ffffff;
+  align-items: center;
+  width: 88%;
+  height: 88%;
+  padding: 100px;
+
+}
+
+.bloco img {
+  width: 60%;
+  border-radius: #11030e;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 80px;
+
+}
+
+.texto {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  color: #2f0c3e;
+  font-size: 40px;
+  width: 80%;
+  text-align: left;
+  align-items: center;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.textorosa {
+  color: #d62A5B;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  font-size: 40px;
+  width: 80%;
+  text-align: left;
+  align-items: center;
+}
+
+.textologin {
+  /*aqui nesse temos que arrunar a configuração para preencher na parte do login*/
+  border-radius: 0px;
+  border-width: 0px;
+  border-color: transparent;
+  background: -webkit-linear-gradient(90deg, rgba(48, 14, 61, 0.26) 0.4%, rgba(214, 42, 90, 0.26) 100%);
+  padding: 10px;
+  /* Adicione um preenchimento interno para separar o conteúdo da borda */
+  width: 100%;
+  height: auto;
+  /* Em vez de 100% para permitir que o elemento cresça conforme o conteúdo */
+  text-decoration: none;
+  /* Não se aplica a elementos de bloco */
+  font-size: 16px;
+  /* Ajuste o tamanho da fonte conforme necessário */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: center;
+  /* Centralize o texto horizontalmente */
+  color: rgb(255, 255, 255);
+  text-shadow: none;
+  position: absolute;
+  /* Use "relative" para posicionar o elemento dentro do fluxo de conteúdo */
+  margin: 0 auto;
+  /* Centralize o elemento horizontalmente na tela */
+  max-width: 400px;
+  /* Defina uma largura máxima para controlar a largura do elemento */
+}
+
+
+.textocontato {
+  color: #2f0c3e;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  font-size: 25px;
+  align-items: center;
+  text-align: center;
+  width: 80%;
+  padding: 20px;
+}
+
+.cadastro {
+  display: flex;
+  background-color: #ffffff;
+  align-items: center;
+  width: 100%;
+  border: 40px;
+  margin: 0;
+  padding: 0px;
+}
+
+.cadastro img {
+  max-width: 50%;
+  margin-right: 200px;
+  display: flex;
+  padding: 10px;
+}
+
+.textocadastro {
+  color: #0c213e;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  font-size: 20px;
+  align-items: center;
+  text-align: center;
+  width: 80%;
+  margin: 08px;
+  padding: 72px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+
+footer {
+  text-align: center;
+  background-color: #d62A5B;
+  color: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
