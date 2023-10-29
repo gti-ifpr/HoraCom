@@ -1,0 +1,50 @@
+/* style.css */
+/* Reset de Estilos */
+body,
+p {
+  margin: 10px;
+  padding: 10px;
+}
+
+/* Estilos Gerais */
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Cabeçalho */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.logo img {
+  width: 150px;
+}
+
+button {
+  background-color: #d62a5b41;
+  border-radius: 5px;
+  border: #d62A5B;
+  color: #d62A5B;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.voltar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+footer {
+  text-align: center;
+  background-color: #d62A5B;
+  color: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
