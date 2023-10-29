@@ -1,8 +1,10 @@
-import mysql.connector
 from routes.cadastro import cadastro_bp
 from routes.login import login_bp
 from flask import Flask, render_template, request, redirect, url_for
+from routes.config import get_db_config
+import mysql.connector
 
+conexao = mysql.connector.connect(**get_db_config())
 
 app = Flask(__name__, static_folder='static', static_url_path='') 
 app.register_blueprint(cadastro_bp)
