@@ -36,4 +36,4 @@ def processar_cadastro():
         cursor.close()
         conexao.close()
 
-    return redirect(url_for('cadastro.exibir_formulario_cadastro'))  # Redireciona de volta para o formulário após a inserção
+    return redirect(url_for('login'))  # Redireciona de volta para o formulário após a inserção
