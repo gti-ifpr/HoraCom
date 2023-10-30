@@ -53,6 +53,11 @@ def user_coordenador():
     # Lógica para a página do coordenador
     return render_template('index/login/usercoordenador.html')
 
+@app.route('/useracademic')
+def user_academic():
+    # Lógica para a página do coordenador
+    return render_template('index/aluno/usercoordenador.html')
+
 @app.route('/login/cadastro')
 def cadastro():
     # Lógica para página de cadastro
