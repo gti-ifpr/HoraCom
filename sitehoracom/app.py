@@ -4,11 +4,15 @@ from flask import Flask, render_template, request, redirect, url_for
 from routes.config import get_db_config
 import mysql.connector
 
-conexao = mysql.connector.connect(**get_db_config())
 
 app = Flask(__name__, static_folder='static', static_url_path='') 
 app.register_blueprint(cadastro_bp)
 app.register_blueprint(login_bp)
+
+def initialize_database():
+    global conexao
+    conexao = mysql.connector.connect(**get_db_config())
+
 
 @app.route('/')
 def index():
