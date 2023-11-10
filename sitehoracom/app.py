@@ -119,12 +119,12 @@ def esqueceu_senha():
 @app.route('/usercoordenador')
 def user_coordenador():
     # Lógica para a página do coordenador
-    return render_template('index/login/usercoordenador.html')
+    return render_template('index/usuario/usercoordenador.html')
 
 @app.route('/useracademic')
 def user_academic():
     # Lógica para a página do coordenador
-    return render_template('index/aluno/usercoordenador.html')
+    return render_template('index/usuario/usercoordenador.html')
 
 @app.route('/login/cadastro')
 def cadastro():
