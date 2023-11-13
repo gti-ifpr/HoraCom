@@ -1,15 +1,20 @@
 import mysql.connector
+from flask_sqlalchemy import SQLAlchemy
+
+SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:amarelo123*@localhost/horacom'
+
+db = SQLAlchemy()
+
 
 def get_db_config():
-    # Aqui você deve retornar os detalhes de configuração do banco de dados, como um dicionário
-    db_config = {
+    return {
+        'host': 'localhost',
         'user': 'root',
         'password': 'amarelo123*',
-        'host': 'localhost',
-        'database': 'horacom'
-        # outros detalhes de configuração, se aplicável
+        'database': 'horacom',
+        'raise_on_warnings': True,
     }
-    return db_config
+
 
 
 
