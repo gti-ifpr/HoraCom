@@ -1,38 +1,21 @@
-from flask import Flask
-import mysql.connector
+from flask_mail import Mail, Message
+from flask import url_for
+from routes.email_utils import enviar_email_redefinicao
 
 
-app = Flask(__name__)
-#TESTE LOCAL EM PYTHON DEU CERTO
-# Configuração da conexão com o banco de dados MySQL
-config = {
-    'user': 'root',
-    'password': 'amarelo123*',
-    'host': 'localhost',
-    'database': 'horacom'
-}
+mail = Mail()
 
-# Conectar ao banco de dados
-conn = mysql.connector.connect(**config)
-cursor = conn.cursor()
 
-def redefinir_senha(usuario, nova_senha):
-    try:
-        # Atualizar a senha do usuário no banco de dados
-        cursor.execute('''
-            UPDATE Senhas
-            SET senha = %s
-            WHERE usuario = %s
-        ''', (nova_senha, usuario))
+def enviar_email_redefinicao(email, token):
+    # Construa o link para redefinir a senha
+    link = url_for('redefinir_senha', token=token, _external=True)
 
-        conn.commit()
-        print('Senha redefinida com sucesso para o usuário:', usuario)
-    except mysql.connector.Error as e:
-        print('Erro ao redefinir a senha:', str(e))
+    # Construa a mensagem de e-mail
+    msg = Message('Redefinição de Senha', sender='horacomgti@gmail.com', recipients=[email])
+    msg.body = f'Clique no link para redefinir sua senha: {link}'
 
-# Exemplo de uso para redefinir a senha para o usuário 'alice'
-redefinir_senha('alice', 'nova_senha_para_alice')
+    # Envie o e-mail
+    mail.send(msg)
 
-# Não se esqueça de fechar a conexão após usar
-conn.close()
+
 
