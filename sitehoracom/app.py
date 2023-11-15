@@ -1,29 +1,20 @@
-from routes.cadastro import cadastro_bp
-from routes.login import login_bp
-from flask import Flask, render_template, request, redirect, url_for, session,redirect,flash
-import mysql.connector
-from flask_login import LoginManager
-from routes.config import db
-from flask_login import (
-    UserMixin, 
-    LoginManager, 
-    login_user, 
-    login_required, 
-    logout_user, 
-    current_user
+from flask import (
+    Flask, render_template, request, redirect, url_for, session, flash, jsonify
 )
-from routes.models import User, Academico, Coordenador
-from flask import jsonify
-from routes.config import db
+from flask_login import (
+    UserMixin, LoginManager,login_user, login_required, logout_user, current_user
+)
 from flask_mail import Mail, Message
-from routes.redefinirsenha import enviar_email_redefinicao
-from routes.config import get_db_config, SQLALCHEMY_DATABASE_URI
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_mysqldb import MySQL
 import os
 import mysql.connector
-from routes.config import get_db_config
-from flask_mysqldb import MySQL
+from routes.config import (
+    db, get_db_config, SQLALCHEMY_DATABASE_URI
+)
+from routes.cadastro import cadastro_bp
+from routes.login import login_bp
+from routes.redefinirsenha import enviar_email_redefinicao
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
@@ -39,7 +30,7 @@ app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'horacomgti@gmail.
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'CamilaFer123*')
 
 # Configuração do banco de dados MySQL local
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:amarelo123*@localhost/horacom'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Amarelo123*@localhost/horacom'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Inicialize o objeto SQLAlchemy com a aplicação Flask
@@ -57,34 +48,27 @@ def load_user(user_id):
     return None
 
 
-@app.route('/')
+@app.route('/')#Rota da pagina incial
 def index():
     return render_template('index.html')
 
 
-@app.route('/acesso')
+@app.route('/acesso')#rota que confirma o usuario para acesso
 def acesso():
     if 'email' in session:
-        # Usuário já está logado
-        return redirect(url_for('acesso'))
+        print("Usuário já está logado")
+        return redirect(url_for('user_academic'))
     return render_template('login.html')
 
 
-from flask_login import login_user, logout_user
-
-# ...
-
-@login_manager.user_loader
-def load_user(user_id):
-    # Implemente a lógica para retornar uma instância do usuário com base no ID do usuário
-    # Exemplo hipotético:
-    # return Usuario.query.get(int(user_id))
-    return None
-
-# ...
-
-@app.route('/login', methods=['POST'])
+@app.route('/login')#Login aqui acho que esta duplicado e podemos tentar melhorar 
 def login():
+    # lógica de login aqui
+    return render_template('login.html')
+
+#Rota que verifica se o usuario ja tem cadastro e direciona
+@app.route('/processar_login', methods=['POST'])
+def processar_login():
     email = request.form.get('email')
     senha = request.form.get('senha')
 
@@ -96,22 +80,20 @@ def login():
     if email and senha:
         cursor = conexao.cursor()
         try:
-            # Utilizando instrução preparada
-            consulta = "SELECT tipo_usuario FROM usuarios WHERE email = %s AND senha = %s"
-            cursor.execute(consulta, (email, senha))
+            consulta = f"SELECT tipo_usuario FROM usuarios WHERE email = '{email}' AND senha = '{senha}'"
+            cursor.execute(consulta)
             resultado = cursor.fetchone()
 
             if resultado:
                 tipo_usuario = resultado[0]
-                
-                # Utilizando Flask-Login para gerenciar o login do usuário
-                user = User(email)  # Substitua isso com a lógica real para carregar o usuário
-                login_user(user)
+                session['tipo_usuario'] = tipo_usuario
+                session['email'] = email
 
                 if tipo_usuario == 'academico':
-                    return redirect(url_for('useracademic'))
+                    print("User academic")
+                    return redirect(url_for('user_academic'))
                 elif tipo_usuario == 'coordenador':
-                    return redirect(url_for('usercoordenador'))
+                    return redirect(url_for('user_coordenador'))
                 else:
                     return redirect(url_for('acesso'))
                     
@@ -125,66 +107,57 @@ def login():
     conexao.close()
     return redirect(url_for('acesso'))
 
-
-
-
-@app.route('/useracademic')
-@login_required
+#Rota da Pagina do Academico
+@app.route('/user_academic')
 def user_academic():
-    print("Tipo de usuário:", current_user.tipo_usuario)
+    #print("Tipo de usuário:", current_user.tipo_usuario)
 
-    if current_user.tipo_usuario == 'academico':
-        print("Renderizando useracademic.html")
-        return render_template('useracademic.html')
-    else:
-        print("Redirecionando para acesso")
-        return redirect(url_for('acesso'))
+    print("Renderizando useracademic.html")
+    return render_template('useracademic.html')
+    #else:
+    #    print("Redirecionando para acesso")
+    #    return redirect(url_for('acesso'))
 
-
-
-@app.route('/usercoordenador')
-@login_required
+#Rota para pagina do Coordenador
+@app.route('/user_coordenador')
 def user_coordenador():
-    if current_user.tipo_usuario == 'coordenador':
-        return render_template('usercoordenador.html')
-    else:
-        return redirect(url_for('acesso'))
 
+    print("Renderizando useracademic.html")
+    return render_template('user_coordenador.html')
+
+#Rota para sair 
 @app.route('/logout')
-@login_required
 def logout():
     logout_user()
-    return redirect(url_for('acesso'))
+    return redirect(url_for('index'))
 
+#Rota para processar o cadastro 
 @app.route('/processar_cadastro', methods=['POST'])
 def processar_cadastro():
-    try:
-        email = request.form['email']
-        senha = request.form['senha']
-        nome = request.form.get('nome')
-        cpf = request.form.get('cpf')
-        tipo_usuario = request.form.get('tipo_usuario', 'academico')  # Padrão para 'academico' se não estiver presente
-
-        conexao = mysql.connector.connect(**get_db_config())
-
-        if conexao:
-            with conexao.cursor() as cursor:
-                # Utilizando instrução preparada para evitar injeção de SQL
-                consulta = "INSERT INTO usuarios (nome, cpf, tipo_usuario, email, senha) VALUES (%s, %s, %s, %s, %s)"
-                valores = (nome, cpf, tipo_usuario, email, senha)
-                cursor.execute(consulta, valores)
-
+    email = request.form['email']
+    senha = request.form['senha']
+    nome = request.form.get('nome')
+    cpf = request.form.get('cpf')
+    tipo_usuario = request.form.get('tipo_usuario', 'academico')  # Padrão para 'academico' se não estiver presente
+    
+    if conexao:
+        try:
+            cursor = conexao.cursor()
+            # Inclua 'nome', 'cpf' e 'tipo_usuario' na consulta SQL
+            consulta = f"INSERT INTO usuarios (nome, cpf, tipo_usuario,email, senha) VALUES ('{nome}', '{cpf}', '{tipo_usuario}','{email}', '{senha}')"
+            cursor.execute(consulta)
             conexao.commit()
-    except mysql.connector.Error as err:
-        print(f"Erro no processamento do cadastro: {err}")
-        conexao.rollback()
-        return 'Erro no processamento do cadastro. Tente novamente.'
-    finally:
-        conexao.close()
+            
+        except mysql.connector.Error as err:
+            print(f"Erro no processamento do cadastro: {err}")
+            conexao.rollback()
+        finally:
+            cursor.close()
+            conexao.close()
+    return render_template('login.html')
+#        return 'Erro no processamento do cadastro. Tente novamente.'
 
-    return 'Cadastro realizado com sucesso!'
-
-
+#Rota para pagina que inserimos email e depois recebomos link para mudar senha
 @app.route('/esqueceusenha', methods=['GET', 'POST'])
 def esqueceusenha():
     if request.method == 'POST':
@@ -193,6 +166,7 @@ def esqueceusenha():
 
     return render_template('esqueceusenha.html')
 
+#Rota com link para alterar senha
 @app.route('/redefinir_senha/<token>', methods=['GET', 'POST'])
 def redefinir_senha(token):
     # Lógica para verificar se o token é válido (por exemplo, tem um prazo de validade)
@@ -209,11 +183,12 @@ def redefinir_senha(token):
 
     # Renderizar a página de redefinição de senha
     return render_template('redefinir_senha.html', token=token)
+#Rota para pagna cadastro e depois processamos o cadastro
 
 @app.route('/cadastro')
 def cadastro():
     return render_template('cadastro.html')
-
+#Rota com logica para obter dados do BD
 @app.route('/obter_registros', methods=['GET'])
 def obter_registros():
     if not current_user.is_authenticated:
@@ -235,48 +210,63 @@ def obter_registros():
 
     return jsonify({"registros": registros})
 
+#Rota para editar cadastro
 @app.route('/editarcadastro')
-def editar_cadastro():
+def editarcadastro():
     return render_template('editarcadastro.html')
 
+#Rota para anexar 
+@app.route('/anexar')
+def anexar():
+    return render_template('anexar.html')
+
+#Rota para os relatório
 @app.route('/relatorio')
 def relatorio():
     return render_template('relatorio.html')
+
+#Rota para extrair zip
+@app.route('/extrairzip')
+def extrairzip():
+    return render_template('extrairzip.html')
+
+#Rota para upload (Uso do coordenador)
 @app.route('/upload')
 def upload():
     return render_template('upload.html')
 
-@app.route('/editar')
-def editar():
-    return render_template('editar.html')
+
+
+#------------- ROTAS ESTATICAS -----------------#
+
+@app.route('/contato')
+def contato():
+    return render_template('contato.html')
+
+@app.route('/sobre')
+def sobre():
+    return render_template('sobre.html')
+
+@app.route('/storyboard')
+def storyboard():
+    return render_template('storyboard.html')
+
+@app.route('/idealizadoras')
+def idealizadoras():
+    return render_template('idealizadoras.html')
+
+@app.route('/persona')
+def persona():
+    return render_template('persona.html')    
+
+@app.route('/saibamais')
+def saibamais():
+    return render_template('saibamais.html')
 
 @app.route('/tabela')
 def tabela():
     return render_template('tabela.html')
 
-@app.route('/extrairzip')
-def extrair():
-    return render_template('extrairzip.html')
-
-#-------------------ROTAS ESTÁTICAS--------------------
-@app.route('/saibamais')
-def saibamais():
-    return render_template('saibamais.html')
-@app.route('/idealizadoras')
-def idealizadoras():
-    return render_template('idealizadoras.html')
-@app.route('/persona')
-def persona():
-    return render_template('persona.html')
-@app.route('/sobre')
-def sobre():
-    return render_template('sobre.html')
-@app.route('/storyboard')
-def storyboard():
-    return render_template('storyboard.html')
-@app.route('/contato')
-def contato():
-    return render_template('contato.html')
 
 
 
