@@ -30,7 +30,12 @@
     <button id="backBtn">Voltar</button>
   </div>
 
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script>
+    document.getElementById("backBtn").addEventListener("click", function(){
+      history.back();
+    });
+  
+  </script>
 
   <footer>
     &copy; 2023 HoraCom. Todos os direitos reservados.
