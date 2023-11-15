@@ -184,6 +184,7 @@ function handleDrop(event) {//faz  parte do soltar arquivo também//
   fileList.appendChild(listItem);
 }
 
+
 function displaySelectedFileName() {//Mostra o arquivo selecionado logo abaixo do escolher//
   const input = document.getElementById('arquivo');
   const arquivoSelecionado = document.getElementById('arquivoSelecionado');
