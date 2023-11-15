@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anexar</title>
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/sobre.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/anexar.css') }}">
 </head>
 <body>
   <header>
@@ -110,21 +110,24 @@
    
   <div>
     <button class="inserir" type="button" onclick="inserirCertificado()"><a href="{{url_for('relatorio')}}">Inserir</a></button>
-    <button class="cancelar"><a href="{{url_for('useracademic')}}">Cancelar</a></button>
+    <button class="cancelar"><a href="{{url_for('user_academic')}}">Cancelar</a></button>
   </div>
 
 
 
   <div class="voltar">
-    <button><a href="{{url_for('useracademic')}}">Voltar</a></button>
+    <button><a href="{{url_for('user_academic')}}">Voltar</a></button>
   </div> 
-
   <footer>
     <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
   </footer>
 </main>  
+<script>
+document.getElementById("backBtn").addEventListener("click", function(){
+  history.back();
+  }); 
 
-
-<script src="{{url_for('script')}}"></script>
+  </script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
