@@ -2,12 +2,11 @@ from flask import request, redirect, url_for, render_template, Blueprint, curren
 import mysql.connector
 from routes.config import get_db_config
 
-
 cadastro_bp = Blueprint("cadastro", __name__)
 
 @cadastro_bp.route('/cadastro', methods=['GET'])
 def exibir_formulario_cadastro():
-    return current_app.send_static_file('index/login/cadastro.html')
+    return current_app.send_static_file('cadastro.html')
 
 @cadastro_bp.route('/processar_cadastro', methods=['POST'])
 def processar_cadastro():
@@ -21,7 +20,7 @@ def processar_cadastro():
     cursor = conexao.cursor()
 
     try:
-        consulta = f"INSERT INTO horacom.aluno (nome, cpf, tipo_usuario, email, senha) VALUES ('{nome}', '{cpf}', '{tipo_usuario}', '{email}', '{senha}')"
+        consulta = f"INSERT INTO horacom.usuario (nome, cpf, tipo_usuario, email, senha) VALUES ('{nome}', '{cpf}', '{tipo_usuario}', '{email}', '{senha}')"
         cursor.execute(consulta)
         conexao.commit()
     except Exception as e:
@@ -33,7 +32,7 @@ def processar_cadastro():
     conexao_nova = mysql.connector.connect(**get_db_config())  # Estabelece uma nova conexão
     cursor_novo = conexao_nova.cursor(dictionary=True)  # Novo cursor em modo dicionário
 
-    consulta_verificacao = f"SELECT tipo_usuario FROM horacom.aluno WHERE email = '{email}'"
+    consulta_verificacao = f"SELECT tipo_usuario FROM horacom.usuario WHERE email = '{email}'"
     cursor_novo.execute(consulta_verificacao)
     usuario_existente = cursor_novo.fetchone()
 
@@ -44,8 +43,8 @@ def processar_cadastro():
         tipo_usuario = usuario_existente['tipo_usuario']  # Tipo de usuário estará no campo 'tipo_usuario'
         
         if tipo_usuario == '02':
-            return render_template('index/usuario/usercoordenador.html')
+            return render_template('usercoordenador.html')
         elif tipo_usuario == '01':
-            return render_template('index/usuario/useracademic.html')
+            return render_template('useracademic.html')
 
     return redirect(url_for('login'))  # Redireciona para a página de login se não encontrar um usuário ou um tipo desconhecido
