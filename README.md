@@ -31,7 +31,7 @@ Riscos :
 
 
 Premissas:
-- Acesso estável à internet para os usuários utilizarem o sistema.
+- login estável à internet para os usuários utilizarem o sistema.
 - Colaboração e cooperação dos acadêmicos e da instituição para adotar e usar a plataforma.
 - Cumprimento dos regulamentos e políticas de proteção de dados e privacidade.
 
