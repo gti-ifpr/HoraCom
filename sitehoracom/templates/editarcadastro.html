@@ -19,7 +19,7 @@
             <div class="form-group">
                 <div class="image-upload">
                     <label for="image-upload" class="image-label">
-                        <img src="{{url_for('static', filename=images/camera-icon.png')}}" alt="Câmera" class="camera-icon">
+                        <img src="{{ url_for('static', filename='images/camera-icon.png') }}" alt="Câmera" class="camera-icon">
                         <br>
                         <br>
                         Escolha uma imagem
@@ -57,7 +57,7 @@
         </form>
     </div>
     <div class="voltar">
-        <button><a href="{{url_for('useracademic')}}">Voltar</a></button>
+        <button><a href="{{url_for('login')}}">Voltar</a></button>
     </div> 
     
     <footer>
