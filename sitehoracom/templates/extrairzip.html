@@ -17,7 +17,7 @@
 
     <div class="content-info">
         <h1>Vamos zipar o arquivo com certificados coloque seu caminho local</h1>
-        <form action="/extrairzip" method="post">
+        <form method="POST" action="{{ url_for('extrairzip') }}">
             <label for="diretorio_documentos">Caminho do diretório </label><br>
             <input type="text" id="diretorio_documentos" name="diretorio_documentos" readonly><br>
             <label for="caminho_zip">Caminho para o arquivo ZIP:</label><br>
