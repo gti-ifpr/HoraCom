@@ -23,7 +23,7 @@
                 <h1>Olá!<br> Seja bem-vindo.</h1>
                 <h4> Faça seu login agora</h4>
                 <br>
-                <form action="{{ url_for('login') }}" onsubmit="return validatedata()" method="post">
+                <form action="{{ url_for('processar_login') }}" onsubmit="return validatedata()" method="post">
                     <label for="email-cpf">Login</label><br>
                     <input type="text" name="email" placeholder="Digite seu e-mail" required><br>
                     <label for="senha">Senha</label><br>
