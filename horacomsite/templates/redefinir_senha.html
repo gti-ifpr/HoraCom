@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/esqueceusenha.css') }}">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
+    </div>
+  </header>
+
+<body>
+    <h1>Redefinir Senha</h1>
+    <form method="post">
+        <label for="nova_senha">Nova Senha:</label>
+        <input type="password" id="nova_senha" name="nova_senha" required>
+        <button type="submit">Redefinir Senha</button>
+    </form>
+
+    <!-- Botão de volta -->
+    <button id="backBtn">Voltar</button>
+
+    <footer>
+      <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById("backBtn").addEventListener("click", function(){
+          history.back();
+        });
+    </script>
+</body>
+</html>
