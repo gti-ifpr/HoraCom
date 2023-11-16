@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extrair Zip</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/extrairzip.css') }}">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
+          </div>
+    </header>
+
+    <div class="content-info">
+        <h1>Vamos zipar o arquivo com certificados coloque seu caminho local</h1>
+        <form method="POST" action="{{ url_for('extrairzip') }}">
+            <label for="diretorio_documentos">Caminho do diretório </label><br>
+            <input type="text" id="diretorio_documentos" name="diretorio_documentos" readonly><br>
+            <label for="caminho_zip">Caminho para o arquivo ZIP:</label><br>
+            <input type="text" id="caminho_zip" name="caminho_zip" readonly><br><br>
+            <input type="submit" value="Extrair e Zipar">
+        </form>
+    </div>
+
+    <div class="voltar">
+        <button id="backBtn">Voltar</button>
+    </div>
+
+    <script>
+        document.getElementById("backBtn").addEventListener("click", function(){
+          history.back();
+        });
+    </script>
+
+    <footer>
+        &copy; 2023 HoraCom. Todos os direitos reservados.
+    </footer>
+</body>
+</html>
