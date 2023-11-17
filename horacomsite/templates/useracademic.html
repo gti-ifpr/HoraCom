@@ -18,12 +18,12 @@
     </header>
     <div class="expand-menu">
         <button id="expand-button">
-            <img src="{{ url_for('static', filename='images/user.png') }}" alt="Ícone de Usuário">
+            <img src="{{ url_for('static',filename='images/user.png')}}" alt="Ícone de Usuário">
         </button>
         <div id="menu-content">
             <ul>
                 <li><a href="{{url_for('editar_cadastro')}}">Editar Cadastro</a></li>
-                <li><a href="{{url_for('logout')}}">Fazer Logoff</a></li>
+                <li><a href="#">Fazer Logoff</a></li>
             </ul>
         </div>
     </div>
@@ -32,21 +32,22 @@
             <div class="content">
                 <div class="row">
                     <div class="block">
-                        <a href="{{ url_for('anexar') }}"><img src="{{ url_for('static', filename='images/Anexar.png') }}" alt="Anexar Certificados"></a>
+                        <a href="{{url_for('anexar')}}"><img src="{{url_for('static',filename='images/Anexar.png')}}" alt="Anexar Certificados"></a>
                         <h3>ANEXAR CERTIFICADOS</h3>
+
                     </div>
                     <div class="block">
-                        <a href="{{ url_for('relatorio') }}"><img src="{{ url_for('static', filename='images/RELATÓRIO.png') }}" alt="Relatório"></a>                      <h2>RELATÓRIOS</h2>
+                        <a href="{{url_for('relatorio')}}"><img src="{{url_for('static',filename='images/RELATÓRIO.png')}}" alt="Relatório"></a>
+                        <h2>RELATÓRIOS</h2>
                     </div>
                 </div>
                 <div class="row">
                     <div class="block">
-                        <a href="{{ url_for('extrairzip') }}"><img src="{{ url_for('static', filename='images/EXTRAIR.png') }}" alt="Extrair"></a>
-
+                        <a href="{{url_for('extrairzip')}}"><img src="{{url_for('static',filename='images/EXTRAIR.png')}}" alt="Extrair"></a>
                         <h2>EXTRAIR ZIP</h2>
                     </div>
                     <div class="block">
-                        <a href="{{ url_for('saibamais') }}"><img src="{{ url_for('static', filename='images/Dica.png') }}" alt="saibamais"></a>
+                        <a href="{{url_for('saibamais')}}"><img src="{{url_for('static',filename='images/Dica.png')}}" alt="saibamais"></a>
                         <h2>SAIBA MAIS</h2>
                     </div>
                 </div>
@@ -79,37 +80,37 @@
         </div>
     </div>
     <script>
-     document.addEventListener('DOMContentLoaded', function () {
-    // Obtém referências para os elementos do DOM
-    const expandButton = document.getElementById('expand-button');
-    const menuContent = document.getElementById('menu-content');
-    const overlay = document.getElementById('overlay');
-
-    // Adiciona um ouvinte de eventos ao botão de expansão
-    expandButton.addEventListener('click', function () {
-        // Verifica se o menu está atualmente visível
-        if (menuContent.style.display === 'block') {
-            // Se estiver visível, oculta o menu e a sobreposição
-            menuContent.style.display = 'none';
-            overlay.style.display = 'none';
-        } else {
-            // Se estiver oculto, mostra o menu e a sobreposição
-            menuContent.style.display = 'block';
-            overlay.style.display = 'block';
-        }
-    });
-
-    // Oculta o menu e a sobreposição inicialmente
-    menuContent.style.display = 'none';
-    overlay.style.display = 'none';
-});
-
-    document.getElementById("backBtn").addEventListener("click", function(){
-    history.back();
-    }); 
-    
-
+        document.addEventListener('DOMContentLoaded', function () {
+       // Obtém referências para os elementos do DOM
+       const expandButton = document.getElementById('expand-button');
+       const menuContent = document.getElementById('menu-content');
+       const overlay = document.getElementById('overlay');
+   
+       // Adiciona um ouvinte de eventos ao botão de expansão
+       expandButton.addEventListener('click', function () {
+           // Verifica se o menu está atualmente visível
+           if (menuContent.style.display === 'block') {
+               // Se estiver visível, oculta o menu e a sobreposição
+               menuContent.style.display = 'none';
+               overlay.style.display = 'none';
+           } else {
+               // Se estiver oculto, mostra o menu e a sobreposição
+               menuContent.style.display = 'block';
+               overlay.style.display = 'block';
+           }
+       });
+   
+       // Oculta o menu e a sobreposição inicialmente
+       menuContent.style.display = 'none';
+       overlay.style.display = 'none';
+   });
+   
+       document.getElementById("backBtn").addEventListener("click", function(){
+       history.back();
+       }); 
+       
     </script>
+
 
     <footer>
         <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
