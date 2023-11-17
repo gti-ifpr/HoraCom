@@ -1,5 +1,5 @@
 from flask import (
-    Flask, render_template, request, redirect, url_for, session, flash, jsonify
+    Flask, render_template, request, redirect, url_for, session, flash, jsonify,current_app
 )
 from flask_login import (
     UserMixin, LoginManager,login_user, login_required, logout_user, current_user
@@ -54,10 +54,13 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/acesso')#rota que confirma o usuario para acesso
+@app.route('/acesso', methods=['GET'])
 def acesso():
     if 'email' in session:
         print("Usuário já está logado")
+        next_url = request.args.get('next')
+        if next_url:
+            return redirect(url_for('user_academic') + f'?next={next_url}')
         return redirect(url_for('user_academic'))
     return render_template('login.html')
 
@@ -197,7 +200,7 @@ def obter_registros():
 
     tipo_usuario = current_user.tipo_usuario
 
-    # Lógica para obter registros do banco de dados com base no tipo de usuário
+    
     try:
         cursor = conexao.cursor(dictionary=True)
         consulta = f"SELECT * FROM tipos_usuario WHERE tipo = '{tipo_usuario}'"
@@ -258,9 +261,6 @@ def anexar():
 def relatorio():
     return render_template('relatorio.html')
 
-from flask import render_template
-
-# ...
 
 @app.route('/relatorio_certificados')
 def relatorio_certificados():
@@ -271,11 +271,32 @@ def relatorio_certificados():
             cursor.execute(consulta)
             certificados = cursor.fetchall()
 
-            return render_template('relatorio.html', certificados=certificados)
+        return render_template('relatorio.html', resultados=certificados)
 
     except mysql.connector.Error as err:
         print(f"Erro na consulta do relatório: {err}")
         return render_template('erro.html')
+
+@app.route('/obter_registros_certificados', methods=['GET'])
+@login_required
+def obter_registros_certificados():
+    if not current_user.is_authenticated:
+        return jsonify({"error": "Usuário não autenticado"}), 401
+
+    try:
+        cursor = conexao.cursor(dictionary=True)
+        consulta = f"SELECT email, grupo, opcao, hora, anexo FROM certificados WHERE tipo_usuario = '{current_user.tipo_usuario}'"
+        cursor.execute(consulta)
+        registros = cursor.fetchall()
+    except mysql.connector.Error as err:
+        print(f"Erro na consulta ao banco de dados: {err}")
+        return jsonify({"error": "Erro na consulta ao banco de dados"}), 500
+    finally:
+        cursor.close()
+
+    # Renderiza o template e passa os registros como variável
+    return render_template('relatorio.html', registros=registros)
+
 
 
 #Rota para extrair zip
