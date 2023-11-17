@@ -205,6 +205,7 @@ function inserirCertificado() {//Insere certificados//
   const mensagemDiv = document.getElementById("mensagem");
   mensagemDiv.innerText = "Certificado inserido com sucesso!";
 }
+
 function exibirRegistrosNaPagina() {//Função para retornar registros 
   const registrosDiv = document.getElementById('registros');
 
@@ -224,5 +225,6 @@ function exibirRegistrosNaPagina() {//Função para retornar registros
     .catch(error => console.error('Erro ao obter os registros:', error));
 }
 exibirRegistrosNaPagina();
+
 
 
