@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Relatório</title>
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/sobre.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/relatorio.css') }}">
 </head>
 <body>
   <header>
@@ -25,7 +25,28 @@
     <h1>Relatório de Registros</h1>
     <div id="registros"></div>
   </div>
-
+  <table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Grupo</th>
+            <th>Opção</th>
+            <th>Horas</th>
+            <th>Anexo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for certificado in certificados %}
+        <tr>
+            <td>{{ certificado.email }}</td>
+            <td>{{ certificado.grupo }}</td>
+            <td>{{ certificado.opcao }}</td>
+            <td>{{ certificado.hora }}</td>
+            <td>{{ certificado.anexo }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
   <div class="voltar">
     <button id="backBtn">Voltar</button>
   </div>
