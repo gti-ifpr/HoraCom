@@ -14,6 +14,7 @@ from routes.config import (
 )
 from routes.cadastro import cadastro_bp
 from routes.login import login_bp
+from routes import *
 from routes.redefinirsenha import enviar_email_redefinicao
 
 
@@ -215,7 +216,39 @@ def obter_registros():
 def editar_cadastro():
     return render_template('editarcadastro.html')
 
-#Rota para anexar 
+
+@app.route('/anexar_certificado',methods=['POST'])
+def anexar_certificado():
+    # print('entrou')
+    anexo = request.form['arquivo']
+    # print('anexo ok')
+    grupo = request.form['grupoPrincipal']
+    # print(grupo)
+    if (grupo == 'g1'):
+        opcao = request.form['subGrupoG1']
+        # print("entrou g1")
+    else:
+        # print("entrou g2")
+        opcao = request.form['subGrupoG2']
+    # print("retorna")
+    horas = request.form['horasDesejadas']
+    # print(horas)
+    email = request.form['email']
+    #print(email)
+
+    if conexao:
+        try:
+            cursor = conexao.cursor()
+            consulta = f"INSERT INTO certificados (email, grupo, opcao,hora, anexo) VALUES ('{email}', '{grupo}', '{opcao}','{horas}', '{anexo}')"
+            cursor.execute(consulta)
+            conexao.commit()
+                        
+        except mysql.connector.Error as err:
+            print(f"Erro no processamento do cadastro: {err}")
+            conexao.rollback()
+
+    return render_template('relatorio.html')
+
 @app.route('/anexar')
 def anexar():
     return render_template('anexar.html')
@@ -224,6 +257,26 @@ def anexar():
 @app.route('/relatorio')
 def relatorio():
     return render_template('relatorio.html')
+
+from flask import render_template
+
+# ...
+
+@app.route('/relatorio_certificados')
+def relatorio_certificados():
+    try:
+        with mysql.connector.connect(**get_db_config()) as conexao:
+            cursor = conexao.cursor(dictionary=True)  # Retorna os resultados como dicionários
+            consulta = "SELECT * FROM certificados"
+            cursor.execute(consulta)
+            certificados = cursor.fetchall()
+
+            return render_template('relatorio.html', certificados=certificados)
+
+    except mysql.connector.Error as err:
+        print(f"Erro na consulta do relatório: {err}")
+        return render_template('erro.html')
+
 
 #Rota para extrair zip
 @app.route('/extrairzip')
