@@ -31,25 +31,28 @@
             <th>Email</th>
             <th>Grupo</th>
             <th>Opção</th>
-            <th>Horas</th>
+            <th>Hora</th>
             <th>Anexo</th>
         </tr>
     </thead>
     <tbody>
-        {% for certificado in certificados %}
-        <tr>
-            <td>{{ certificado.email }}</td>
-            <td>{{ certificado.grupo }}</td>
-            <td>{{ certificado.opcao }}</td>
-            <td>{{ certificado.hora }}</td>
-            <td>{{ certificado.anexo }}</td>
-        </tr>
+        {% for registro in registros %}
+            <tr>
+                <td>{{ registro.email }}</td>
+                <td>{{ registro.grupo }}</td>
+                <td>{{ registro.opcao }}</td>
+                <td>{{ registro.hora }}</td>
+                <td>{{ registro.anexo }}</td>
+            </tr>
         {% endfor %}
     </tbody>
 </table>
   <div class="voltar">
     <button id="backBtn">Voltar</button>
   </div>
+
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
   <script>
     document.getElementById("backBtn").addEventListener("click", function(){
