@@ -206,25 +206,49 @@ function inserirCertificado() {//Insere certificados//
   mensagemDiv.innerText = "Certificado inserido com sucesso!";
 }
 
-function exibirRegistrosNaPagina() {//Função para retornar registros 
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Verifica se o usuário está autenticado antes de fazer a solicitação
+  if (usuarioAutenticado()) {
+    obterRegistros();
+  }
+});
+
+function usuarioAutenticado() {
+  // Sua lógica de verificação de autenticação aqui
+  // Retorne true se autenticado, false caso contrário
+  return true; // ou implemente sua lógica real aqui
+}
+
+function obterRegistros() {
+  fetch("/obter_registros_certificados")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erro ao obter registros");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Lógica para manipular os dados obtidos e atualizar a interface
+      exibirRegistrosNaTela(data.registros);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+function exibirRegistrosNaTela(registros) {
   const registrosDiv = document.getElementById('registros');
 
-  // Faz uma requisição AJAX para obter os registros
-  fetch('/obter_registros')
-    .then(response => response.json())
-    .then(data => {
-      const registros = data.registros;
-
-      registros.forEach((registro, index) => {
-        const item = document.createElement('div');
-        item.classList.add('registro-item');
-        item.innerHTML = `<strong>ID Aluno:</strong> ${registro.id_aluno}, <strong>Grupo:</strong> ${registro.grupo}, <strong>Opção:</strong> ${registro.opcao}, <strong>Horas:</strong> ${registro.quantidade_horas}`;
-        registrosDiv.appendChild(item);
-      });
-    })
-    .catch(error => console.error('Erro ao obter os registros:', error));
+  registros.forEach((registro, index) => {
+    const item = document.createElement('div');
+    item.classList.add('registro-item');
+    item.innerHTML = `<strong>ID Aluno:</strong> ${registro.id_aluno}, <strong>Grupo:</strong> ${registro.grupo}, <strong>Opção:</strong> ${registro.opcao}, <strong>Horas:</strong> ${registro.quantidade_horas}`;
+    registrosDiv.appendChild(item);
+  });
 }
-exibirRegistrosNaPagina();
+
+
 
 
 
