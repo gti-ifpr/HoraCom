@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório Geral para coordenador</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/relatorio.css') }}">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Início</a></li>
+        <li><a href="{{url_for('login')}}">Login</a></li>
+        <li><a href="{{ url_for('sobre') }}">Sobre</a></li>
+        <li><a href="{{ url_for('contato') }}">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="relatorio" id="registros-container">
+    <h1>Relatório de Registros</h1>
+    <div id="registros"></div>
+  </div>
+  <table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Grupo</th>
+            <th>Opção</th>
+            <th>Hora</th>
+            <th>Anexo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for registro in registros %}
+            <tr>
+                <td>{{ registro.email }}</td>
+                <td>{{ registro.grupo }}</td>
+                <td>{{ registro.opcao }}</td>
+                <td>{{ registro.hora }}</td>
+                <td>{{ registro.anexo }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+  <div class="voltar">
+    <button id="backBtn">Voltar</button>
+  </div>
+
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  <script>
+    document.getElementById("backBtn").addEventListener("click", function(){
+      history.back();
+    });
+  
+  </script>
+
+  <footer>
+    &copy; 2023 HoraCom. Todos os direitos reservados.
+  </footer>
+</body>
+</html>
