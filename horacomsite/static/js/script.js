@@ -221,7 +221,7 @@ function usuarioAutenticado() {
 }
 
 function obterRegistros() {
-  fetch("/obter_registros_certificados")
+  fetch("/relatorio_certificados")
     .then((response) => {
       if (!response.ok) {
         throw new Error("Erro ao obter registros");
@@ -247,6 +247,21 @@ function exibirRegistrosNaTela(registros) {
     registrosDiv.appendChild(item);
   });
 }
+// Exemplo de requisição AJAX com credenciais
+$.ajax({
+  url: '/relatorio_certificados',
+  type: 'GET',
+  xhrFields: {
+      withCredentials: true
+  },
+  success: function(data) {
+      console.log(data);
+  },
+  error: function(error) {
+      console.error(error);
+  }
+});
+
 
 
 
