@@ -3,7 +3,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session,redirect,flash,abort
 import mysql.connector
 from flask_login import LoginManager
-from routes.config import get_db_config, db
 from flask_login import (
     UserMixin, 
     LoginManager, 
@@ -12,17 +11,17 @@ from flask_login import (
     logout_user, 
     current_user
 )
+from flask_sqlalchemy import SQLAlchemy
 from routes.models import User, Academico, Coordenador
 from flask import jsonify
 from flask_mail import Mail, Message
 from routes.redefinirsenha import enviar_email_redefinicao
-from routes.config import db, get_db_config, SQLALCHEMY_DATABASE_URI
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from routes.config import db_get_config, Certificados
 import os
 import mysql.connector
-from routes.config import get_db_config
-from flask_mysqldb import MySQL
+from flask import render_template
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
@@ -42,10 +41,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:amarelo123*@localhost/hora
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Inicialize o objeto SQLAlchemy com a aplicação Flask
-db = MySQL(app)
+db = SQLAlchemy(app)
+
+
+
 
 with app.app_context():
-    conexao = mysql.connector.connect(**get_db_config())
+    conexao = mysql.connector.connect(**db_get_config())
 
 
 # Recupera o usuário do banco de dados com base no email - com flask-login
@@ -272,21 +274,18 @@ def anexar_certificado():
 def relatorio():
     return render_template('relatorio.html')
 
-#Rota para retornar os relatórios do BD por usuario
+ 
+#Rota para retornar os relaórios do BD usuario
 @app.route('/relatorio_certificados')
 def relatorio_certificados():
     try:
-        with mysql.connector.connect(**get_db_config()) as conexao:
-            cursor = conexao.cursor(dictionary=True)
-            consulta = "SELECT * FROM certificados"
-            cursor.execute(consulta)
-            certificados = cursor.fetchall()
-
-        return render_template('relatorio.html', resultados=certificados)
-
-    except mysql.connector.Error as err:
-        print(f"Erro na consulta do relatório: {err}")
+        certificados = Certificados.query.all()
+        return render_template('relatorio_certificados.html', certificados=certificados)
+    except Exception as err:
         return render_template('erro.html', error_message=f"Erro na consulta do relatório: {err}")
+
+
+
 
 #Rota para retornar os relaórios do BD de todos para o coordenador
 @app.route('/relatorio_todos_usuarios')
@@ -297,13 +296,13 @@ def relatorio_todos_usuarios():
         abort(403)  # Retorna um erro 403 Forbidden se o usuário não for um coordenador
 
     try:
-        with mysql.connector.connect(**get_db_config()) as conexao:
+        with mysql.connector.connect(**db_get_config()) as conexao:
             cursor = conexao.cursor(dictionary=True)
             consulta = "SELECT * FROM certificados"
             cursor.execute(consulta)
             certificados = cursor.fetchall()
 
-        return render_template('relatoriocoordenador.html', resultados=certificados)
+        return render_template('relatoriocoordenador.html', certifiados=certificados)
 
     except mysql.connector.Error as err:
         print(f"Erro na consulta do relatório de todos os usuários: {err}")
