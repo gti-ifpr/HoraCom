@@ -1,21 +1,28 @@
-from flask import (
-    Flask, render_template, request, redirect, url_for, session, flash, jsonify,current_app
-)
+#from routes.cadastro import cadastro_bp
+#from routes.login import login_bp
+from flask import Flask, render_template, request, redirect, url_for, session,redirect,flash,abort
+import mysql.connector
+from flask_login import LoginManager
+from routes.config import get_db_config, db
 from flask_login import (
-    UserMixin, LoginManager,login_user, login_required, logout_user, current_user
+    UserMixin, 
+    LoginManager, 
+    login_user, 
+    login_required, 
+    logout_user, 
+    current_user
 )
+from routes.models import User, Academico, Coordenador
+from flask import jsonify
 from flask_mail import Mail, Message
+from routes.redefinirsenha import enviar_email_redefinicao
+from routes.config import db, get_db_config, SQLALCHEMY_DATABASE_URI
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_mysqldb import MySQL
 import os
 import mysql.connector
-from routes.config import (
-    db, get_db_config, SQLALCHEMY_DATABASE_URI
-)
-from routes.cadastro import cadastro_bp
-from routes.login import login_bp
-from routes import *
-from routes.redefinirsenha import enviar_email_redefinicao
+from routes.config import get_db_config
+from flask_mysqldb import MySQL
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
@@ -35,25 +42,24 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:amarelo123*@localhost/hora
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Inicialize o objeto SQLAlchemy com a aplicação Flask
-db = SQLAlchemy(app)
+db = MySQL(app)
 
 with app.app_context():
     conexao = mysql.connector.connect(**get_db_config())
 
 
+# Recupera o usuário do banco de dados com base no email - com flask-login
 @login_manager.user_loader
-def load_user(user_id):
-    # Implemente a lógica para retornar uma instância do usuário com base no ID do usuário
-    # Exemplo hipotético:
-    # return Usuario.query.get(int(user_id))
-    return None
+def load_user(user_id):    
+    usuario = User.query.filter_by(email=user_id).first()
+    return usuario
 
-
-@app.route('/')#Rota da pagina incial
+#Rota da pagina incial
+@app.route('/')
 def index():
     return render_template('index.html')
 
-
+#Essa Rota de acesso ficou confusa mas como deu Certo deixamos - tipo autenticador
 @app.route('/acesso', methods=['GET'])
 def acesso():
     if 'email' in session:
@@ -64,13 +70,12 @@ def acesso():
         return redirect(url_for('user_academic'))
     return render_template('login.html')
 
-
-@app.route('/login')#Login aqui acho que esta duplicado e podemos tentar melhorar 
+#Acesso para pagina de login
+@app.route('/login') 
 def login():
-    # lógica de login aqui
     return render_template('login.html')
 
-#Rota que verifica se o usuario ja tem cadastro e direciona
+#Rota que verifica se o usuario ja tem cadastro e direciona(validação com bd)
 @app.route('/processar_login', methods=['POST'])
 def processar_login():
     email = request.form.get('email')
@@ -97,6 +102,7 @@ def processar_login():
                     print("User academic")
                     return redirect(url_for('user_academic'))
                 elif tipo_usuario == 'coordenador':
+                    print("User coordenador")
                     return redirect(url_for('user_coordenador'))
                 else:
                     return redirect(url_for('acesso'))
@@ -105,6 +111,7 @@ def processar_login():
             print(f"Erro na consulta ao banco de dados: {err}")
             return redirect(url_for('acesso'))
         finally:
+            # Modificamos esta parte para consumir todos os resultados
             cursor.fetchall()
             cursor.close()
 
@@ -115,7 +122,6 @@ def processar_login():
 @app.route('/user_academic')
 def user_academic():
     #print("Tipo de usuário:", current_user.tipo_usuario)
-
     print("Renderizando useracademic.html")
     return render_template('useracademic.html')
     #else:
@@ -125,7 +131,6 @@ def user_academic():
 #Rota para pagina do Coordenador
 @app.route('/user_coordenador')
 def user_coordenador():
-
     print("Renderizando user_coordenador.html")
     return render_template('user_coordenador.html')
 
@@ -135,6 +140,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+#Rota do cadastro para inserir no banco de dados as informações do usuario
 @app.route('/cadastro', methods=['POST'])
 def processar_cadastro():
     email = request.form['email']
@@ -146,12 +152,10 @@ def processar_cadastro():
     if conexao:
         try:
             cursor = conexao.cursor()
-            # Inclua 'nome', 'cpf' e 'tipo_usuario' na consulta SQL
             consulta = f"INSERT INTO usuarios (nome, cpf, tipo_usuario,email, senha) VALUES ('{nome}', '{cpf}', '{tipo_usuario}','{email}', '{senha}')"
             cursor.execute(consulta)
             conexao.commit()
             
-            # Restante do código...
             
         except mysql.connector.Error as err:
             print(f"Erro no processamento do cadastro: {err}")
@@ -161,7 +165,12 @@ def processar_cadastro():
             conexao.close()
     return render_template('login.html')
 
-#Rota para pagina que inserimos email e depois recebomos link para mudar senha
+#Rota para acessar a pagina cadastro
+@app.route('/cadastro')
+def cadastro():
+    return render_template('cadastro.html')
+
+#Rota para pagina que inserimos email e depois recebemos link para mudar senha
 @app.route('/esqueceusenha', methods=['GET', 'POST'])
 def esqueceusenha():
     if request.method == 'POST':
@@ -173,53 +182,59 @@ def esqueceusenha():
 #Rota com link para alterar senha
 @app.route('/redefinir_senha/<token>', methods=['GET', 'POST'])
 def redefinir_senha(token):
-    # Lógica para verificar se o token é válido (por exemplo, tem um prazo de validade)
-    # e se é associado a um usuário no banco de dados
-
     if request.method == 'POST':
         nova_senha = request.form.get('nova_senha')
 
         # Lógica para atualizar a senha do usuário no banco de dados
-        # (Você precisa implementar esta lógica)
-
-        # Redirecionar para a página de login ou outra página apropriada após a redefinição de senha
+        
         return redirect(url_for('acesso'))
 
     # Renderizar a página de redefinição de senha
     return render_template('redefinir_senha.html', token=token)
 
-#Rota para editar cadastro
-@app.route('/cadastro')
-def cadastro():
-    return render_template('cadastro.html')
-#Rota com logica para obter dados do BD
+# Rota com lógica para obter dados do BD
 @app.route('/obter_registros', methods=['GET'])
+@login_required
 def obter_registros():
+    app.logger.info("Rota '/obter_registros' acionada.")
     if not current_user.is_authenticated:
         return jsonify({"error": "Usuário não autenticado"}), 401
-
+    
     tipo_usuario = current_user.tipo_usuario
 
-    
     try:
+        # Estabelece uma conexão ao banco de dados
         cursor = conexao.cursor(dictionary=True)
+
+        # Executa a consulta SQL para obter registros relacionados ao tipo de usuário atual
         consulta = f"SELECT * FROM tipos_usuario WHERE tipo = '{tipo_usuario}'"
         cursor.execute(consulta)
+
+        
         registros = cursor.fetchall()
+
     except mysql.connector.Error as err:
         print(f"Erro na consulta ao banco de dados: {err}")
         return jsonify({"error": "Erro na consulta ao banco de dados"}), 500
+
     finally:
         cursor.close()
 
+    # Retorna os registros obtidos do banco de dados em formato JSON
     return jsonify({"registros": registros})
 
-#Rota para editar cadastro
+
+#Rota para editar cadastro implementar código para editar cadastro no BD 
 @app.route('/editar_cadastro')
 def editar_cadastro():
     return render_template('editarcadastro.html')
 
+#Rota da pagina anexar
+@app.route('/anexar')
+def anexar():
+    return render_template('anexar.html')
 
+#Rota para anexar certificado
 @app.route('/anexar_certificado',methods=['POST'])
 def anexar_certificado():
     # print('entrou')
@@ -252,21 +267,17 @@ def anexar_certificado():
 
     return render_template('relatorio.html')
 
-@app.route('/anexar')
-def anexar():
-    return render_template('anexar.html')
-
-#Rota para os relatório
+#Rota para os acessar a pagina relatório
 @app.route('/relatorio')
 def relatorio():
     return render_template('relatorio.html')
 
-
+#Rota para retornar os relatórios do BD por usuario
 @app.route('/relatorio_certificados')
 def relatorio_certificados():
     try:
         with mysql.connector.connect(**get_db_config()) as conexao:
-            cursor = conexao.cursor(dictionary=True)  # Retorna os resultados como dicionários
+            cursor = conexao.cursor(dictionary=True)
             consulta = "SELECT * FROM certificados"
             cursor.execute(consulta)
             certificados = cursor.fetchall()
@@ -275,29 +286,28 @@ def relatorio_certificados():
 
     except mysql.connector.Error as err:
         print(f"Erro na consulta do relatório: {err}")
-        return render_template('erro.html')
+        return render_template('erro.html', error_message=f"Erro na consulta do relatório: {err}")
 
-@app.route('/obter_registros_certificados', methods=['GET'])
+#Rota para retornar os relaórios do BD de todos para o coordenador
+@app.route('/relatorio_todos_usuarios')
 @login_required
-def obter_registros_certificados():
-    if not current_user.is_authenticated:
-        return jsonify({"error": "Usuário não autenticado"}), 401
+def relatorio_todos_usuarios():
+    # Verifica se o usuário atual é um coordenador
+    if current_user.tipo_usuario != 'coordenador':
+        abort(403)  # Retorna um erro 403 Forbidden se o usuário não for um coordenador
 
     try:
-        cursor = conexao.cursor(dictionary=True)
-        consulta = f"SELECT email, grupo, opcao, hora, anexo FROM certificados WHERE tipo_usuario = '{current_user.tipo_usuario}'"
-        cursor.execute(consulta)
-        registros = cursor.fetchall()
+        with mysql.connector.connect(**get_db_config()) as conexao:
+            cursor = conexao.cursor(dictionary=True)
+            consulta = "SELECT * FROM certificados"
+            cursor.execute(consulta)
+            certificados = cursor.fetchall()
+
+        return render_template('relatoriocoordenador.html', resultados=certificados)
+
     except mysql.connector.Error as err:
-        print(f"Erro na consulta ao banco de dados: {err}")
-        return jsonify({"error": "Erro na consulta ao banco de dados"}), 500
-    finally:
-        cursor.close()
-
-    # Renderiza o template e passa os registros como variável
-    return render_template('relatorio.html', registros=registros)
-
-
+        print(f"Erro na consulta do relatório de todos os usuários: {err}")
+        return render_template('erro.html', error_message=f"Erro na consulta do relatório: {err}")
 
 #Rota para extrair zip
 @app.route('/extrairzip')
@@ -312,7 +322,6 @@ def upload():
 
 
 #------------- ROTAS ESTATICAS -----------------#
-
 @app.route('/contato')
 def contato():
     return render_template('contato.html')
@@ -343,8 +352,5 @@ def tabela():
 
 
 
-
-
-
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
