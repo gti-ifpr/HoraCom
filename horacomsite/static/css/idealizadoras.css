@@ -1,18 +1,19 @@
-/* style.css */
-/* Reset de Estilos */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 body,
 p {
-  margin: 0px;
-  border: 0px;
-  padding: 0px;
+  margin: 0;
+  border: 0;
+  padding: 0;
 }
 
 /* Estilos Gerais */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #ffffff;
   color: #333;
-
+  margin: 0;
+  padding: 0;
 }
 
 /* Cabeçalho */
@@ -21,9 +22,7 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: #ffffff;
-
 }
-
 
 .logo img {
   width: 150px;
@@ -55,7 +54,6 @@ li a:hover:not(.active) {
 
 .active {
   background-color: #ffffff;
-
 }
 
 nav li a {
@@ -70,9 +68,8 @@ nav li a {
   display: flex;
   background-color: #ffffff;
   align-items: center;
-  width: 100%;
-  height: 100%;
-  padding: 100px;
+  justify-content: center;
+  padding: 20px; /* Reduzi o padding para evitar que o conteúdo ocupe muito espaço na tela */
 }
 
 .bloco img {
@@ -107,7 +104,6 @@ button {
 form {
   margin-top: 20px;
 }
-
 
 footer {
   text-align: center;
