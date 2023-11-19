@@ -22,11 +22,12 @@
     </nav>
   </header>
   <div class="relatorio" id="registros-container">
-    <h1>Relatório de Registros</h1>
     <div id="registros"></div>
+    <form action="{{ url_for('relatorio_certificados') }}" onsubmit="return validatedata()" method="post"></form>
   </div>
-    <h2>Relatório de Certificados</h2>
-    <table>
+  <h2>Relatório de Certificados</h2>
+  <table id="certificados-table">
+    <thead>
       <tr>
         <th>Email</th>
         <th>Grupo</th>
@@ -34,32 +35,47 @@
         <th>Hora</th>
         <th>Anexo</th>
       </tr>
+    </thead>
+    <tbody>
       
-      {% for certificado in certificados %}
-      <tr>
-        <td>{{ certificado.email }}</td>
-        <td>{{ certificado.grupo }}</td>
-        <td>{{ certificado.opcao }}</td>
-        <td>{{ certificado.hora }}</td>
-        <td>{{ certificado.anexo }}</td>
-      </tr>
-    {% endfor %}
-    <h1>Ocorreu um erro</h1>
-   <p>{{ error_message }}</p>
-      </table>
+    </tbody>
+  </table>
+
+  <div class="voltar">
+    <button id="backBtn">Voltar</button>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  <script>
+    document.getElementById("backBtn").addEventListener("click", function () {
+      history.back();
+    });      
+  </script>
   
-    <div class="voltar">
-      <button id="backBtn">Voltar</button>
-    </div>
+
+<script>
+  // Obtenha os dados do Flask e preencha a tabela usando JavaScript
+  var certificadosData = ("certificados_data|safe" );
   
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-  
-    <script>
-      document.getElementById("backBtn").addEventListener("click", function(){
-        history.back();
-      });
-    </script>
-  
+  var tableBody = document.querySelector("#certificados-table tbody");
+
+  certificadosData.forEach(function (certificado) {
+    var row = tableBody.insertRow();
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+
+    cell1.innerHTML = certificado.email;
+    cell2.innerHTML = certificado.grupo;
+    cell3.innerHTML = certificado.opcao;
+    cell4.innerHTML = certificado.hora;
+    cell5.innerHTML = certificado.anexo;
+  });
+</script>
+   
   <footer>
     &copy; 2023 HoraCom. Todos os direitos reservados.
   </footer>
