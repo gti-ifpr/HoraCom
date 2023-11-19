@@ -23,7 +23,7 @@
         <div id="menu-content">
             <ul>
                 <li><a href="{{url_for('editar_cadastro')}}">Editar Cadastro</a></li>
-                <li><a href="#">Fazer Logoff</a></li>
+                <li><a href="{{url_for('logout')}}">Fazer Logoff</a></li>
             </ul>
         </div>
     </div>
@@ -37,7 +37,7 @@
 
                     </div>
                     <div class="block">
-                        <a href="{{url_for('relatorio')}}"><img src="{{url_for('static', filename='images/RELATÓRIO.png')}}" alt="Relatório"></a>
+                        <a href="{{url_for('relatorio_todos_usuarios')}}"><img src="{{url_for('static', filename='images/RELATÓRIO.png')}}" alt="Relatório"></a>
                         <h2>RELATÓRIOS</h2>
                     </div>
                 </div>
