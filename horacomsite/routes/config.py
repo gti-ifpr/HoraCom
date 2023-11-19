@@ -1,34 +1,64 @@
-import mysql.connector
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
+from sqlalchemy import inspect
 
-SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:amarelo123*@localhost/horacom'
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:amarelo123*@localhost/HoraCom'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy()
+db = SQLAlchemy(app)
 
-
-def get_db_config():
+def db_get_config():
     return {
-        'host': 'localhost',
         'user': 'root',
         'password': 'amarelo123*',
-        'database': 'horacom',
-        'raise_on_warnings': True,
+        'host': 'localhost',
+        'database': 'HoraCom',
+        'port': '3306',
     }
 
+# Exemplo de como obter as tabelas do banco de dados
+def get_tables():
+    config = db_get_config()
+
+    with app.app_context():
+        inspector = inspect(db.engine)
+        tables = inspector.get_table_names()
+    
+    return tables
+
+if __name__ == '__main__':
+    print(get_tables())
 
 
+def get_tables():
+    with app.app_context():
+        inspector = inspect(db.engine)
+        tables = inspector.get_table_names()
+        return tables
 
-def conectar_banco_de_dados():
-    try:
-        db_config = get_db_config()  # Obtendo os detalhes de configuração do banco de dados
-        conexao = mysql.connector.connect(**db_config)  # Conectando ao banco de dados
-        
-        if conexao.is_connected():
-            print("Conexão bem-sucedida ao banco de dados!")
-            conexao.close()  # Fechando a conexão
-    except mysql.connector.Error as e:
-        print(f"Erro ao conectar ao banco de dados: {e}")
+if __name__ == "__main__":
+    tables = get_tables()
+    print("Tabelas no banco de dados:")
+    for table in tables:
+        print(table)
 
-# Chama a função para testar a conexão com o banco de dados
-conectar_banco_de_dados()
+class Certificados(db.Model):
+    __tablename__ = 'certificados'
+    email = db.Column(db.String(100), primary_key=True)
+    grupo = db.Column(db.String(10))
+    opcao = db.Column(db.String(10))
+    hora = db.Column(db.String(10))
+    anexo = db.Column(db.LargeBinary)
 
+def get_table_content(table_name):
+    with app.app_context():
+        rows = db.session.query(Certificados).all()
+        return rows
+
+if __name__ == "__main__":
+    table_content = get_table_content('certificados')
+    print("Conteúdo da tabela 'certificados':")
+    for row in table_content:
+        print(row.email, row.grupo, row.opcao, row.hora, row.anexo)       
