@@ -1,6 +1,4 @@
-#from routes.cadastro import cadastro_bp
-#from routes.login import login_bp
-from flask import Flask, render_template, request, redirect, url_for, session,redirect,flash,abort
+from flask import Flask, render_template, request, redirect, url_for, session,redirect,flash,abort,current_app
 import mysql.connector
 from flask_login import LoginManager
 from flask_login import (
@@ -17,7 +15,6 @@ from flask import jsonify
 from flask_mail import Mail, Message
 from routes.redefinirsenha import enviar_email_redefinicao
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from routes.config import db_get_config, Certificados
 import os
 import mysql.connector
@@ -30,20 +27,12 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'acesso'
 mail = Mail(app)
 
-app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
-app.config['MAIL_PORT'] = os.environ.get('MAIL_PORT', 587)
-app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', True)
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'horacomgti@gmail.com')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', 'CamilaFer123*')
-
 # Configuração do banco de dados MySQL local
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:amarelo123*@localhost/horacom'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Inicialize o objeto SQLAlchemy com a aplicação Flask
 db = SQLAlchemy(app)
-
-
 
 
 with app.app_context():
@@ -275,14 +264,30 @@ def relatorio():
     return render_template('relatorio.html')
 
  
-#Rota para retornar os relaórios do BD usuario
+
 @app.route('/relatorio_certificados')
 def relatorio_certificados():
+    with current_app.app_context():
+        certificados = Certificados.query.all()
     try:
         certificados = Certificados.query.all()
-        return render_template('relatorio_certificados.html', certificados=certificados)
+        
+        # Filtrar certificados com valores válidos
+        certificados_data = [
+            {
+                "email": c.email if c.email else '',
+                "grupo": c.grupo if c.grupo else '',
+                "opcao": c.opcao if c.opcao else '',
+                "hora": c.hora if c.hora else '',
+                "anexo": c.anexo if c.anexo else ''
+            }
+            for c in certificados
+        ]
+
+        return render_template('relatorio_certificados.html', certificados_data=certificados_data)
     except Exception as err:
         return render_template('erro.html', error_message=f"Erro na consulta do relatório: {err}")
+
 
 
 
