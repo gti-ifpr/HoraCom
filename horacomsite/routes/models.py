@@ -1,11 +1,10 @@
-
-from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from routes.config import db
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
+db = SQLAlchemy()
 
-class User(UserMixin, db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'usuarios'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -20,11 +19,6 @@ class User(UserMixin, db.Model):
 
     def check_password(self, senha):
         return check_password_hash(self.senha_hash, senha)
-    
-    
-    @staticmethod
-    def check_password(senha_digitada, senha_hash):
-        return check_password_hash(senha_hash, senha_digitada)
 
 class Academico(User):
     __tablename__ = 'academicos'
