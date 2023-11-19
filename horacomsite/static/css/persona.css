@@ -12,6 +12,8 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: #ffffff;
   color: #333;
+  margin: 0;
+  padding: 0;
 }
 
 /* Cabeçalho */
@@ -21,7 +23,6 @@ header {
   align-items: center;
   background-color: #ffffff;
 }
-
 
 .logo img {
   width: 150px;
@@ -53,7 +54,6 @@ li a:hover:not(.active) {
 
 .active {
   background-color: #ffffff;
-
 }
 
 nav li a {
@@ -64,35 +64,27 @@ nav li a {
   text-decoration: none;
 }
 
-
-.logo img {
-  width: 150px;
-  /* Ajuste o tamanho conforme necessário */
-  height: auto;
-}
-
 .persona {
   display: flex;
   background-color: #ffffff;
   align-items: center;
-  width: 90%;
-  height: 90%;
-  padding: 92px;
+  justify-content: center;
+  padding: 20px; /* Reduzi o padding para evitar que o conteúdo ocupe muito espaço na tela */
 }
 
 .persona img {
-  width: 100%;
+  width: 70%;
+  height: 70%;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1px;
+  padding: 0, 5px;
 }
 
 button {
   background-color: #d62a5b41;
   border-radius: 5px;
-  border: #d62A5B;
   color: #d62A5B;
   margin: 5px;
   padding: 10px;
@@ -104,11 +96,13 @@ button {
   justify-content: flex-end;
 }
 
+
+
+
 footer {
   text-align: center;
   background-color: #d62A5B;
   color: white;
   width: 100%;
-  position: absolute;
-  bottom: 0;
+  
 }
