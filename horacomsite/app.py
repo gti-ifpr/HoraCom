@@ -1,6 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, session,redirect,flash,abort,current_app
-import mysql.connector
-from flask_login import LoginManager
 from flask_login import (
     UserMixin, 
     LoginManager, 
@@ -9,16 +7,15 @@ from flask_login import (
     logout_user, 
     current_user
 )
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy # Biblioteca para bd
+import mysql.connector # para conectar mysql 
 from routes.models import User, Academico, Coordenador
 from flask import jsonify
 from flask_mail import Mail, Message
 from routes.redefinirsenha import enviar_email_redefinicao
-from flask import Flask
 from routes.config import db_get_config, Certificados
 import os
-import mysql.connector
-from flask import render_template
+
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
@@ -27,12 +24,18 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'acesso'
 mail = Mail(app)
 
-# Configuração do banco de dados MySQL local
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:amarelo123*@localhost/horacom'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Inicialize o objeto SQLAlchemy com a aplicação Flask
-db = SQLAlchemy(app)
+db = SQLAlchemy()
+
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:amarelo123*@localhost/horacom'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.init_app(app)
+    return app
+
+
 
 
 with app.app_context():
