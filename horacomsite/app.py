@@ -36,8 +36,6 @@ def create_app():
     return app
 
 
-
-
 with app.app_context():
     conexao = mysql.connector.connect(**db_get_config())
 
@@ -94,7 +92,7 @@ def processar_login():
 
                 if tipo_usuario == 'academico':
                     print("User academic")
-                    return redirect(url_for('user_academic'))
+                    return redirect(url_for('user_academic',data=email)) #variavel data = dado email
                 elif tipo_usuario == 'coordenador':
                     print("User coordenador")
                     return redirect(url_for('user_coordenador'))
@@ -113,11 +111,11 @@ def processar_login():
     return redirect(url_for('acesso'))
 
 #Rota da Pagina do Academico
-@app.route('/user_academic')
-def user_academic():
+@app.route('/user_academic/<data>')#mudar rota com dado do email
+def user_academic(data):#variavel data contem email
     #print("Tipo de usuário:", current_user.tipo_usuario)
     print("Renderizando useracademic.html")
-    return render_template('useracademic.html')
+    return render_template('useracademic.html',data=data)
     #else:
     #    print("Redirecionando para acesso")
     #    return redirect(url_for('acesso'))
@@ -156,7 +154,7 @@ def processar_cadastro():
             conexao.rollback()
         finally:
             cursor.close()
-            conexao.close()
+            
     return render_template('login.html')
 
 #Rota para acessar a pagina cadastro
@@ -224,13 +222,13 @@ def editar_cadastro():
     return render_template('editarcadastro.html')
 
 #Rota da pagina anexar
-@app.route('/anexar')
-def anexar():
-    return render_template('anexar.html')
+@app.route('/anexar/<data>')
+def anexar(data):
+    return render_template('anexar.html',data=data)
 
 #Rota para anexar certificado
-@app.route('/anexar_certificado',methods=['POST'])
-def anexar_certificado():
+@app.route('/anexar_certificado/<data>',methods=['POST'])
+def anexar_certificado(data):
     # print('entrou')
     anexo = request.form['arquivo']
     # print('anexo ok')
@@ -238,14 +236,28 @@ def anexar_certificado():
     # print(grupo)
     if (grupo == 'g1'):
         opcao = request.form['subGrupoG1']
+        if opcao == "opcao1" or opcao =="opcao2" or opcao == "opcao8" or opcao == "opcao9" or opcao == "opcao15" or opcao == "opcao16" or opcao == "opcao17" or opcao == "opcao18" or opcao == "opcao19":
+            peso = 60
+        elif opcao=="opcao3" or opcao == "opcao6" or opcao == "opcao10" or opcao == "opcao11" or opcao == "opcao12" or opcao == "opcao13" or opcao == "opcao14":
+            peso = 80
+        elif opcao=="opcao4" or opcao=="opcao5":
+            peso = 20
+        else:
+            peso =  40
         # print("entrou g1")
     else:
         # print("entrou g2")
         opcao = request.form['subGrupoG2']
-    # print("retorna")
+        if opcao == "opcao1" or opcao == "opcao2":
+            peso = 120
+        else:
+            peso = 60 
+
     horas = request.form['horasDesejadas']
+    if(int(horas)>peso):
+        horas = peso
     # print(horas)
-    email = request.form['email']
+    email = data
     #print(email)
 
     if conexao:
@@ -259,12 +271,24 @@ def anexar_certificado():
             print(f"Erro no processamento do cadastro: {err}")
             conexao.rollback()
 
-    return render_template('relatorio.html')
+    return redirect(url_for('relatorio', data=email))
 
 #Rota para os acessar a pagina relatório
-@app.route('/relatorio')
-def relatorio():
-    return render_template('relatorio.html')
+@app.route('/relatorio/<data>')
+def relatorio(data):
+    cursor = conexao.cursor()
+    try:
+        consulta = f"SELECT * from certificados where email='{data}'"
+        cursor.execute(consulta)
+        resultado = cursor.fetchall()
+        print(resultado)                    
+    except mysql.connector.Error as err:
+        print(f"Erro na consulta ao banco de dados: {err}")
+        return redirect(url_for('acesso'))
+    finally:
+        cursor.fetchall()
+        cursor.close()
+    return render_template('relatorio.html',data=resultado)
 
  
 

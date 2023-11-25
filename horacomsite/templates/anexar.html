@@ -22,8 +22,8 @@
    <div class="info">
       <p>Clique e consulte o <a href="{{url_for('tabela')}}">REGULAMENTO</a>.</p>
       <br>
-    <form action="{{ url_for('anexar_certificado') }}" method="post">
-      <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+    <form action="{{ url_for('anexar_certificado', data=data) }}" method="post">
+      <!-- <input type="email" id="email" name="email" placeholder="Digite seu email" required> -->
 
       <!-- <div class="arrasta" id="dropArea" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="handleDragLeave(event)">
         <span id="dragInfo"></span>
@@ -111,13 +111,13 @@
       
     <div>
       <input type="submit" class="inserir" value="Inserir"></input>           
-      <button class="cancelar"><a href="{{url_for('user_academic')}}">Cancelar</a></button>
+      <button class="cancelar"><a href="{{url_for('user_academic',data=data)}}">Cancelar</a></button>
     </div>
   </form>  
 
 
   <div class="voltar">
-    <button><a href="{{url_for('user_academic')}}">Voltar</a></button>
+    <button><a href="{{url_for('user_academic',data=data)}}">Voltar</a></button>
   </div> 
   <footer>
     <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
