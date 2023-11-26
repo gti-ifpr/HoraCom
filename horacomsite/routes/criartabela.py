@@ -1,8 +1,8 @@
 import mysql.connector
-from config import get_db_config
+from config import db_get_config
 
 try:
-    conexao = mysql.connector.connect(**get_db_config())
+    conexao = mysql.connector.connect(**db_get_config())
 
     criar_tabela_SQL = """CREATE TABLE usuarios (
                         nome VARCHAR(100),
@@ -25,7 +25,7 @@ finally:
         print("Conexão ao MySQL finalizada.")
 
 try:
-    conexao = mysql.connector.connect(**get_db_config())
+    conexao = mysql.connector.connect(**db_get_config())
 
     criar_tabela_SQL = """CREATE TABLE certificados (
                         email VARCHAR(100),
