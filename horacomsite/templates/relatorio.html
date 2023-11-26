@@ -29,7 +29,7 @@
   <table id="certificados-table">
     <thead>
       <tr>
-        <th>Email</th>
+       
         <th>Grupo</th>
         <th>Opção</th>
         <th>Hora</th>
@@ -37,7 +37,7 @@
       </tr>
       {% for item in data %}
       <tr>
-        <td>{{item[0]}}</td>
+        
         <td>{{item[1]}}</td>
         <td>{{item[2]}}</td>
         <td>{{item[3]}}</td>
@@ -49,7 +49,7 @@
       
     </tbody>
   </table>
-
+  
   <div class="voltar">
     <button id="backBtn">Voltar</button>
   </div>
@@ -62,7 +62,7 @@
     });      
   </script>
   
-
+  <p>Total de horas inseridas: {{ soma_horas }}</p>
 <script>
   // Obtenha os dados do Flask e preencha a tabela usando JavaScript
   var certificadosData = ("certificados_data|safe" );
