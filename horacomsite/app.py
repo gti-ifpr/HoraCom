@@ -112,7 +112,7 @@ def processar_login():
 
 #Rota da Pagina do Academico
 @app.route('/user_academic/<data>')#mudar rota com dado do email
-def user_academic(data):#variavel data contem email
+def user_academic(data):#variavel data contem email - para vincular o acesso do usuario
     #print("Tipo de usuário:", current_user.tipo_usuario)
     print("Renderizando useracademic.html")
     return render_template('useracademic.html',data=data)
@@ -293,12 +293,12 @@ def relatorio(data):
  
 
 @app.route('/relatorio_certificados')
+@login_required
 def relatorio_certificados():
-    with current_app.app_context():
-        certificados = Certificados.query.all()
     try:
+        # Consulta todos os certificados
         certificados = Certificados.query.all()
-        
+
         # Filtrar certificados com valores válidos
         certificados_data = [
             {
@@ -311,11 +311,12 @@ def relatorio_certificados():
             for c in certificados
         ]
 
-        return render_template('relatorio_certificados.html', certificados_data=certificados_data)
+        # Calcular a soma das horas inseridas
+        soma_horas = sum(c.hora if c.hora else 0 for c in certificados)
+
+        return render_template('relatorio_certificados.html', certificados_data=certificados_data, soma_horas=soma_horas)
     except Exception as err:
         return render_template('erro.html', error_message=f"Erro na consulta do relatório: {err}")
-
-
 
 
 
