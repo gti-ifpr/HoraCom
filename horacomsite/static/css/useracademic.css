@@ -12,7 +12,7 @@ body {
   color: #333;
 }
 
-#overlay {
+#overlay-menu {
   display: none;
   position: fixed;
   top: 0;
@@ -221,4 +221,44 @@ footer {
   width: 100%;
   position: absolute;
   bottom: 0;
+}
+
+/* Seus estilos existentes */
+
+#overlay,
+#aviso {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#overlay-aviso {
+  background-color: rgba(0, 0, 0, 0.7); /* Adicione uma cor de fundo escura com transparência */
+  z-index: 999; /* Certifique-se de que o z-index seja maior que os outros elementos para ficar na frente */
+}
+
+#aviso {
+  background-color: rgba(0, 0, 0, 0.7); /* Adicione uma cor de fundo escura com transparência */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Certifique-se de que o z-index seja maior que os outros elementos para ficar na frente */
+}
+
+.termo-responsabilidade {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#aceitar-termo {
+  background-color: #d62A5B;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
