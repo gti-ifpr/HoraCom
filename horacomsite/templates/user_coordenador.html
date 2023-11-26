@@ -80,34 +80,34 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-       // Obtém referências para os elementos do DOM
-       const expandButton = document.getElementById('expand-button');
-       const menuContent = document.getElementById('menu-content');
-       const overlay = document.getElementById('overlay');
-   
-       // Adiciona um ouvinte de eventos ao botão de expansão
-       expandButton.addEventListener('click', function () {
-           // Verifica se o menu está atualmente visível
-           if (menuContent.style.display === 'block') {
-               // Se estiver visível, oculta o menu e a sobreposição
-               menuContent.style.display = 'none';
-               overlay.style.display = 'none';
-           } else {
-               // Se estiver oculto, mostra o menu e a sobreposição
-               menuContent.style.display = 'block';
-               overlay.style.display = 'block';
-           }
-       });
-   
-       // Oculta o menu e a sobreposição inicialmente
-       menuContent.style.display = 'none';
-       overlay.style.display = 'none';
+   document.addEventListener('DOMContentLoaded', function () {
+   // Obtém referências para os elementos do DOM
+   const expandButton = document.getElementById('expand-button');
+   const menuContent = document.getElementById('menu-content');
+   const overlay = document.getElementById('overlay');
+
+   // Adiciona um ouvinte de eventos ao botão de expansão
+   expandButton.addEventListener('click', function () {
+       // Verifica se o menu está atualmente visível
+       if (menuContent.style.display === 'block') {
+           // Se estiver visível, oculta o menu e a sobreposição
+           menuContent.style.display = 'none';
+           overlay.style.display = 'none';
+       } else {
+           // Se estiver oculto, mostra o menu e a sobreposição
+           menuContent.style.display = 'block';
+           overlay.style.display = 'block';
+       }
    });
-   
-       document.getElementById("backBtn").addEventListener("click", function(){
-       history.back();
-       }); 
+
+   // Oculta o menu e a sobreposição inicialmente
+   menuContent.style.display = 'none';
+   overlay.style.display = 'none';
+});
+
+   document.getElementById("backBtn").addEventListener("click", function(){
+   history.back();
+   }); 
        
     </script>
 
