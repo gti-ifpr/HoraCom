@@ -23,7 +23,11 @@
   </header>
   <div class="relatorio" id="registros-container">
     <div id="registros"></div>
-    <form action="{{ url_for('relatorio_certificados') }}" onsubmit="return validatedata()" method="post"></form>
+    <form action="{{ url_for('relatorio', data=data) }}" onsubmit="return validatedata()" method="post">
+      <input type="hidden" name="email" value="{{ current_user.email }}">
+      
+   </form>
+    
   </div>
   <h2>Relatório de Certificados</h2>
   <table id="certificados-table">
@@ -62,7 +66,7 @@
     });      
   </script>
   
-  <p>Total de horas inseridas: {{ soma_horas }}</p>
+  <h2><p>Total de horas inseridas: {{ somar_horas }}</p></h2>
 <script>
   // Obtenha os dados do Flask e preencha a tabela usando JavaScript
   var certificadosData = ("certificados_data|safe" );
