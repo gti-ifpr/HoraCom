@@ -220,49 +220,6 @@ function usuarioAutenticado() {
   return true; // ou implemente sua lógica real aqui
 }
 
-function obterRegistros() {
-  fetch("/relatorio_certificados")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Erro ao obter registros");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      // Lógica para manipular os dados obtidos e atualizar a interface
-      exibirRegistrosNaTela(data.registros);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
-function exibirRegistrosNaTela(registros) {
-  const registrosDiv = document.getElementById('registros');
-
-  registros.forEach((registro, index) => {
-    const item = document.createElement('div');
-    item.classList.add('registro-item');
-    item.innerHTML = `<strong>ID Aluno:</strong> ${registro.id_aluno}, <strong>Grupo:</strong> ${registro.grupo}, <strong>Opção:</strong> ${registro.opcao}, <strong>Horas:</strong> ${registro.quantidade_horas}`;
-    registrosDiv.appendChild(item);
-  });
-}
-// Exemplo de requisição AJAX com credenciais
-$.ajax({
-  url: '/relatorio_certificados',
-  type: 'GET',
-  xhrFields: {
-      withCredentials: true
-  },
-  success: function(data) {
-      console.log(data);
-  },
-  error: function(error) {
-      console.error(error);
-  }
-});
-
-
 
 
 
