@@ -19,7 +19,7 @@ def gerar_relatorio_certificados():
         cursor = conn.cursor()
 
         # Consulta para obter os dados dos certificados
-        cursor.execute('SELECT id_aluno, grupo, opcao, quantidade_horas FROM Certificados')
+        cursor.execute('SELECT email, grupo, opcao, quantidade_horas FROM Certificados')
 
         # Obter os resultados da consulta
         resultados = cursor.fetchall()
