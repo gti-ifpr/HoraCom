@@ -85,42 +85,46 @@ main{
   padding:12px; 
 }
 
-.inserir{
+.inserir {
   background-color: #ffffff;
-  border-radius:10px;
+  border-radius: 10px;
   border-color: #669900;
-  border:2px;
+  border: 2px;
   color: #669900;
   margin: 20px;
   padding: 10px;
   cursor: pointer;
   border-style: solid;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
-.inserir:hover{
+
+.inserir:hover {
   border: 3px solid #669900;
-  background-color: #669900;
-  transform: scale(1.5); 
-  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+  background-color: rgba(102, 153, 0, 0.8); /* Adicione a transparência aqui */
+  transform: scale(1.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
-.cancelar
-{  
+
+.cancelar {
   border-radius: 10px;
   background-color: #ffffff;
   border-color: #cc0000;
-  border: 2px;;
+  border: 2px;
   color: #cc0000;
   margin: 20px;
   padding: 10px;
   cursor: pointer;
   border-style: solid;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
 
-}
-.cancelar:hover{
+.cancelar:hover {
   border: 3px solid #cc0000;
-  background-color: #cc0000;
-  transform: scale(1.5); 
-  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+  background-color: rgba(204, 0, 0, 0.8); /* Adicione a transparência aqui */
+  transform: scale(1.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
+
 
 button {
   background-color: #d62a5b41;
