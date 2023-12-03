@@ -1,6 +1,6 @@
 from flask import request, redirect, url_for, render_template, Blueprint, current_app
 import mysql.connector
-from routes.config import get_db_config
+from routes.config import db_get_config_config
 
 cadastro_bp = Blueprint("cadastro", __name__)
 
@@ -16,7 +16,7 @@ def processar_cadastro():
     email = request.form['email']
     senha = request.form['senha']
 
-    conexao = mysql.connector.connect(**get_db_config())
+    conexao = mysql.connector.connect(**db_get_config_config())
     cursor = conexao.cursor()
 
     try:
@@ -29,7 +29,7 @@ def processar_cadastro():
         conexao.close()
         return redirect(url_for('login'))  # Em caso de erro na inserção, redirecione para a página de login
 
-    conexao_nova = mysql.connector.connect(**get_db_config())  # Estabelece uma nova conexão
+    conexao_nova = mysql.connector.connect(**db_get_config_config())  # Estabelece uma nova conexão
     cursor_novo = conexao_nova.cursor(dictionary=True)  # Novo cursor em modo dicionário
 
     consulta_verificacao = f"SELECT tipo_usuario FROM horacom.usuario WHERE email = '{email}'"
