@@ -9,11 +9,12 @@ from flask_login import (
 )
 from flask_sqlalchemy import SQLAlchemy # Biblioteca para bd
 import mysql.connector # para conectar mysql 
-from routes.models import User, Academico, Coordenador
+from routes.models import User
 from flask import jsonify
 from flask_mail import Mail, Message
 from routes.redefinirsenha import enviar_email_redefinicao
-from routes.config import db_get_config, Certificados
+from routes.config import db_get_config, Certificados,somar_horas_certificados
+from sqlalchemy import func, inspect
 import os
 
 
@@ -51,15 +52,20 @@ def load_user(user_id):
 def index():
     return render_template('index.html')
 
-#Essa Rota de acesso ficou confusa mas como deu Certo deixamos - tipo autenticador
-@app.route('/acesso', methods=['GET'])
+@app.route('/acesso/<data>', methods=['GET'])
 def acesso():
+    # Verifica se 'email' está na sessão
     if 'email' in session:
-        print("Usuário já está logado")
+        data = request.args.get('data')
         next_url = request.args.get('next')
-        if next_url:
-            return redirect(url_for('user_academic') + f'?next={next_url}')
-        return redirect(url_for('user_academic'))
+
+        # Redireciona com base em 'data' e 'next_url'
+        if data:
+            return redirect(url_for('user_academic', email=session['email'], data=data, next=next_url) if next_url else url_for('user_academic', email=session['email'], data=data))
+        else:
+            return redirect(url_for('user_academic', email=session['email'], next=next_url) if next_url else url_for('user_academic', email=session['email']))
+
+    # Se 'email' não estiver na sessão, renderiza o template de login
     return render_template('login.html')
 
 #Acesso para pagina de login
@@ -126,13 +132,13 @@ def user_coordenador():
     print("Renderizando user_coordenador.html")
     return render_template('user_coordenador.html')
 
-#Rota para sair 
+#Rota para sair - ROTA OK
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
-#Rota do cadastro para inserir no banco de dados as informações do usuario
+#Rota do cadastro para inserir no banco de dados as informações do usuario - ROTA OK
 @app.route('/cadastro', methods=['POST'])
 def processar_cadastro():
     email = request.form['email']
@@ -157,12 +163,12 @@ def processar_cadastro():
             
     return render_template('login.html')
 
-#Rota para acessar a pagina cadastro
+#Rota para acessar a pagina cadastro - ROTA OK
 @app.route('/cadastro')
 def cadastro():
     return render_template('cadastro.html')
 
-#Rota para pagina que inserimos email e depois recebemos link para mudar senha
+#Rota para pagina que inserimos email e depois recebemos link para mudar senha(AINDA NÃO)
 @app.route('/esqueceusenha', methods=['GET', 'POST'])
 def esqueceusenha():
     if request.method == 'POST':
@@ -171,7 +177,7 @@ def esqueceusenha():
 
     return render_template('esqueceusenha.html')
 
-#Rota com link para alterar senha
+#Rota com link para alterar senha(AINDA NÃO)
 @app.route('/redefinir_senha/<token>', methods=['GET', 'POST'])
 def redefinir_senha(token):
     if request.method == 'POST':
@@ -184,49 +190,17 @@ def redefinir_senha(token):
     # Renderizar a página de redefinição de senha
     return render_template('redefinir_senha.html', token=token)
 
-# Rota com lógica para obter dados do BD
-@app.route('/obter_registros', methods=['GET'])
-@login_required
-def obter_registros():
-    app.logger.info("Rota '/obter_registros' acionada.")
-    if not current_user.is_authenticated:
-        return jsonify({"error": "Usuário não autenticado"}), 401
-    
-    tipo_usuario = current_user.tipo_usuario
-
-    try:
-        # Estabelece uma conexão ao banco de dados
-        cursor = conexao.cursor(dictionary=True)
-
-        # Executa a consulta SQL para obter registros relacionados ao tipo de usuário atual
-        consulta = f"SELECT * FROM tipos_usuario WHERE tipo = '{tipo_usuario}'"
-        cursor.execute(consulta)
-
-        
-        registros = cursor.fetchall()
-
-    except mysql.connector.Error as err:
-        print(f"Erro na consulta ao banco de dados: {err}")
-        return jsonify({"error": "Erro na consulta ao banco de dados"}), 500
-
-    finally:
-        cursor.close()
-
-    # Retorna os registros obtidos do banco de dados em formato JSON
-    return jsonify({"registros": registros})
-
-
-#Rota para editar cadastro implementar código para editar cadastro no BD 
+#Rota para editar cadastro implementar código para editar cadastro no BD (AINDA NÃO)
 @app.route('/editar_cadastro')
 def editar_cadastro():
     return render_template('editarcadastro.html')
 
-#Rota da pagina anexar
+#Rota da pagina anexar - ROTA OK
 @app.route('/anexar/<data>')
 def anexar(data):
     return render_template('anexar.html',data=data)
 
-#Rota para anexar certificado
+#Rota para anexar certificado - ROTA OK
 @app.route('/anexar_certificado/<data>',methods=['POST'])
 def anexar_certificado(data):
     # print('entrou')
@@ -273,51 +247,30 @@ def anexar_certificado(data):
 
     return redirect(url_for('relatorio', data=email))
 
-#Rota para os acessar a pagina relatório
+
+# Rotina Relatórios OK 
 @app.route('/relatorio/<data>')
 def relatorio(data):
     cursor = conexao.cursor()
     try:
-        consulta = f"SELECT * from certificados where email='{data}'"
-        cursor.execute(consulta)
+        print("Entrou na função relatorio_certificados")
+        consulta = "SELECT * FROM certificados WHERE email=%s"
+        cursor.execute(consulta, (data,))
         resultado = cursor.fetchall()
-        print(resultado)                    
+        print(resultado)
+
+        # Calcular a soma das horas
+        email = data  # Use o valor 'data' como o email para a função
+        somar_horas = somar_horas_certificados(email)
+        print(somar_horas)
+
     except mysql.connector.Error as err:
         print(f"Erro na consulta ao banco de dados: {err}")
         return redirect(url_for('acesso'))
     finally:
-        cursor.fetchall()
         cursor.close()
-    return render_template('relatorio.html',data=resultado)
 
- 
-
-@app.route('/relatorio_certificados')
-@login_required
-def relatorio_certificados():
-    try:
-        # Consulta todos os certificados
-        certificados = Certificados.query.all()
-
-        # Filtrar certificados com valores válidos
-        certificados_data = [
-            {
-                "email": c.email if c.email else '',
-                "grupo": c.grupo if c.grupo else '',
-                "opcao": c.opcao if c.opcao else '',
-                "hora": c.hora if c.hora else '',
-                "anexo": c.anexo if c.anexo else ''
-            }
-            for c in certificados
-        ]
-
-        # Calcular a soma das horas inseridas
-        soma_horas = sum(c.hora if c.hora else 0 for c in certificados)
-
-        return render_template('relatorio_certificados.html', certificados_data=certificados_data, soma_horas=soma_horas)
-    except Exception as err:
-        return render_template('erro.html', error_message=f"Erro na consulta do relatório: {err}")
-
+    return render_template('relatorio.html', data=resultado, somar_horas=somar_horas)
 
 
 #Rota para retornar os relaórios do BD de todos para o coordenador
