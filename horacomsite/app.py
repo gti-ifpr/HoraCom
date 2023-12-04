@@ -12,10 +12,8 @@ import mysql.connector # para conectar mysql
 from routes.models import User
 from flask import jsonify
 from flask_mail import Mail, Message
-from routes.redefinirsenha import enviar_email_redefinicao
-from routes.config import db_get_config, Certificados,somar_horas_certificados
+from routes.config import db_get_config, somar_horas_certificados
 from sqlalchemy import func, inspect
-import os
 
 
 
@@ -272,8 +270,7 @@ def relatorio(data):
 
     return render_template('relatorio.html', data=resultado, somar_horas=somar_horas)
 
-
-#Rota para retornar os relaórios do BD de todos para o coordenador
+#Rota para retornar os relatórios do BD de todos para o coordenador(VERIFICAR MELHOR FUNÇÃO)
 @app.route('/relatorio_todos_usuarios')
 @login_required
 def relatorio_todos_usuarios():
@@ -294,7 +291,7 @@ def relatorio_todos_usuarios():
         print(f"Erro na consulta do relatório de todos os usuários: {err}")
         return render_template('erro.html', error_message=f"Erro na consulta do relatório: {err}")
 
-#Rota para extrair zip
+#Rota para extrair zip 
 @app.route('/extrairzip')
 def extrairzip():
     return render_template('extrairzip.html')
