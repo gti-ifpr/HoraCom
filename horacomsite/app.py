@@ -207,7 +207,7 @@ def anexar_certificado(data):
     grupo = request.form['grupoPrincipal']
     # print(grupo)
     
-    hora = int(request.form['horasDesejadas'])
+    hora = float(request.form['horasDesejadas'])
     
     if (grupo == 'g1'):
         opcao = request.form['subGrupoG1']
@@ -280,16 +280,16 @@ def anexar_certificado(data):
     if resultado[0] == None:
         resultado = 0
     else:
-        resultado = int(resultado[0])
-    if(hora > peso-resultado):
-        hora = peso-resultado
+        resultado = float(resultado[0])
+    if(hora > peso - resultado):
+        hora = peso - resultado
     # print(horas)
     #print(email)
 
     if conexao:
         try:
             cursor = conexao.cursor()
-            consulta = f"INSERT INTO certificados (email, grupo, opcao,hora, anexo) VALUES ('{email}', '{grupo}', '{opcao}','{int(hora)}', '{anexo}')"
+            consulta = f"INSERT INTO certificados (email, grupo, opcao,hora, anexo) VALUES ('{email}', '{grupo}', '{opcao}','{float(hora)}', '{anexo}')"
             cursor.execute(consulta)
             conexao.commit()
                         
