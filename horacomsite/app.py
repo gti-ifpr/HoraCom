@@ -206,6 +206,43 @@ def anexar_certificado(data):
     # print('anexo ok')
     grupo = request.form['grupoPrincipal']
     # print(grupo)
+    
+    hora = int(request.form['horasDesejadas'])
+    
+    if (grupo == 'g1'):
+        opcao = request.form['subGrupoG1']
+        if opcao == "opcao1":
+            hora = hora/4
+        elif opcao =="opcao5" or opcao == "opcao9" or opcao == "opcao16":
+            hora = hora/2
+        elif opcao == "opcao3" or opcao == "opcao11":
+            hora = 20
+        elif opcao == "opcao4":
+            hora = 1
+        elif opcao == "opcao10" or opcao == "opcao13":
+            hora = 40
+        elif opcao == "opcao12":
+            hora = 10        
+        elif opcao == "opcao14":
+            hora = 80
+        elif opcao == "opcao17":
+            hora = 6        
+        elif opcao == "opcao18":
+            hora = 3
+        # print("entrou g1")
+    else:
+        # print("entrou g2")
+        opcao = request.form['subGrupoG2']
+        if opcao == "opcao1" or opcao == "opcao2":
+            hora = hora/4
+        elif opcao == "opcao3":
+            hora = 10
+        else:
+            if hora > 30:
+                hora = 30
+
+
+
     if (grupo == 'g1'):
         opcao = request.form['subGrupoG1']
         if opcao == "opcao1" or opcao =="opcao2" or opcao == "opcao8" or opcao == "opcao9" or opcao == "opcao15" or opcao == "opcao16" or opcao == "opcao17" or opcao == "opcao18" or opcao == "opcao19":
@@ -225,17 +262,35 @@ def anexar_certificado(data):
         else:
             peso = 60 
 
-    horas = request.form['horasDesejadas']
-    if(int(horas)>peso):
-        horas = peso
-    # print(horas)
     email = data
+    if conexao:
+        try:
+            cursor = conexao.cursor()
+            consulta = f"select sum(hora) from certificados where email = '{email}' and grupo = '{grupo}' and opcao = '{opcao}';"
+            cursor.execute(consulta)
+            resultado = cursor.fetchone()
+                        
+        except mysql.connector.Error as err:
+            print(f"Erro na soma dos certificados: {err}")
+            conexao.rollback()
+    #Peso = Quantidade maxima
+    #Resultado = Quantidade já computada
+    #Hora = Quantidade informada
+    print(resultado[0])
+    if resultado[0] == None:
+        resultado = 0
+    else:
+        resultado = int(resultado[0])
+    if(hora > peso-resultado):
+        hora = peso-resultado
+    # print(horas)
+    
     #print(email)
 
     if conexao:
         try:
             cursor = conexao.cursor()
-            consulta = f"INSERT INTO certificados (email, grupo, opcao,hora, anexo) VALUES ('{email}', '{grupo}', '{opcao}','{horas}', '{anexo}')"
+            consulta = f"INSERT INTO certificados (email, grupo, opcao,hora, anexo) VALUES ('{email}', '{grupo}', '{opcao}','{int(hora)}', '{anexo}')"
             cursor.execute(consulta)
             conexao.commit()
                         
