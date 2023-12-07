@@ -284,7 +284,6 @@ def anexar_certificado(data):
     if(hora > peso-resultado):
         hora = peso-resultado
     # print(horas)
-    
     #print(email)
 
     if conexao:
