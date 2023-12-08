@@ -110,7 +110,7 @@ return limites[grupo] && limites[grupo][opcao] ? limites[grupo][opcao] : 0;
 function verificarLimiteHoras() {//Para retornar o limite de horas por opção//
   const grupoPrincipal = document.getElementById('grupoPrincipal').value;
   const subGrupo = grupoPrincipal === GRUPOS.G1 ? document.getElementById('subGrupoG1') : document.getElementById('subGrupoG2');
-  const horasDesejadas = parseInt(document.getElementById('horasDesejadas').value, 10);
+  const horasDesejadas = parseFloat(document.getElementById('horasDesejadas').value, 10);
   const limiteHoras = obterLimiteHoras(grupoPrincipal, subGrupo.value);
 
   if (horasDesejadas > limiteHoras) {
@@ -135,7 +135,7 @@ function verificarLimiteHoras() {//Para retornar o limite de horas por opção//
 function calculateReducedHours() {//**CALCULA AS HORAS COM REDUTORES */
   const grupoPrincipal = document.getElementById('grupoPrincipal').value;
   const subGrupo = grupoPrincipal === GRUPOS.G1 ? document.getElementById('subGrupoG1') : document.getElementById('subGrupoG2');
-  const horasDesejadas = parseInt(document.getElementById('horasDesejadas').value, 10);
+  const horasDesejadas = parseFloat(document.getElementById('horasDesejadas').value, 10);
 
   const redutores = {
     g1: {
