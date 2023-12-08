@@ -23,8 +23,6 @@
       <p>Clique e consulte o <a href="{{url_for('tabela')}}">REGULAMENTO</a>.</p>
       <br>
     <form action="{{ url_for('anexar_certificado', data=data) }}" method="post">
-      <!-- <input type="email" id="email" name="email" placeholder="Digite seu email" required> -->
-
       <!-- <div class="arrasta" id="dropArea" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="handleDragLeave(event)">
         <span id="dragInfo"></span>
         <form action="/upload" method="POST" enctype="multipart/form-data">Solte o arquivo a ser carregado aqui...</form>
@@ -32,7 +30,7 @@
       <div>
         <p><h2 id="selecione-arquivo">Selecione seu arquivo</h2> (O arquivo a ser carregado deve estar no formato .pdf ou .jpg, com tamanho máximo de 5mb).</p>    </div>
         <label for="arquivo"></label>
-        <input type="file" id="arquivo" name="arquivo" accept=".pdf, .jpg " onchange="displaySelectedFileName()">
+        <input type="file" id="arquivo" name="arquivo" accept=".pdf, .jpg " onchange="displaySelectedFileName()"required>
       </div>
           
       <div id="arquivoSelecionado"></div><!--Aparece o nome do arquivo selecionado-->     
@@ -97,7 +95,7 @@
         <div class="horascertificado">
         <!-- Campo para inserir as horas contidas no certificado-->
         <label for="horasDesejadas">Horas desejadas por certificado:</label>
-        <input type="number" step="0.01" id="horasDesejadas" name="horasDesejadas" placeholder="Insira o número de horas" oninput="calculateReducedHours()">
+        <input type="number" step="0.01" id="horasDesejadas" name="horasDesejadas" placeholder="Insira o número de horas" oninput="calculateReducedHours()" required>
         <br>
         <span id="horasReduzidas"></span>
       </div>
