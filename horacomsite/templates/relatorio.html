@@ -57,6 +57,13 @@
   <div class="voltar">
     <button id="backBtn">Voltar</button>
   </div>
+  <button onclick="imprimirRelatorio()">Imprimir Relatório</button>
+
+  <script>
+      function imprimirRelatorio() {
+          window.print(); // Isso aciona a caixa de diálogo de impressão do navegador
+      }
+  </script>
 
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
