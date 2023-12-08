@@ -12,15 +12,12 @@
     <div class="logo">
       <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
     </div>
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('index') }}">Início</a></li>
-        <li><a href="{{url_for('login')}}">Login</a></li>
-        <li><a href="{{ url_for('sobre') }}">Sobre</a></li>
-        <li><a href="{{ url_for('contato') }}">Contato</a></li>
-      </ul>
-    </nav>
   </header>
+</div>
+<div class="user-info">
+  Bem-vindo, {{ username }} <!-- Aqui exibe o nome do usuário -->
+</div>
+</header>
   <div class="relatorio" id="registros-container">
     <div id="registros"></div>
     <form action="{{ url_for('relatorio', data=data) }}" onsubmit="return validatedata()" method="post">
@@ -57,6 +54,13 @@
   <div class="voltar">
     <button id="backBtn">Voltar</button>
   </div>
+  <button onclick="imprimirRelatorio()">Imprimir Relatório</button>
+
+  <script>
+      function imprimirRelatorio() {
+          window.print(); // Isso aciona a caixa de diálogo de impressão do navegador
+      }
+  </script>
 
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
