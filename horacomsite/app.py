@@ -305,16 +305,16 @@ def anexar_certificado(data):
 def relatorio(data):
     cursor = conexao.cursor()
     try:
-        print("Entrou na função relatorio_certificados")
+        # print("Entrou na função relatorio_certificados")
         consulta = "SELECT * FROM certificados WHERE email=%s"
         cursor.execute(consulta, (data,))
         resultado = cursor.fetchall()
-        print(resultado)
+        # print(resultado)
 
         # Calcular a soma das horas
         email = data  # Use o valor 'data' como o email para a função
         somar_horas = somar_horas_certificados(email)
-        print(somar_horas)
+        # print(somar_horas)
 
     except mysql.connector.Error as err:
         print(f"Erro na consulta ao banco de dados: {err}")
