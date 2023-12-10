@@ -12,9 +12,10 @@ import mysql.connector # para conectar mysql
 from routes.models import User
 from flask import jsonify
 from flask_mail import Mail, Message
-from routes.config import db_get_config, somar_horas_certificados
+from routes.config import db_get_config, somar_horas_certificados,get_nome_usuario_logado
 from sqlalchemy import func, inspect
-
+import os
+from jinja2 import Environment
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
@@ -22,6 +23,19 @@ app.secret_key = 'CamilaFer123*'
 login_manager = LoginManager(app)
 login_manager.login_view = 'acesso'
 mail = Mail(app)
+
+# Adicione a função basename ao ambiente Jinja2 - para podermos mostrar apenas o nome do arquivo salvo
+env = Environment()
+env.filters['basename'] = lambda path: os.path.basename(path)
+app.jinja_env.filters.update(basename=lambda path: os.path.basename(path))
+
+def basename(path):
+    if isinstance(path, bytearray):
+        path = path.decode('utf-8')  # Decodificar bytearray para string
+    return os.path.basename(path)
+
+# Adicione a função basename ao ambiente Jinja2
+app.jinja_env.filters.update(basename=basename)
 
 
 # Inicialize o objeto SQLAlchemy com a aplicação Flask
@@ -71,7 +85,7 @@ def acesso():
 def login():
     return render_template('login.html')
 
-#Rota que verifica se o usuario ja tem cadastro e direciona(validação com bd)
+#R# Rota que verifica se o usuario ja tem cadastro e direciona(validação com bd)
 @app.route('/processar_login', methods=['POST'])
 def processar_login():
     email = request.form.get('email')
@@ -85,18 +99,20 @@ def processar_login():
     if email and senha:
         cursor = conexao.cursor()
         try:
-            consulta = f"SELECT tipo_usuario FROM usuarios WHERE email = '{email}' AND senha = '{senha}'"
+            consulta = f"SELECT tipo_usuario, nome FROM usuarios WHERE email = '{email}' AND senha = '{senha}'"
             cursor.execute(consulta)
             resultado = cursor.fetchone()
 
             if resultado:
-                tipo_usuario = resultado[0]
+                tipo_usuario, nome_usuario = resultado
+                print(f"Nome do usuário encontrado no banco de dados: {nome_usuario}")
                 session['tipo_usuario'] = tipo_usuario
                 session['email'] = email
+                session['usuario_nome'] = nome_usuario  # Adicione esta linha para armazenar o nome na sessão
 
                 if tipo_usuario == 'academico':
                     print("User academic")
-                    return redirect(url_for('user_academic',data=email)) #variavel data = dado email
+                    return redirect(url_for('user_academic', data=email))  # variavel data = dado email
                 elif tipo_usuario == 'coordenador':
                     print("User coordenador")
                     return redirect(url_for('user_coordenador'))
@@ -107,7 +123,6 @@ def processar_login():
             print(f"Erro na consulta ao banco de dados: {err}")
             return redirect(url_for('acesso'))
         finally:
-            # Modificamos esta parte para consumir todos os resultados
             cursor.fetchall()
             cursor.close()
 
@@ -115,11 +130,12 @@ def processar_login():
     return redirect(url_for('acesso'))
 
 #Rota da Pagina do Academico
-@app.route('/user_academic/<data>')#mudar rota com dado do email
+@app.route('/user_academic/<data>', methods=['GET', 'POST'])#mudar rota com dado do email
 def user_academic(data):#variavel data contem email - para vincular o acesso do usuario
+    nome_usuario = get_nome_usuario_logado()
     #print("Tipo de usuário:", current_user.tipo_usuario)
     print("Renderizando useracademic.html")
-    return render_template('useracademic.html',data=data)
+    return render_template('useracademic.html',data=data,nome_usuario=nome_usuario)
     #else:
     #    print("Redirecionando para acesso")
     #    return redirect(url_for('acesso'))
@@ -241,8 +257,6 @@ def anexar_certificado(data):
             if hora > 30:
                 hora = 30
 
-
-
     if (grupo == 'g1'):
         opcao = request.form['subGrupoG1']
         if opcao == "opcao1" or opcao =="opcao2" or opcao == "opcao8" or opcao == "opcao9" or opcao == "opcao15" or opcao == "opcao16" or opcao == "opcao17" or opcao == "opcao18" or opcao == "opcao19":
@@ -300,10 +314,10 @@ def anexar_certificado(data):
     return redirect(url_for('relatorio', data=email))
 
 
-# Rotina Relatórios OK 
-@app.route('/relatorio/<data>')
+@app.route('/relatorio/<data>',methods=['POST', 'GET'])
 def relatorio(data):
     cursor = conexao.cursor()
+    nome_usuario = get_nome_usuario_logado()
     try:
         # print("Entrou na função relatorio_certificados")
         consulta = "SELECT * FROM certificados WHERE email=%s"
@@ -322,7 +336,9 @@ def relatorio(data):
     finally:
         cursor.close()
 
-    return render_template('relatorio.html', data=resultado, somar_horas=somar_horas)
+    
+    return render_template('relatorio.html', data=resultado, somar_horas=somar_horas,nome_usuario=nome_usuario)
+
 
 #Rota para retornar os relatórios do BD de todos para o coordenador(VERIFICAR MELHOR FUNÇÃO)
 @app.route('/relatorio_todos_usuarios')
