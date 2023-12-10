@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Relatório</title>
+  <title>Relatório-Bem vindo ,{{nome_usuario}}</title>
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/relatorio.css') }}">
 </head>
@@ -12,12 +12,9 @@
     <div class="logo">
       <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
     </div>
+    <div class="user-info">
+    </div>
   </header>
-</div>
-<div class="user-info">
-  Bem-vindo, {{ username }} <!-- Aqui exibe o nome do usuário -->
-</div>
-</header>
   <div class="relatorio" id="registros-container">
     <div id="registros"></div>
     <form action="{{ url_for('relatorio', data=data) }}" onsubmit="return validatedata()" method="post">
@@ -26,7 +23,8 @@
    </form>
     
   </div>
-  <h2>Relatório de Certificados</h2>
+  <h2>Relatório de Certificados - {{ nome_usuario}}</h2>
+  
   <table id="certificados-table">
     <thead>
       <tr>
@@ -42,7 +40,7 @@
         <td>{{item[1]}}</td>
         <td>{{item[2]}}</td>
         <td>{{item[3]}}</td>
-        <td>{{item[4]}}</td>
+        <td>{{ item[4]|basename }}</td>
       </tr>
       {% endfor %}
     </thead>
