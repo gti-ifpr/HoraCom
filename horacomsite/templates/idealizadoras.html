@@ -22,14 +22,19 @@
     </nav>
   </header>  
 
-  <main class="bloco">
-    <aside class="img">
-      <img src="{{ url_for('static', filename='images/Camila.png') }}" alt="imagem"><br>
-    </aside>
-    <aside class="img">
-      <img src="{{ url_for('static', filename='images/Fernanda.png') }}" alt="imagem"><br>      
-    </aside>
-  </main>  
+  <main class="block-container">
+
+    <main class="bloco">
+      <aside class="img">
+        <img src="{{ url_for('static', filename='images/Camila.png') }}" alt="imagem"><br>
+      </aside>
+    </main>
+    <main class="bloco">
+      <aside class="img">
+        <img src="{{ url_for('static', filename='images/Fernanda.png') }}" alt="imagem"><br>      
+      </aside>
+    </main>
+  </main>
 
   <div class="voltar">
     <button id="backBtn">Voltar</button>
