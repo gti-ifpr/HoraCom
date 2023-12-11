@@ -1,21 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for, session,redirect,flash,abort,current_app
-from flask_login import (
-    UserMixin, 
-    LoginManager, 
-    login_user, 
-    login_required, 
-    logout_user, 
-    current_user
-)
-from flask_sqlalchemy import SQLAlchemy # Biblioteca para bd
-import mysql.connector # para conectar mysql 
-from routes.models import User
-from flask import jsonify
-from flask_mail import Mail, Message
-from routes.config import db_get_config, somar_horas_certificados,get_nome_usuario_logado
-from sqlalchemy import func, inspect
-import os
-from jinja2 import Environment
+from flask import Flask,render_template,request,redirect,url_for,session,flash,abort,current_app, jsonify
+from flask_login import UserMixin,LoginManager, login_user, login_required,logout_user,current_user
+from flask_sqlalchemy import SQLAlchemy  # Biblioteca para bd
+import mysql.connector  # Para conectar ao MySQL
+from routes.models import User  # Importando o modelo de usuário
+from flask_mail import Mail, Message  # Para envio de e-mails
+from routes.config import db_get_config,somar_horas_certificados,get_nome_usuario_logado
+from sqlalchemy import func, inspect  # Operações SQL avançadas e inspeção de objetos SQLAlchemy
+import os  # Para interagir com o sistema operacional
+from jinja2 import Environment  # Mecanismo de modelo usado pelo Flask
+import zipfile  # Para manipulação de arquivos zip
+from io import BytesIO  # Manipulação de bytes em memória
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
@@ -24,7 +18,7 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'acesso'
 mail = Mail(app)
 
-# Adicione a função basename ao ambiente Jinja2 - para podermos mostrar apenas o nome do arquivo salvo
+# Adicione a função basename ao ambiente Jinja2 - Utilizamos para suprimir o nome do tipo e apresentar apenas o nome salvo do arquivo
 env = Environment()
 env.filters['basename'] = lambda path: os.path.basename(path)
 app.jinja_env.filters.update(basename=lambda path: os.path.basename(path))
@@ -41,7 +35,7 @@ app.jinja_env.filters.update(basename=basename)
 # Inicialize o objeto SQLAlchemy com a aplicação Flask
 db = SQLAlchemy()
 
-def create_app():
+def create_app():# Criação de instancia e acesso bd 
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:amarelo123*@localhost/horacom'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -49,8 +43,8 @@ def create_app():
     return app
 
 
-with app.app_context():
-    conexao = mysql.connector.connect(**db_get_config())
+with app.app_context():#Permite o Flask acessar o banco de dados 
+    conexao = mysql.connector.connect(**db_get_config())#Cria conexão com BD
 
 
 # Recupera o usuário do banco de dados com base no email - com flask-login
@@ -59,11 +53,12 @@ def load_user(user_id):
     usuario = User.query.filter_by(email=user_id).first()
     return usuario
 
-#Rota da pagina incial
+#Rota da pagina incial - Rota ok
 @app.route('/')
 def index():
     return render_template('index.html')
 
+#Rota que permite acesso do usuario - ROTA OK
 @app.route('/acesso/<data>', methods=['GET'])
 def acesso():
     # Verifica se 'email' está na sessão
@@ -80,12 +75,12 @@ def acesso():
     # Se 'email' não estiver na sessão, renderiza o template de login
     return render_template('login.html')
 
-#Acesso para pagina de login
+#Acesso para pagina de login - ROTA OK
 @app.route('/login') 
 def login():
     return render_template('login.html')
 
-#R# Rota que verifica se o usuario ja tem cadastro e direciona(validação com bd)
+#Rota que verifica se o usuario ja tem cadastro e direciona(validação com bd) - ROTA ok
 @app.route('/processar_login', methods=['POST'])
 def processar_login():
     email = request.form.get('email')
@@ -129,7 +124,7 @@ def processar_login():
     conexao.close()
     return redirect(url_for('acesso'))
 
-#Rota da Pagina do Academico
+#Rota da Pagina do Academico - ROTA OK
 @app.route('/user_academic/<data>', methods=['GET', 'POST'])#mudar rota com dado do email
 def user_academic(data):#variavel data contem email - para vincular o acesso do usuario
     nome_usuario = get_nome_usuario_logado()
@@ -140,7 +135,7 @@ def user_academic(data):#variavel data contem email - para vincular o acesso do 
     #    print("Redirecionando para acesso")
     #    return redirect(url_for('acesso'))
 
-#Rota para pagina do Coordenador
+#Rota para pagina do Coordenador - ROTA OK
 @app.route('/user_coordenador')
 def user_coordenador():
     print("Renderizando user_coordenador.html")
@@ -182,7 +177,7 @@ def processar_cadastro():
 def cadastro():
     return render_template('cadastro.html')
 
-#Rota para pagina que inserimos email e depois recebemos link para mudar senha(AINDA NÃO)
+#EM ANDAMENTO
 @app.route('/esqueceusenha', methods=['GET', 'POST'])
 def esqueceusenha():
     if request.method == 'POST':
@@ -191,7 +186,7 @@ def esqueceusenha():
 
     return render_template('esqueceusenha.html')
 
-#Rota com link para alterar senha(AINDA NÃO)
+#EM ANDAMENTO
 @app.route('/redefinir_senha/<token>', methods=['GET', 'POST'])
 def redefinir_senha(token):
     if request.method == 'POST':
@@ -204,7 +199,7 @@ def redefinir_senha(token):
     # Renderizar a página de redefinição de senha
     return render_template('redefinir_senha.html', token=token)
 
-#Rota para editar cadastro implementar código para editar cadastro no BD (AINDA NÃO)
+#EM ANDAMENTO
 @app.route('/editar_cadastro')
 def editar_cadastro():
     return render_template('editarcadastro.html')
@@ -313,7 +308,7 @@ def anexar_certificado(data):
 
     return redirect(url_for('relatorio', data=email))
 
-
+#Relatório para user_academico -  ROTA OK
 @app.route('/relatorio/<data>',methods=['POST', 'GET'])
 def relatorio(data):
     cursor = conexao.cursor()
@@ -339,10 +334,7 @@ def relatorio(data):
     
     return render_template('relatorio.html', data=resultado, somar_horas=somar_horas,nome_usuario=nome_usuario)
 
-
-#Rota para retornar os relatórios do BD de todos para o coordenador(VERIFICAR MELHOR FUNÇÃO)
-from flask import render_template, redirect, url_for
-
+#Rota para retornar os relatórios do BD de todos para o coordenador - ROTA OK
 @app.route('/relatoriocoordenador', methods=['GET'])
 def relatoriocoordenador():
     cursor = conexao.cursor()
@@ -367,9 +359,6 @@ def relatoriocoordenador():
         cursor.close()
 
     return render_template('relatoriocoordenador.html', data=resultado)
-
-
-
 
 
 #Rota para extrair zip 
