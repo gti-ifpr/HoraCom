@@ -85,8 +85,9 @@ nav li a {
 button {
   background-color: #d62a5b41;
   border-radius: 5px;
+  border-color: #d62a5b41;
   color: #d62A5B;
-  margin: 5px;
+  margin: 20px;
   padding: 10px;
   cursor: pointer;
 }
@@ -104,5 +105,7 @@ footer {
   background-color: #d62A5B;
   color: white;
   width: 100%;
-  
+  position: fixed;
+  bottom: 0;
+  margin-top: 10px;
 }
