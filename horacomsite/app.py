@@ -47,18 +47,18 @@ with app.app_context():#Permite o Flask acessar o banco de dados
     conexao = mysql.connector.connect(**db_get_config())#Cria conexão com BD
 
 
-# Recupera o usuário do banco de dados com base no email - com flask-login
+# Recupera o usuário do banco de dados com base no email - com flask-login - 1
 @login_manager.user_loader
 def load_user(user_id):    
     usuario = User.query.filter_by(email=user_id).first()
     return usuario
 
-#Rota da pagina incial - Rota ok
+#Rota da pagina incial - Rota ok - 2
 @app.route('/')
 def index():
     return render_template('index.html')
 
-#Rota que permite acesso do usuario - ROTA OK
+#Rota que permite acesso do usuario - ROTA OK - 3 
 @app.route('/acesso/<data>', methods=['GET'])
 def acesso():
     # Verifica se 'email' está na sessão
@@ -75,12 +75,12 @@ def acesso():
     # Se 'email' não estiver na sessão, renderiza o template de login
     return render_template('login.html')
 
-#Acesso para pagina de login - ROTA OK
+#Acesso para pagina de login - ROTA OK - 4 
 @app.route('/login') 
 def login():
     return render_template('login.html')
 
-#Rota que verifica se o usuario ja tem cadastro e direciona(validação com bd) - ROTA ok
+#Rota que verifica se o usuario ja tem cadastro e direciona(validação com bd) - ROTA ok - 5 
 @app.route('/processar_login', methods=['POST'])
 def processar_login():
     email = request.form.get('email')
@@ -124,7 +124,7 @@ def processar_login():
     conexao.close()
     return redirect(url_for('acesso'))
 
-#Rota da Pagina do Academico - ROTA OK
+#Rota da Pagina do Academico - ROTA OK - 6 
 @app.route('/user_academic/<data>', methods=['GET', 'POST'])#mudar rota com dado do email
 def user_academic(data):#variavel data contem email - para vincular o acesso do usuario
     nome_usuario = get_nome_usuario_logado()
@@ -135,19 +135,19 @@ def user_academic(data):#variavel data contem email - para vincular o acesso do 
     #    print("Redirecionando para acesso")
     #    return redirect(url_for('acesso'))
 
-#Rota para pagina do Coordenador - ROTA OK
+#Rota para pagina do Coordenador - ROTA OK - 7 
 @app.route('/user_coordenador')
 def user_coordenador():
     print("Renderizando user_coordenador.html")
     return render_template('user_coordenador.html')
 
-#Rota para sair - ROTA OK
+#Rota para sair - ROTA OK - 8 
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
-#Rota do cadastro para inserir no banco de dados as informações do usuario - ROTA OK
+#Rota do cadastro para inserir no banco de dados as informações do usuario - ROTA OK - 9
 @app.route('/cadastro', methods=['POST'])
 def processar_cadastro():
     email = request.form['email']
@@ -172,12 +172,12 @@ def processar_cadastro():
             
     return render_template('login.html')
 
-#Rota para acessar a pagina cadastro - ROTA OK
+#Rota para acessar a pagina cadastro - ROTA OK - 10
 @app.route('/cadastro')
 def cadastro():
     return render_template('cadastro.html')
 
-#EM ANDAMENTO
+#EM ANDAMENTO - 11 
 @app.route('/esqueceusenha', methods=['GET', 'POST'])
 def esqueceusenha():
     if request.method == 'POST':
@@ -186,7 +186,7 @@ def esqueceusenha():
 
     return render_template('esqueceusenha.html')
 
-#EM ANDAMENTO
+#EM ANDAMENTO - 12
 @app.route('/redefinir_senha/<token>', methods=['GET', 'POST'])
 def redefinir_senha(token):
     if request.method == 'POST':
@@ -199,17 +199,17 @@ def redefinir_senha(token):
     # Renderizar a página de redefinição de senha
     return render_template('redefinir_senha.html', token=token)
 
-#EM ANDAMENTO
+#EM ANDAMENTO - 13
 @app.route('/editar_cadastro')
 def editar_cadastro():
     return render_template('editarcadastro.html')
 
-#Rota da pagina anexar - ROTA OK
+#Rota da pagina anexar - ROTA OK - 14 
 @app.route('/anexar/<data>')
 def anexar(data):
     return render_template('anexar.html',data=data)
 
-#Rota para anexar certificado - ROTA OK
+#Rota para anexar certificado - ROTA OK - 15
 @app.route('/anexar_certificado/<data>',methods=['POST'])
 def anexar_certificado(data):
     # print('entrou')
@@ -308,7 +308,7 @@ def anexar_certificado(data):
 
     return redirect(url_for('relatorio', data=email))
 
-#Relatório para user_academico -  ROTA OK
+#Relatório para user_academico -  ROTA OK - 16 
 @app.route('/relatorio/<data>',methods=['POST', 'GET'])
 def relatorio(data):
     cursor = conexao.cursor()
@@ -334,7 +334,7 @@ def relatorio(data):
     
     return render_template('relatorio.html', data=resultado, somar_horas=somar_horas,nome_usuario=nome_usuario)
 
-#Rota para retornar os relatórios do BD de todos para o coordenador - ROTA OK
+#Rota para retornar os relatórios do BD de todos para o coordenador - ROTA OK - 17
 @app.route('/relatoriocoordenador', methods=['GET'])
 def relatoriocoordenador():
     cursor = conexao.cursor()
@@ -360,20 +360,19 @@ def relatoriocoordenador():
 
     return render_template('relatoriocoordenador.html', data=resultado)
 
-
-#Rota para extrair zip 
+#EM ANDAMENTO - 18
 @app.route('/extrairzip')
 def extrairzip():
     return render_template('extrairzip.html')
 
-#Rota para upload (Uso do coordenador)
+#EM ANDAMENTO - 19
 @app.route('/upload')
 def upload():
     return render_template('upload.html')
 
 
 
-#------------- ROTAS ESTATICAS -----------------#
+#------------- ROTAS ESTATICAS -----------------# 
 @app.route('/contato')
 def contato():
     return render_template('contato.html')
