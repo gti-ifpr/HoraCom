@@ -25,6 +25,7 @@
     <tr>
         <th>Nome do Acadêmico</th>
         <th>Total de Horas</th>
+        <th>Progresso</th>
     </tr>
     </thead>
     <tbody>
@@ -32,6 +33,20 @@
         <tr>
             <td>{{ item.nome_usuario }}</td>
             <td>{{ item.soma_horas }}</td>
+            <td>
+                <div style="position: relative;">
+                    <progress value="{{ item.soma_horas }}" max="240" style="width: 100%; height: 30px;"></progress>
+                    <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                        {% if item.soma_horas <= 100 %}
+                            <span style="color: red;"></span>
+                        {% elif item.soma_horas <= 239 %}
+                            <span style="color: yellow;"></span>
+                        {% else %}
+                            <span style="color: green;"></span>
+                        {% endif %}
+                    </span>
+                </div>
+            </td>
         </tr>
     {% endfor %}
     </tbody>
