@@ -63,11 +63,14 @@ nav li a {
   padding: 14px 16px;
   text-decoration: none;
 }
-
-.persona {
-  display: flex;
-  background-color: #ffffff;
+aside{
   align-items: center;
+  display:flex;
+  flex-direction: column;
+
+}
+.persona {
+  background-color: #ffffff;
   justify-content: center;
   padding: 20px; /* Reduzi o padding para evitar que o conteúdo ocupe muito espaço na tela */
 }
@@ -75,9 +78,6 @@ nav li a {
 .persona img {
   width: 70%;
   height: 70%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
   justify-content: space-between;
   padding: 0, 5px;
 }
