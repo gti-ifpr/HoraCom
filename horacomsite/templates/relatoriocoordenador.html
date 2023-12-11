@@ -1,68 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Relatório Geral para coordenador</title>
-  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/relatorio.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Coordenador - Bem vindo, {{ nome_usuario }}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/relatorio.css') }}">
 </head>
 <body>
-  <header>
+<header>
     <div class="logo">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
     </div>
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('index') }}">Início</a></li>
-        <li><a href="{{url_for('login')}}">Login</a></li>
-        <li><a href="{{ url_for('sobre') }}">Sobre</a></li>
-        <li><a href="{{ url_for('contato') }}">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
-  <div class="relatorio" id="registros-container">
-    <h1>Relatório de Registros</h1>
+    <div class="user-info">
+    </div>
+</header>
+<div class="relatorio" id="registros-container">
     <div id="registros"></div>
-  </div>
-  <table>
+</div>
+<h2>Relatório de Certificados - {{ nome_usuario }}</h2>
+
+<table id="certificados-table">
     <thead>
-        <tr>
-            <th>Email</th>
-            <th>Grupo</th>
-            <th>Opção</th>
-            <th>Hora</th>
-            <th>Anexo</th>
-        </tr>
+    <tr>
+        <th>Nome do Acadêmico</th>
+        <th>Total de Horas</th>
+    </tr>
     </thead>
     <tbody>
-        {% for registro in registros %}
-            <tr>
-                <td>{{ registro.email }}</td>
-                <td>{{ registro.grupo }}</td>
-                <td>{{ registro.opcao }}</td>
-                <td>{{ registro.hora }}</td>
-                <td>{{ registro.anexo }}</td>
-            </tr>
-        {% endfor %}
+    {% for item in data %}
+        <tr>
+            <td>{{ item.nome_usuario }}</td>
+            <td>{{ item.soma_horas }}</td>
+        </tr>
+    {% endfor %}
     </tbody>
 </table>
-  <div class="voltar">
+
+<div class="voltar">
     <button id="backBtn">Voltar</button>
-  </div>
+</div>
+<button onclick="imprimirRelatorio()">Imprimir Relatório</button>
 
+<script>
+    function imprimirRelatorio() {
+        window.print(); // Isso aciona a caixa de diálogo de impressão do navegador
+    }
+</script>
 
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-  <script>
-    document.getElementById("backBtn").addEventListener("click", function(){
-      history.back();
+<script>
+    document.getElementById("backBtn").addEventListener("click", function () {
+        history.back();
     });
-  
-  </script>
+</script>
 
-  <footer>
+<footer>
     &copy; 2023 HoraCom. Todos os direitos reservados.
-  </footer>
+</footer>
 </body>
 </html>
