@@ -115,7 +115,7 @@ def processar_login():
                     return redirect(url_for('user_academic', data=email))  # variavel data = dado email
                 elif tipo_usuario == 'coordenador':
                     print("User coordenador")
-                    return redirect(url_for('user_coordenador'))
+                    return redirect(url_for('user_coordenador',data=email))
                 else:
                     return redirect(url_for('acesso'))
                     
@@ -325,7 +325,7 @@ def relatorio(data):
         resultado = cursor.fetchall()
         # print(resultado)
 
-        # Calcular a soma das horas
+        # Calcular a soma das hor.as
         email = data  # Use o valor 'data' como o email para a função
         somar_horas = somar_horas_certificados(email)
         # print(somar_horas)
@@ -341,25 +341,36 @@ def relatorio(data):
 
 
 #Rota para retornar os relatórios do BD de todos para o coordenador(VERIFICAR MELHOR FUNÇÃO)
-@app.route('/relatorio_todos_usuarios')
-@login_required
-def relatorio_todos_usuarios():
-    # Verifica se o usuário atual é um coordenador
-    if current_user.tipo_usuario != 'coordenador':
-        abort(403)  # Retorna um erro 403 Forbidden se o usuário não for um coordenador
+from flask import render_template, redirect, url_for
 
+@app.route('/relatoriocoordenador', methods=['GET'])
+def relatoriocoordenador():
+    cursor = conexao.cursor()
     try:
-        with mysql.connector.connect(**db_get_config()) as conexao:
-            cursor = conexao.cursor(dictionary=True)
-            consulta = "SELECT * FROM certificados"
-            cursor.execute(consulta)
-            certificados = cursor.fetchall()
+        # Obter a lista de acadêmicos (usuários de tipo 'academico')
+        consulta_academicos = "SELECT email, nome FROM usuarios WHERE tipo_usuario = 'academico'"
+        cursor.execute(consulta_academicos)
+        academicos = cursor.fetchall()
 
-        return render_template('relatoriocoordenador.html', certifiados=certificados)
+        # Calcular a soma total de horas para cada acadêmico
+        resultado = []
+        for academico in academicos:
+            email = academico[0]
+            nome = academico[1]
+            soma_horas = somar_horas_certificados(email)
+            resultado.append({'nome_usuario': nome, 'soma_horas': soma_horas})
 
     except mysql.connector.Error as err:
-        print(f"Erro na consulta do relatório de todos os usuários: {err}")
-        return render_template('erro.html', error_message=f"Erro na consulta do relatório: {err}")
+        print(f"Erro na consulta ao banco de dados: {err}")
+        return redirect(url_for('acesso'))
+    finally:
+        cursor.close()
+
+    return render_template('relatoriocoordenador.html', data=resultado)
+
+
+
+
 
 #Rota para extrair zip 
 @app.route('/extrairzip')
