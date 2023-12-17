@@ -7,9 +7,9 @@ from flask_mail import Mail, Message  # Para envio de e-mails
 from routes.config import db_get_config,somar_horas_certificados,get_nome_usuario_logado
 from sqlalchemy import func, inspect  # Operações SQL avançadas e inspeção de objetos SQLAlchemy
 import os  # Para interagir com o sistema operacional
-from jinja2 import Environment  # Mecanismo de modelo usado pelo Flask
+from jinja2 import Environment  
 import zipfile  # Para manipulação de arquivos zip
-from io import BytesIO  # Manipulação de bytes em memória
+from io import BytesIO  
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
@@ -59,7 +59,7 @@ def index():
     return render_template('index.html')
 
 #Rota que permite acesso do usuario - ROTA OK - 3 
-@app.route('/acesso/<data>', methods=['GET'])
+@app.route('/acesso/<data>', methods=['POST'])
 def acesso():
     # Verifica se 'email' está na sessão
     if 'email' in session:
