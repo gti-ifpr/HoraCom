@@ -112,17 +112,26 @@
       <button class="cancelar"><a href="{{url_for('user_academic',data=data)}}">Cancelar</a></button>
     </div>
   </form>  
-
-
+  
   <div class="voltar">
-    <button><a href="{{url_for('user_academic',data=data)}}">Voltar</a></button>
-  </div> 
-  <footer>
-    <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
-  </footer>
+    <button id="backBtn">Voltar</button>
+  </div>
+
+ 
 </main>  
 
-  <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}">
+  </script>
+  <script>
+    document.getElementById("backBtn").addEventListener("click", function () {
+      history.back();
+    });      
+  </script>
+  
+   <footer>
+    <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
+  </footer>
 
 </body>
 </html>
