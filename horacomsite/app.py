@@ -10,12 +10,22 @@ import os  # Para interagir com o sistema operacional
 from jinja2 import Environment  # Mecanismo de modelo usado pelo Flask
 import zipfile  # Para manipulação de arquivos zip
 from io import BytesIO  # Manipulação de bytes em memória
+import smtplib
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 app.secret_key = 'CamilaFer123*'  
 login_manager = LoginManager(app)
 login_manager.login_view = 'acesso'
+
+# Configurações do Flask-Mail para o Gmail - Mudou algo para envio temos que verificar 
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'horacomgti@gmail.com'  
+app.config['MAIL_PASSWORD'] = 'CamilaFer123*'
+
+# Inicializar a extensão Flask-Mail
 mail = Mail(app)
 
 # Adicione a função basename ao ambiente Jinja2 - Utilizamos para suprimir o nome do tipo e apresentar apenas o nome salvo do arquivo
@@ -370,13 +380,40 @@ def extrairzip():
 def upload():
     return render_template('upload.html')
 
+#Rota 20 ROTA Para envio do email verificar configurações do GMAIL mudou 
+@app.route('/contato', methods=['GET', 'POST'])
+def contato():
+    if request.method == 'POST':
+        # Obter detalhes do formulário
+        nome = request.form['nome']
+        email_usuario = request.form['email']
+        mensagem = request.form['mensagem']
+
+        # Criar mensagem de e-mail
+        msg = Message(
+            'Assunto do E-mail',
+            recipients=['horacomgti@gmail.com'],  # E-mail do destinatário
+            body=f'Nome: {nome}\nEmail: {email_usuario}\nMensagem: {mensagem}'
+        )
+
+        try:
+            # Enviar e-mail
+            mail.send(msg)
+            flash('E-mail enviado com sucesso!', 'success')
+            return redirect(url_for('index'))
+        except Exception as e:
+            flash(f'Erro ao enviar e-mail: {str(e)}', 'danger')
+            return redirect(url_for('pagina_erro'))
+
+    return render_template('contato.html')
+
+#Rota 21 ok para mensagens de erro
+@app.route('/pagina_erro')
+def pagina_erro():
+    return render_template('pagina_erro.html')
 
 
 #------------- ROTAS ESTATICAS -----------------# 
-@app.route('/contato')
-def contato():
-    return render_template('contato.html')
-
 @app.route('/sobre')
 def sobre():
     return render_template('sobre.html')
