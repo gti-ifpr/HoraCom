@@ -24,7 +24,6 @@ header {
 
 .logo img {
   width: 150px;
-  /* Ajuste o tamanho conforme necessário */
   height: auto;
 }
 
@@ -70,28 +69,30 @@ nav li a {
 
 .block {
   flex: 0 0 calc(33% - 20px);
-  /* Calcula a largura dos blocos com margens */
   margin: 10px;
   padding: 10px;
   background-color: #fff;
   border: 1px solid #d62a5b54;
   box-sizing: border-box;
   border-radius: 20px;
+  display: flex; /* Adiciona display flex para alinhar conteúdo no centro */
+  flex-direction: column; /* Alinha os elementos verticalmente */
+  align-items: center; /* Centraliza os itens horizontalmente */
 }
 
 .block img {
   max-width: 100%;
-  /* Evitar que a imagem fique maior que o bloco */
-  margin-bottom: 10px;
-  /* Adicionar espaço entre a imagem e o texto */
+  margin-bottom: 2px;
 }
 
 .block-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  /* Distribui os blocos igualmente na largura disponível */
+   /* Use space-around para um espaçamento mínimo */
+  max-width: 1600px; /* Ajuste a largura máxima do container conforme necessário */
+  margin: 15 auto;
 }
+
 button {
   background-color: #d62a5b41;
   border-radius: 5px;
