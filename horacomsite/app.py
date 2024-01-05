@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,url_for,session,flash,abort,current_app, jsonify
+from flask import Flask,render_template,request,redirect,url_for,session,flash,abort,current_app, jsonify,send_from_directory
 from flask_login import UserMixin,LoginManager, login_user, login_required,logout_user,current_user
 from flask_sqlalchemy import SQLAlchemy  # Biblioteca para bd
 import mysql.connector  # Para conectar ao MySQL
@@ -12,6 +12,8 @@ import zipfile  # Para manipulação de arquivos zip
 from io import BytesIO  # Manipulação de bytes em memória
 import smtplib
 from twilio.twiml.messaging_response import MessagingResponse
+import shutil
+from flask import send_file
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
@@ -226,9 +228,15 @@ def anexar(data):
 #Rota para anexar certificado - ROTA OK - 15
 @app.route('/anexar_certificado/<data>',methods=['POST'])
 def anexar_certificado(data):
+     # Se não existir, cria o diretório
+    diretorio = os.path.join(os.path.expanduser("~"), 'Desktop', 'horacom', 'certificados')
+    if not os.path.exists(diretorio):
+        os.makedirs(diretorio)
+
     # print('entrou')
-    anexo = request.form['arquivo']
-    # print('anexo ok')
+    anexo = request.files.get('arquivo')
+    print(request.method)  # Verifique o método da requisição
+    print(request.form)    # Imprima os dados do formulário
     grupo = request.form['grupoPrincipal']
     # print(grupo)
     
@@ -319,6 +327,16 @@ def anexar_certificado(data):
         except mysql.connector.Error as err:
             print(f"Erro no processamento do cadastro: {err}")
             conexao.rollback()
+    
+    # Obtenha o nome original do arquivo
+    nome_arquivo_original = anexo.filename
+
+    # Crie o caminho completo para o arquivo no diretório
+    caminho_arquivo = os.path.join(diretorio, nome_arquivo_original)
+
+    # Salve o arquivo no diretório com o nome original fornecido pelo usuário
+    with open(caminho_arquivo, 'wb') as arquivo_pdf:
+        arquivo_pdf.write(anexo.read())
 
     return redirect(url_for('relatorio', data=email))
 
@@ -375,9 +393,48 @@ def relatoriocoordenador():
     return render_template('relatoriocoordenador.html', data=resultado)
 
 #EM ANDAMENTO - 18
-@app.route('/extrairzip')
+# Importe os módulos necessários
+import os
+import shutil
+import zipfile
+from flask import render_template, request
+
+#AINDA NÃO ESTA ZIPANDO TENSO
+@app.route('/extrairzip', methods=['GET', 'POST'])
 def extrairzip():
+    if request.method == 'POST':
+        # Certifique-se de que o diretório de destino exista
+        target_directory = os.path.join(os.path.expanduser('~'), 'Desktop', 'horacom')
+        if not os.path.exists(target_directory):
+            os.makedirs(target_directory)
+
+        # Diretório de origem (certificados na área de trabalho)
+        source_directory = os.path.join(os.path.expanduser('~'), 'Desktop', 'certificados')
+
+        # Nome do arquivo zip
+        zip_filename = "certificados.zip"
+
+        # Caminho completo para o arquivo zip
+        zip_path = os.path.join(target_directory, zip_filename)
+
+        try:
+            # Tentar zipar o conteúdo do diretório
+            with zipfile.ZipFile(zip_path, 'w') as zip_file:
+                for foldername, subfolders, filenames in os.walk(source_directory):
+                    for filename in filenames:
+                        file_path = os.path.join(foldername, filename)
+                        arcname = os.path.relpath(file_path, source_directory)
+                        zip_file.write(file_path, arcname)
+
+            # Renderize a página sucesso.html com o caminho do arquivo ZIP
+            return render_template('sucesso.html', caminho_zip=zip_path)
+
+        except Exception as e:
+            # Tratar caso ocorra algum erro durante o processo
+            return render_template('pagina_erro.html', error_message=f"Erro ao zipar pasta de certificados: {e}")
+
     return render_template('extrairzip.html')
+
 
 #EM ANDAMENTO - 19
 @app.route('/upload')
