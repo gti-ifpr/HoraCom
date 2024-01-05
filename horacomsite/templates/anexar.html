@@ -22,12 +22,8 @@
    <div class="info">
       <p>Clique e consulte o <a href="{{url_for('tabela')}}">REGULAMENTO</a>.</p>
       <br>
-    <form action="{{ url_for('anexar_certificado', data=data) }}" method="post">
-      <!-- <div class="arrasta" id="dropArea" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="handleDragLeave(event)">
-        <span id="dragInfo"></span>
-        <form action="/upload" method="POST" enctype="multipart/form-data">Solte o arquivo a ser carregado aqui...</form>
-      </div>    -->
-      <div>
+      <form action="{{ url_for('anexar_certificado', data=data) }}" method="post" enctype="multipart/form-data">
+        <div>
         <p><h2 id="selecione-arquivo">Selecione seu arquivo</h2> (O arquivo a ser carregado deve estar no formato .pdf ou .jpg, com tamanho máximo de 5mb).</p>    </div>
         <label for="arquivo"></label>
         <input type="file" id="arquivo" name="arquivo" accept=".pdf, .jpg " onchange="displaySelectedFileName()"required>
