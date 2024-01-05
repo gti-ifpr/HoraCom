@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sucesso Pasta Zipada</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/extrairzip.css') }}">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
+        </div>
+    </header>
+<body>
+    <h1>Sucesso!</h1>
+    <p>A pasta de certificados foi zipada com sucesso. Você pode baixar o arquivo ZIP no seguinte caminho:</p>
+    <p>Caminho do arquivo ZIP: {{ caminho_zip }}</p>
+</body>
+</html>
