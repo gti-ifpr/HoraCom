@@ -1,34 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Extrair Zip</title>
-  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/extrairzip.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrair Zip</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/extrairzip.css') }}">
 </head>
 
 <body>
     <header>
         <div class="logo">
             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
-          </div>
+        </div>
     </header>
 
     <div class="content-info">
-        <h1>Vamos zipar o arquivo com certificados coloque seu caminho local</h1>
-        <form method="POST" action="{{ url_for('extrairzip') }}">
-            <label for="diretorio_documentos">Caminho do diretório </label><br>
-            <input type="text" id="diretorio_documentos" name="diretorio_documentos" readonly><br>
-            <label for="caminho_zip">Caminho para o arquivo ZIP:</label><br>
-            <input type="text" id="caminho_zip" name="caminho_zip" readonly><br><br>
-            <input type="submit" value="Extrair e Zipar">
+        <br>
+        <h1>Parabéns, chegou até aqui e agora falta pouco</h1>
+        <br>
+        <h2>Escolha arquivo para zipar</h2>
+        <br>
+        <form method="POST" action="{{ url_for('extrairzip') }}" enctype="multipart/form-data">
+            <label for="diretorio_documentos">Selecione pasta:</label><br>
+            <input type="file" id="diretorio_documentos" name="diretorio_documentos" webkitdirectory directory multiple required><br>
+            <br>
+            <input type="submit" value="Zipar pasta">
         </form>
     </div>
-
+    <br>
+    <br>
+    <p>Lembre-se de enviar pasta zipada para validação do coordenador</p>
     <div class="voltar">
         <button id="backBtn">Voltar</button>
     </div>
+
+    <!-- ... (seu conteúdo atual) ... -->
 
     <script>
         document.getElementById("backBtn").addEventListener("click", function(){
