@@ -215,15 +215,9 @@ def anexar(data):
 #Rota para anexar certificado - ROTA OK - 15
 @app.route('/anexar_certificado/<data>',methods=['POST'])
 def anexar_certificado(data):
-     # Se não existir, cria o diretório
-    diretorio = os.path.join(os.path.expanduser("~"), 'Desktop', 'horacom', 'certificados')
-    if not os.path.exists(diretorio):
-        os.makedirs(diretorio)
-
     # print('entrou')
-    anexo = request.files.get('arquivo')
-    print(request.method)  # Verifique o método da requisição
-    print(request.form)    # Imprima os dados do formulário
+    anexo = request.form['arquivo']
+    # print('anexo ok')
     grupo = request.form['grupoPrincipal']
     # print(grupo)
     
@@ -314,18 +308,9 @@ def anexar_certificado(data):
         except mysql.connector.Error as err:
             print(f"Erro no processamento do cadastro: {err}")
             conexao.rollback()
-    
-    # Obtenha o nome original do arquivo
-    nome_arquivo_original = anexo.filename
-
-    # Crie o caminho completo para o arquivo no diretório
-    caminho_arquivo = os.path.join(diretorio, nome_arquivo_original)
-
-    # Salve o arquivo no diretório com o nome original fornecido pelo usuário
-    with open(caminho_arquivo, 'wb') as arquivo_pdf:
-        arquivo_pdf.write(anexo.read())
 
     return redirect(url_for('relatorio', data=email))
+
 
 #Relatório para user_academico -  ROTA OK - 16 
 @app.route('/relatorio/<data>',methods=['POST', 'GET'])
