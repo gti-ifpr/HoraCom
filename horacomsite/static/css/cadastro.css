@@ -65,15 +65,20 @@ nav li a {
 .cadastro {
   display: flex;
   align-items: center;
-  justify-content: center; /* Adicionei esta propriedade para centralizar horizontalmente */
-  height: 100vh; /* Adicionei altura total da viewport para centralizar verticalmente */
+  width: 100%;
+  border: 2px;
+  margin: 0;
+  padding: 0;
   background-color: #ffffff;
 }
 
 .cadastro img {
-  margin-right: 20px;
+  margin-right: 100px;
+  display: block;
+  align-items: center;
+  padding: 100px;
   width: 40%;
-  height: auto;
+  height: 50%;
   background-color: #ffffff;
 }
 
@@ -81,23 +86,35 @@ nav li a {
   position: relative;
   border-color: transparent;
   background-color: #ffffff;
-  width: 70%;
+  align-items: center;
+  width: 60%;
+  height: 50%;
 }
+
 
 form {
   margin: auto;
+  top: 10%;
+  left: 60%;
   border-radius: 10px;
-  padding: 20px; /* Aumentei o padding para melhorar o espaçamento interno */
-  width: 80%;
+  padding: 5px;
 }
 
+input[type=submit] {
+  background: #d62A5B;
+  color: #ffffff;
+  border-radius: 5px;
+  border: 5px solid #d62A5B;
+  margin: 5px;
+  cursor: pointer;
+}
 input {
   background: #ffffff;
   color: #d62A5B;
   border-radius: 5px;
   border: 1px solid #d62A5B;
   margin: 5px;
-  width: 100%;
+  width: 300px;
   height: 30px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -105,6 +122,7 @@ input {
   -moz-box-shadow: 1px 1px 2px #d62A5B;
   -webkit-box-shadow: 1px 1px 2px #d62A5B;
 }
+
 footer {
   text-align: center;
   background-color: #d62A5B;
