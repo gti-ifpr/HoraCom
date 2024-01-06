@@ -29,7 +29,9 @@
 
     <aside class="textocontato">
       <p>Entre em Contato conosco utilizando o formulário abaixo: </p>
-      <form class="textocontato" action="{{ url_for('contato') }}" method="POST" enctype="application/x-www-form-urlencoded">
+      <!--Usei o formsubmit direto do HTML para envio do email após tentavias no gmail ufa-->
+      <form class="textocontato" action="https://formsubmit.co/horacomgti@gmail.com"
+      method="POST">
           <label for="nome">Nome: </label>      
           <br>
           <input type="text" id="nome" name="nome" required><br>
@@ -43,6 +45,7 @@
           <br>
           <input type="submit">
           <input type="reset" value="Limpar">
+          <input type="hidden"name="_next"value="http://127.0.0.1:5000/sucesso"/>
       </form>
       <p>Nos acompanhe em nossas mídias sociais e por email.</p><br>
       <p><a href="https://www.instagram.com/_horacom/"><img class="insta" src="{{ url_for('static', filename='images/logoinsta.jpg') }}" alt="insta"></a> <a href="mailto:horacomgti@gmail.com"><img class="gmail" src="{{ url_for('static', filename='images/gmail.png') }}" alt="gmail"></a></p>
