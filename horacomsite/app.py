@@ -21,19 +21,6 @@ app.secret_key = 'CamilaFer123*'
 login_manager = LoginManager(app)
 login_manager.login_view = 'acesso'
 
-# Configurações do Flask-Mail para o Hotmail também não deu certo trágico 
-app.config['MAIL_SERVER'] = 'smtp.live.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_DEBUG'] = True
-app.config['MAIL_TIMEOUT'] = 10  
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] = False  
-app.config['MAIL_USERNAME'] = 'horacomgti@hotmail.com'  
-app.config['MAIL_PASSWORD'] = 'CamilaFer123*'
-
-# Inicializar a extensão Flask-Mail
-mail = Mail(app)
-
 # Adicione a função basename ao ambiente Jinja2 - Utilizamos para suprimir o nome do tipo e apresentar apenas o nome salvo do arquivo
 env = Environment()
 env.filters['basename'] = lambda path: os.path.basename(path)
@@ -393,12 +380,6 @@ def relatoriocoordenador():
     return render_template('relatoriocoordenador.html', data=resultado)
 
 #EM ANDAMENTO - 18
-# Importe os módulos necessários
-import os
-import shutil
-import zipfile
-from flask import render_template, request
-
 #AINDA NÃO ESTA ZIPANDO TENSO
 @app.route('/extrairzip', methods=['GET', 'POST'])
 def extrairzip():
@@ -441,33 +422,10 @@ def extrairzip():
 def upload():
     return render_template('upload.html')
 
-#Rota 20 ROTA Para envio do email verificar configurações do GMAIL mudou 
+#Rota 20 ROTA Contato ok fiz direto no formulario do html o envio  
 @app.route('/contato', methods=['GET', 'POST'])
 def contato():
-    if request.method == 'POST':
-        # Obter detalhes do formulário
-        nome = request.form['nome']
-        email_usuario = request.form['email']
-        mensagem = request.form['mensagem']
-
-        # Criar mensagem de e-mail
-        msg = Message(
-            'Assunto do E-mail',
-            recipients=['horacomgti@hotmail.com'],  # E-mail do destinatário
-            body=f'Nome: {nome}\nEmail: {email_usuario}\nMensagem: {mensagem}'
-        )
-
-        try:
-            # Enviar e-mail
-            mail.send(msg)
-            flash('E-mail enviado com sucesso!', 'success')
-            return redirect(url_for('inex'))
-        except Exception as e:
-            print(f'Erro ao enviar e-mail: {str(e)}')
-            flash(f'Erro ao enviar e-mail: {str(e)}', 'danger')
-            return redirect(url_for('pagina_erro'))
-
-    return render_template('contato.html')
+   return render_template('contato.html')
 
 #Rota 21 ok para mensagens de erro
 @app.route('/pagina_erro')
@@ -477,6 +435,10 @@ def pagina_erro():
 
 
 #------------- ROTAS ESTATICAS -----------------# 
+@app.route('/sucesso')
+def sucesso():
+    return render_template('sucesso.html') 
+
 @app.route('/sobre')
 def sobre():
     return render_template('sobre.html')
