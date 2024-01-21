@@ -1,1 +1,7 @@
-
+run:
+  runtime-version: 3.11
+  pre-run:  
+    - pip3 install pipenv
+    - pipenv install
+    - python3 copy-global-files.py
+  command: pipenv run gunicorn django_apprunner.wsgi --log-file -
