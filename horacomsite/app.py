@@ -1,25 +1,20 @@
-from flask import Flask,render_template,request,redirect,url_for,session,flash,abort,current_app, jsonify,send_from_directory
-from flask_login import UserMixin,LoginManager, login_user, login_required,logout_user,current_user
+from flask import Flask,render_template,request,redirect,url_for,session,flash,jsonify
+from flask_login import LoginManager, logout_user
 from flask_sqlalchemy import SQLAlchemy  # Biblioteca para bd
 import mysql.connector  # Para conectar ao MySQL
 from routes.models import User  # Importando o modelo de usuário
-from flask_mail import Mail, Message  # Para envio de e-mails
 from routes.config import db_get_config,somar_horas_certificados,get_nome_usuario_logado
-from sqlalchemy import func, inspect  # Operações SQL avançadas e inspeção de objetos SQLAlchemy
 import os  # Para interagir com o sistema operacional
 from jinja2 import Environment  # Mecanismo de modelo usado pelo Flask
 import zipfile  # Para manipulação de arquivos zip
-from io import BytesIO  # Manipulação de bytes em memória
-import smtplib
-from twilio.twiml.messaging_response import MessagingResponse
-import shutil
-from flask import send_file
+from flask import flash
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 app.secret_key = 'CamilaFer123*'  
 login_manager = LoginManager(app)
 login_manager.login_view = 'acesso'
+
 
 # Adicione a função basename ao ambiente Jinja2 - Utilizamos para suprimir o nome do tipo e apresentar apenas o nome salvo do arquivo
 env = Environment()
@@ -78,54 +73,64 @@ def acesso():
     # Se 'email' não estiver na sessão, renderiza o template de login
     return render_template('login.html')
 
+
 #Acesso para pagina de login - ROTA OK - 4 
 @app.route('/login') 
 def login():
     return render_template('login.html')
 
-#Rota que verifica se o usuario ja tem cadastro e direciona(validação com bd) - ROTA ok - 5 
+# Processar login - ROTA OK - 5 com mensagem de erro caso a senha seja digitada incorretamente
 @app.route('/processar_login', methods=['POST'])
 def processar_login():
     email = request.form.get('email')
     senha = request.form.get('senha')
 
     if not email or not senha:
+        flash('E-mail e senha são obrigatórios.', 'error')
         return redirect(url_for('acesso'))
 
     app.logger.debug(f"Email: {email}, Senha: {senha}")
 
-    if email and senha:
-        cursor = conexao.cursor()
-        try:
-            consulta = f"SELECT tipo_usuario, nome FROM usuarios WHERE email = '{email}' AND senha = '{senha}'"
-            cursor.execute(consulta)
-            resultado = cursor.fetchone()
+    cursor = conexao.cursor()
+    try:
+        consulta = f"SELECT tipo_usuario, nome FROM usuarios WHERE email = '{email}' AND senha = '{senha}'"
+        cursor.execute(consulta)
+        resultado = cursor.fetchone()
 
-            if resultado:
-                tipo_usuario, nome_usuario = resultado
-                print(f"Nome do usuário encontrado no banco de dados: {nome_usuario}")
-                session['tipo_usuario'] = tipo_usuario
-                session['email'] = email
-                session['usuario_nome'] = nome_usuario  # Adicione esta linha para armazenar o nome na sessão
+        if resultado:
+            tipo_usuario, nome_usuario = resultado
+            app.logger.debug(f"Nome do usuário encontrado no banco de dados: {nome_usuario}")
+            session['tipo_usuario'] = tipo_usuario
+            session['email'] = email
+            session['usuario_nome'] = nome_usuario
 
-                if tipo_usuario == 'academico':
-                    print("User academic")
-                    return redirect(url_for('user_academic', data=email))  # variavel data = dado email
-                elif tipo_usuario == 'coordenador':
-                    print("User coordenador")
-                    return redirect(url_for('user_coordenador',data=email))
-                else:
-                    return redirect(url_for('acesso'))
-                    
-        except mysql.connector.Error as err:
-            print(f"Erro na consulta ao banco de dados: {err}")
-            return redirect(url_for('acesso'))
-        finally:
-            cursor.fetchall()
-            cursor.close()
+            if tipo_usuario == 'academico':
+                app.logger.debug("User academic")
+                return redirect(url_for('user_academic', data=email))
+            elif tipo_usuario == 'coordenador':
+                app.logger.debug("User coordenador")
+                return redirect(url_for('user_coordenador', data=email))
+            else:
+                flash('Usuário não reconhecido.', 'error')
+                return redirect(url_for('acesso'))
+
+        else:
+            # Adicione uma mensagem de erro para senhas incorretas
+            flash('E-mail ou senha incorretos. Tente novamente.', 'error')
+            return render_template('pagina_erro.html', mensagem_erro='E-mail ou senha incorretos. Tente novamente.')
+
+    except mysql.connector.Error as err:
+        app.logger.error(f"Erro na consulta ao banco de dados: {err}")
+        flash('Erro ao consultar o banco de dados. Tente novamente mais tarde.', 'error')
+        return render_template('pagina_erro.html', mensagem_erro='Erro ao consultar o banco de dados. Tente novamente mais tarde.')
+
+    finally:
+        cursor.fetchall()
+        cursor.close()
 
     conexao.close()
     return redirect(url_for('acesso'))
+
 
 #Rota da Pagina do Academico - ROTA OK - 6 
 @app.route('/user_academic/<data>', methods=['GET', 'POST'])#mudar rota com dado do email
@@ -184,7 +189,6 @@ def cadastro():
 @app.route('/esqueceusenha', methods=['GET', 'POST'])
 def esqueceusenha():
     if request.method == 'POST':
-        # ... lógica de recuperação de senha ...
         return render_template('email_enviado.html')
 
     return render_template('esqueceusenha.html')
@@ -415,7 +419,9 @@ def contato():
 #Rota 21 ok para mensagens de erro
 @app.route('/pagina_erro')
 def pagina_erro():
-    return render_template('pagina_erro.html')
+    # Obtenha a mensagem de erro da sessão
+    erro_senha = session.pop('_flashes', None)
+    return render_template('pagina_erro.html',erro_senha=erro_senha)
 
 #Rota 22 ok para grafico
 @app.route('/get_grafico/<data>')
