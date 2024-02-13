@@ -61,20 +61,76 @@
     </div>
     <div class="half">
       <div class="dashboard">
-        <h2>Dashboard</h2>
-        <div class="pieContainer">
-          <div class="pieBackground"></div>
-          <div id="pieSlice1" class="hold">
-            <div class="pie"></div>
+          <h2>Dashboard</h2>
+          <div class="pieContainer">
+              <canvas id="grafico" width="500" height="500"></canvas>
           </div>
-        </div>
-        <p>Aqui teremos as informações de evolução dos certificados anexados e horas faltantes</p>
-        <p>O Dashboard é uma ferramenta visual de extrema importância</p>
-        <p>As atividades complementares são definidas de acordo com PPC da instituição aproveite e leia no campo saiba mais</p>
-        <p>Temos ao lado nosso menu com as opções de Anexar , Relaótios, Extrair ZIP e saiba mais</p>
+          <p id="totalHoras" class="total-horas" ></p> 
       </div>
-    </div>
   </div>
+      
+
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function renderizarGrafico() {
+                var data = "{{ data }}";  // Substitua isso com o valor real que você deseja passar
+                var url = '/get_grafico/' + data;
+    
+                // Faz uma solicitação AJAX para obter os dados do gráfico
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Use Chart.js para criar o gráfico de pizza
+                        var ctx = document.getElementById('grafico').getContext('2d');
+    
+                        var myChart = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['REALIZADAS', 'FALTAM'],
+                                datasets: [{
+                                    data: [data.sizes[0], data.sizes[1]],
+                                    backgroundColor: ['#005200', '#BA0000'],
+                                    borderWidth: 0
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'HORAS COMPLEMENTARES',
+                                        font: {
+                                            size: 16
+                                        }
+                                    }
+                                }
+                            }
+                        });
+    
+                        // Exibe o total de horas inseridas
+                        var somarHorasTexto = 'Total de Horas Inseridas: ' + data.sizes[0] + ' horas.';
+    
+                        document.getElementById('totalHoras').innerText = somarHorasTexto;
+                    })
+                    .catch(error => console.error('Erro na solicitação AJAX:', error));
+            }
+    
+            // Chama a função para renderizar o gráfico
+            renderizarGrafico();
+        });
+    </script>
+    
+    <style>
+        #grafico {
+            width: 400px;  /* Ajuste o tamanho conforme necessário */
+            height: 400px; /* Ajuste o tamanho conforme necessário */
+        }
+    </style>
+    
+    
   <script>
 document.addEventListener('DOMContentLoaded', function () {
   const expandButton = document.getElementById('expand-button');
@@ -120,6 +176,18 @@ document.addEventListener('DOMContentLoaded', function () {
    history.back();
    }); //Uso do botão voltar 
    
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Obtenha o elemento do canvas do gráfico
+    var canvas = document.getElementById('seuCanvasId');
+
+    // Ajuste o tamanho do canvas conforme necessário
+    canvas.width = 300;  // largura desejada
+    canvas.height = 300;  // altura desejada
+
+    // Resto do seu código para renderizar o gráfico usando Chart.js
+});
 </script>
  <footer>
     <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
