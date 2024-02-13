@@ -417,6 +417,21 @@ def contato():
 def pagina_erro():
     return render_template('pagina_erro.html')
 
+#Rota 22 ok para grafico
+@app.route('/get_grafico/<data>')
+def get_grafico(data):
+    # Obter o valor da soma de horas diretamente do relatório
+    somar_horas_relatorio = somar_horas_certificados(data)
+
+    # Montar os dados do gráfico em formato JSON
+    grafico_data = {
+        'labels': ['REALIZADAS', 'FALTAM'],
+        'sizes': [somar_horas_relatorio, max(0, 240 - somar_horas_relatorio)],  # Assumindo uma meta total de 240 horas
+        'colors': ['#005200', '#BA0000']
+    }
+
+    return jsonify(grafico_data)
+
 
 
 #------------- ROTAS ESTATICAS -----------------# 
