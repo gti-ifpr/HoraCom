@@ -131,16 +131,16 @@ input[type=submit] {
 input[type=password] , input[type=text]  {
   background: #ffffff;
   color: #d62A5B;
-  border-radius: 5px;
+  -webkit-border-radius: 4px;
   border: 1px solid #d62A5B;
   margin: 5px;
   width: 300px;
   height: 30px;
   -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  box-shadow: 1px 1px 2px #d62A5B;
-  -moz-box-shadow: 1px 1px 2px #d62A5B;
+  border-radius: 5px;
   -webkit-box-shadow: 1px 1px 2px #d62A5B;
+  -moz-box-shadow: 1px 1px 2px #d62A5B;
+  box-shadow: 1px 1px 2px #d62A5B;
 }
 button {
   background-color: #d62a5b41;
@@ -163,4 +163,28 @@ footer {
   width: 100%;
   position: absolute;
   bottom: 0;
+}
+/* Adicione este estilo para a mensagem de erro */
+.mensagem-erro {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }
