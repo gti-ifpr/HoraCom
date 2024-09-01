@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+/* style.css */
+/* Reset de Estilos */
+body,
+p {
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+
+
+
+/* Estilos Gerais */
+body {
+  font-family: "Roboto";
+  background-color: #ffffff;
+  color: #333;
+
+}
+
+/* Cabeçalho */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+
+}
+h1 {
+  color:#d62A5B;
+}
+h4 {
+  color: #98857e;
+  margin-left: 40px;
+}
+
+
+.logo img {
+  width: 150px;
+  /* Ajuste o tamanho conforme necessário */
+  height: auto;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #d62A5B;
+}
+
+nav li {
+  float: left;
+  border-right: 1px solid #bbb;
+}
+
+nav li:last-child {
+  border-right: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #ffffff;
+  color: #d62A5B;
+}
+
+.active {
+  background-color: #ffffff;
+
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.content {
+  display: flex;
+  background-color: #ffffff;
+  align-items: center;
+  width: 100%;
+  border: 40px;
+  margin: 0;
+  padding: 0px;
+}
+
+.content img {
+  max-width: 94%;
+  margin-right: 180px;
+  display: block;
+  padding: 1px;
+}
+
+
+.textologin {
+  /*aqui nesse temos que arrunar a configuração para preencher na parte do login*/
+  border-radius: 0px;
+  border-width: 0px;
+  border-color: transparent;
+  align-items: relative;
+  background: -webkit-linear-gradient(90deg, rgba(48, 14, 61, 0.26) 0.4%, rgba(214, 42, 90, 0.26) 100%);
+  padding: 150px;
+  /* Adicione um preenchimento interno para separar o conteúdo da borda */
+  width: 85%;
+  height: 74%;
+  /* Em vez de 100% para permitir que o elemento cresça conforme o conteúdo */
+  margin-top: -90px;
+  margin-bottom: -20px;
+}
+
+form {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 5px;
+}
+
+input[type=submit] {
+  background: #d62A5B;
+  color: #ffffff;
+  border-radius: 5px;
+  border: 5px solid #d62A5B;
+  margin: 5px;
+  cursor: pointer;
+}
+input[type=password] , input[type=text]  {
+  background: #ffffff;
+  color: #d62A5B;
+  -webkit-border-radius: 4px;
+  border: 1px solid #d62A5B;
+  margin: 5px;
+  width: 300px;
+  height: 30px;
+  -moz-border-radius: 4px;
+  border-radius: 5px;
+  -webkit-box-shadow: 1px 1px 2px #d62A5B;
+  -moz-box-shadow: 1px 1px 2px #d62A5B;
+  box-shadow: 1px 1px 2px #d62A5B;
+}
+button {
+  background-color: #d62a5b41;
+  border-radius: 5px;
+  border: #d62A5B;
+  color: #d62A5B;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.voltar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+footer {
+  text-align: center;
+  color: #544858;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+/* Adicione este estilo para a mensagem de erro */
+.mensagem-erro {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
