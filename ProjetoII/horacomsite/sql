@@ -1,0 +1,75 @@
+CREATE TABLE aluno (
+                        nome varchar(100) NOT NULL,
+                        cpf varchar(11) NOT NULL,
+                        tipo_usuario int(5),
+                        email varchar(100),
+                        senha varchar(10)
+                        )
+CREATE TABLE tipo_usuario (
+    idtipo_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(50) NOT NULL
+);
+
+-- Inserção dos tipos de usuário (aluno e coordenador)
+INSERT INTO tipo_usuario (descricao) VALUES
+('aluno'),
+('coordenador');
+
+CREATE TABLE G1(
+    idopcao INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_opcao VARCHAR(50) NOT NULL,
+    descricao TEXT,
+    limite_horas INT
+);
+INSERT INTO g1 (tipo_opcao, descricao, limite_horas)
+VALUES
+('opcao1', 'Realização Curso Língua Estrangeira', NULL),
+('opcao2', 'Realização Curso de Extensão na Área do Conhecimento', NULL),
+('opcao3', 'Realização Monitoria', NULL),
+('opcao4', 'Participação como Ouvinte em banca de TCC - graduação e pós graduação', NULL),
+('opcao5', 'Participação como Ouvinte em banca de TCC - graduação e pós graduação', NULL),
+('opcao6', 'Participação em Projeto de Pesquisa/Extensão cadastrado no COPE do câmpus Pinhais', NULL),
+('opcao7', 'Voluntariado', NULL),
+('opcao8', 'Participação em eventos ou ações de temas transversais: sustentabilidade, inclusão, diversidade e direitos humanos - Organizador', NULL),
+('opcao9', 'Participação em eventos ou ações de temas transversais: sustentabilidade, inclusão, diversidade e direitos humanos - Ouvinte', NULL),
+('opcao10', 'Autoria ou coautoria de artigo científico publicado ou com aceite final de publicação em revista com ISSN - com revisão', NULL),
+('opcao11', 'Autoria ou coautoria de artigo científico publicado ou com aceite final de publicação em revista com ISSN - sem revisão', NULL),
+('opcao12', 'Autoria ou coautoria de artigo científico publicado ou com aceite final de publicação em revista com ISSN em outra área - sem revisão', NULL),
+('opcao13', 'Autoria ou coautoria de capítulo de livro publicado ou com aceite final de publicação, na área de conhecimento do curso, com ISBN e comitê editorial', NULL),
+('opcao14', 'Autoria ou coautoria de livro publicado ou com aceite final de publicação, na área de conhecimento do curso, com ISBN e comitê editorial', NULL),
+('opcao15', 'Participação como ouvinte em eventos (congresso, seminário, simpósio, colóquio), ou em cursos, minicursos e oficinas, de natureza acadêmica', NULL),
+('opcao16', 'Participação como ouvinte em eventos (congresso, seminário, simpósio, colóquio), ou em cursos, minicursos e oficinas, de natureza acadêmica', NULL),
+('opcao17', 'Apresentação de trabalhos em eventos na área de conhecimento do curso (congresso, simpósio, seminário, colóquio, semana acadêmica etc.) - Trabalho completo', NULL),
+('opcao18', 'Apresentação de trabalhos em eventos na área de conhecimento do curso (congresso, simpósio, seminário, colóquio, semana acadêmica etc.) - Resumo ou Banner', NULL),
+('opcao19', 'Ministrar cursos, minicursos e oficinas na área de conhecimento do curso', NULL);
+
+CREATE TABLE G2(
+    idopcao INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_opcao VARCHAR(50) NOT NULL,
+    descricao TEXT,
+    limite_horas INT
+);
+INSERT INTO G2 (tipo_opcao, descricao, limite_horas)
+VALUES
+('opcao1', 'Realização de estágio supervisionado não obrigatório, regulamentado pela Lei 11.788/2008, realizado na área de conhecimento do curso', NULL),
+('opcao2', 'Trabalho comprovado na área (durante a realização do curso), carga mínima de 20h semanais', NULL),
+('opcao3', 'Participação em Visita Técnica supervisionada', NULL),
+('opcao4', 'Desenvolvimento de solução técnica na área de conhecimento do curso, devidamente validada pelo coordenador de atividades complementares (sem sobreposição a outras atividades)', NULL);
+
+CREATE TABLE Certificados (
+    id_aluno INT,
+    grupo VARCHAR(50),
+    opcao VARCHAR(50),
+    quantidade_horas DECIMAL(5, 2)
+);
+
+INSERT INTO Certificados (id_aluno, grupo, opcao, quantidade_horas)
+VALUES 
+    (1, 'g1', 'Opção 1', 20.5),
+    (2, 'g1', 'Opção 2', 15.75),
+    (3, 'g2', 'Opção 1', 10.0);
+
+CREATE TABLE Senhas (
+    usuario VARCHAR(50) PRIMARY KEY,
+    senha VARCHAR(100)
+);
