@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela do Usuario - Academico</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/useracademic.css') }}">
+</head>
+
+<body>
+  <div id="overlay-aviso"></div>
+
+  <div id="aviso">
+    <div class="termo-responsabilidade">
+      <p>AVISO: As informações de certificados, bem como horas inseridas, são de total responsabilidade do USUÁRIO.</p>
+      <button id="aceitar-termo">Aceitar</button>
+    </div>
+  </div>     
+  <header>
+      <div class="logo">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
+      </div>
+  </header>
+  <div id="overlay-menu"></div>
+    <div class="expand-menu">
+      <button id="expand-button">
+        <img src="{{ url_for('static',filename='images/user.png')}}" alt="Ícone de Usuário">
+      </button>
+      <div id="menu-content">
+        <ul>
+          <li><a href="{{url_for('editar_cadastro')}}">Editar Cadastro</a></li>
+          <li><a href="{{url_for('logout')}}">Fazer Logoff</a></li>
+        </ul>
+      </div>
+    </div>
+  <div class="container">
+    <div class="half">
+      <div class="content">
+        <div class="row">
+          <div class="block">
+            <a href="{{url_for('anexar',data=data)}}"><img src="{{url_for('static',filename='images/Anexar.png')}}" alt="Anexar Certificados"></a>
+            <h3>ANEXAR CERTIFICADOS</h3>
+          </div>
+          <div class="block">
+            <a href="{{url_for('relatorio',data=data)}}"><img src="{{url_for('static',filename='images/RELATÓRIO.png')}}" alt="Relatório"></a>
+            <h2>RELATÓRIOS</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="block">
+            <a href="{{url_for('extrairzip')}}"><img src="{{url_for('static',filename='images/EXTRAIR.png')}}" alt="Extrair"></a>
+            <h2>EXTRAIR ZIP</h2>
+          </div>
+          <div class="block">
+            <a href="{{url_for('saibamais')}}"><img src="{{url_for('static',filename='images/Dica.png')}}" alt="saibamais"></a>
+            <h2>SAIBA MAIS</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="half">
+      <div class="dashboard">
+          <h2>Dashboard</h2>
+          <div class="pieContainer">
+              <canvas id="grafico" width="500" height="500"></canvas>
+          </div>
+          <p id="totalHoras" class="total-horas" ></p> 
+      </div>
+  </div>
+      
+
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function renderizarGrafico() {
+                var data = "{{ data }}";  // Substitua isso com o valor real que você deseja passar
+                var url = '/get_grafico/' + data;
+    
+                // Faz uma solicitação AJAX para obter os dados do gráfico
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Use Chart.js para criar o gráfico de pizza
+                        var ctx = document.getElementById('grafico').getContext('2d');
+    
+                        var myChart = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['REALIZADAS', 'FALTAM'],
+                                datasets: [{
+                                    data: [data.sizes[0], data.sizes[1]],
+                                    backgroundColor: ['#005200', '#BA0000'],
+                                    borderWidth: 0
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'HORAS COMPLEMENTARES',
+                                        font: {
+                                            size: 16
+                                        }
+                                    }
+                                }
+                            }
+                        });
+    
+                        // Exibe o total de horas inseridas
+                        var somarHorasTexto = 'Total de Horas Inseridas: ' + data.sizes[0] + ' horas.';
+    
+                        document.getElementById('totalHoras').innerText = somarHorasTexto;
+                    })
+                    .catch(error => console.error('Erro na solicitação AJAX:', error));
+            }
+    
+            // Chama a função para renderizar o gráfico
+            renderizarGrafico();
+        });
+    </script>
+    
+    <style>
+        #grafico {
+            width: 400px;  /* Ajuste o tamanho conforme necessário */
+            height: 400px; /* Ajuste o tamanho conforme necessário */
+        }
+    </style>
+    
+    
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const expandButton = document.getElementById('expand-button');
+  const menuContent = document.getElementById('menu-content');
+  const overlayMenu = document.getElementById('overlay-menu'); // Alterado o nome do overlay
+  const overlayAviso = document.getElementById('overlay-aviso'); // Alterado o nome do overlay aviso
+
+  // Adiciona um ouvinte de eventos ao botão de expansão
+  expandButton.addEventListener('click', function () {
+    // Verifica se o menu está atualmente visível
+    if (menuContent.style.display === 'block') {
+      // Se estiver visível, oculta o menu e a sobreposição
+      menuContent.style.display = 'none';
+      overlayMenu.style.display = 'none';
+    } else {
+      // Se estiver oculto, mostra o menu e a sobreposição
+      menuContent.style.display = 'block';
+      overlayMenu.style.display = 'block';
+    }
+  });
+
+  // Oculta o menu e a sobreposição inicialmente
+  menuContent.style.display = 'none';
+  overlayMenu.style.display = 'none';
+
+  const aviso = document.getElementById('aviso');
+  const aceitarTermoBtn = document.getElementById('aceitar-termo');
+
+  // Adicione um ouvinte de eventos ao botão "Aceitar"
+  aceitarTermoBtn.addEventListener('click', function () {
+    // Oculta o aviso e o overlay quando o botão "Aceitar" é clicado
+    aviso.style.display = 'none';
+    overlayAviso.style.display = 'none';
+  });
+
+  // Exibe o aviso e o overlay inicialmente
+  aviso.style.display = 'flex';
+  overlayAviso.style.display = 'flex';
+});
+
+
+   document.getElementById("backBtn").addEventListener("click", function(){
+   history.back();
+   }); //Uso do botão voltar 
+   
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Obtenha o elemento do canvas do gráfico
+    var canvas = document.getElementById('seuCanvasId');
+
+    // Ajuste o tamanho do canvas conforme necessário
+    canvas.width = 300;  // largura desejada
+    canvas.height = 300;  // altura desejada
+
+    // Resto do seu código para renderizar o gráfico usando Chart.js
+});
+</script>
+ <footer>
+    <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
