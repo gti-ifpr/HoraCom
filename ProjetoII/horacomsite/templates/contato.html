@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/contato.css') }}">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Início</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('sobre') }}">Sobre</a></li>
+        <li><a href="{{ url_for('contato') }}">Contato</a></li>
+      </ul>
+    </nav>
+  </header>  
+
+  <main class="content">      
+    <section class="img">
+      <img src="{{ url_for('static', filename='images/menina.png') }}" alt="imagem">
+    </section>     
+
+    <aside class="textocontato">
+      <p>Entre em Contato conosco utilizando o formulário abaixo: </p>
+      <!--Usei o formsubmit direto do HTML para envio do email após tentavias no gmail ufa-->
+      <form class="textocontato" action="https://formsubmit.co/horacomgti@gmail.com"
+      method="POST">
+          <label for="nome">Nome: </label>      
+          <br>
+          <input type="text" id="nome" name="nome" required><br>
+          <br>
+          <label for="email">Email: </label>
+          <br>
+          <input type="email" id="email" name="email" required><br>
+          <br>
+          <label for="mensagem">Mensagem:</label><br>
+          <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+          <br>
+          <input type="submit">
+          <input type="reset" value="Limpar">
+          <input type="hidden"name="_next"value="http://127.0.0.1:5000/sucesso"/>
+      </form>
+      <p>Nos acompanhe em nossas mídias sociais e por email.</p><br>
+      <p><a href="https://www.instagram.com/_horacom/"><img class="insta" src="{{ url_for('static', filename='images/logoinsta.jpg') }}" alt="insta"></a> <a href="mailto:horacomgti@gmail.com"><img class="gmail" src="{{ url_for('static', filename='images/gmail.png') }}" alt="gmail"></a></p>
+    <!-- SUBSTITUIR PARA OUTRO NUMERO PARA TESTE DEIXEI O MEU /FER-->
+     <div class="wats">
+     <a href="https://wa.me/5541996312532" target="_blank" >
+      <img src="{{ url_for('static', filename='images/wats.png') }}" alt="WhatsApp">
+    </a>
+    </div>
+  </p>
+    </aside>  
+  </main>  
+
+  <footer>
+    <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
