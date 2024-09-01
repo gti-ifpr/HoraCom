@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela do Usuario - Coordenador</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/usercoordenador.css') }}">
+</head>
+
+<body>
+    <div id="overlay"></div>
+
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo HoraCom">
+        </div>
+    </header>
+    <div class="expand-menu">
+        <button id="expand-button">
+            <img src="{{ url_for('static', filename='images/user.png') }}" alt="Ícone de Usuário">
+        </button>
+        <div id="menu-content">
+            <ul>
+                <li><a href="{{url_for('editar_cadastro')}}">Editar Cadastro</a></li>
+                <li><a href="{{url_for('logout')}}">Fazer Logoff</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="half">
+            <div class="content">
+                <div class="row">
+                    <div class="block">
+                        <a href="{{url_for('editar_cadastro')}}"><img src="{{ url_for('static', filename='images/Editar.png') }}" alt="Editar/Aprovar Cadastro"></a>
+                        <h2>EDITAR/APROVAR USUÁRIO</h2>
+
+                    </div>
+                    <div class="block">
+                        <a href="{{url_for('relatoriocoordenador', data=current_user.email)}}"><img src="{{url_for('static', filename='images/RELATÓRIO.png')}}" alt="Relatório"></a>
+                        <h2>RELATÓRIOS</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="block">
+                        <a href="{{url_for('upload')}}"><img src="{{url_for('static',filename='images/Editar.png')}}" alt="Upload"></a>
+                        <h2>UPLOAD </h2>
+                    </div>
+                    <div class="block">
+                        <a href="{{url_for('saibamais')}}"><img src="{{url_for('static',filename='images/Dica.png')}}" alt="saibamais"></a>
+                        <h2>SAIBA MAIS</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="half">
+            <div class="dashboard">
+                <h2>Progresso dos Alunos</h2>
+                <div class="pieContainer">
+                    <div class="pieBackground"></div>
+                    <div id="pieSlice1" class="hold">
+                        <div class="pie"></div>
+                    </div>
+                </div>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book.</p>
+
+            </div>
+
+        </div>
+    </div>
+    <script>
+   document.addEventListener('DOMContentLoaded', function () {
+   // Obtém referências para os elementos do DOM
+   const expandButton = document.getElementById('expand-button');
+   const menuContent = document.getElementById('menu-content');
+   const overlay = document.getElementById('overlay');
+
+   // Adiciona um ouvinte de eventos ao botão de expansão
+   expandButton.addEventListener('click', function () {
+       // Verifica se o menu está atualmente visível
+       if (menuContent.style.display === 'block') {
+           // Se estiver visível, oculta o menu e a sobreposição
+           menuContent.style.display = 'none';
+           overlay.style.display = 'none';
+       } else {
+           // Se estiver oculto, mostra o menu e a sobreposição
+           menuContent.style.display = 'block';
+           overlay.style.display = 'block';
+       }
+   });
+
+   // Oculta o menu e a sobreposição inicialmente
+   menuContent.style.display = 'none';
+   overlay.style.display = 'none';
+});
+
+   document.getElementById("backBtn").addEventListener("click", function(){
+   history.back();
+   }); 
+       
+    </script>
+
+    <footer>
+        <p>&copy; 2023 HoraCom. Todos os direitos reservados.</p>
+    </footer>
+</body>
+
+</html>
